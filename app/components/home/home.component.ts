@@ -9,7 +9,5 @@ import {GlobalStorageService} from '../../services/general/global-storage.servic
 })
 
 export class HomeComponent {
-  constructor(private _globalStorage: GlobalStorageService) {
-    console.log(this._globalStorage);
-  }
+  constructor(private _globalStorage: GlobalStorageService) { }
 }
