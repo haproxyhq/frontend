@@ -3,11 +3,15 @@
   <head>
     <title>HAProxyHQ</title>
 
+    <link rel="stylesheet" href="node_modules/bootstrap/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="app/assets/style.css">
+
     <script src="node_modules/angular2/bundles/angular2-polyfills.js"></script>
     <script src="node_modules/systemjs/dist/system.src.js"></script>
     <script src="node_modules/rxjs/bundles/Rx.js"></script>
     <script src="node_modules/angular2/bundles/angular2.dev.js"></script>
     <script src="node_modules/angular2/bundles/router.dev.js"></script>
+    <script src="node_modules/angular2/bundles/http.dev.js"></script>
 
     <script>
       System.config({
@@ -15,9 +19,16 @@
           app: {
             format: 'register',
             defaultExtension: 'js'
+          },
+          paths: {
+              'rxjs/observable/*' : './node_modules/rxjs/add/observable/*.js',
+              'rxjs/operator/*' : './node_modules/rxjs/add/operator/*.js',
+              'rxjs/*' : './node_modules/rxjs/*.js'
           }
         }
       });
+      System.import('rxjs/add/operator/map')
+            .then(null, console.error.bind(console));
       System.import('app/bootstrap')
             .then(null, console.error.bind(console));
     </script>
