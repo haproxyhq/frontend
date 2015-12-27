@@ -5,6 +5,8 @@ import {HomeComponent}                          from '../home/home.component'
 import {AboutComponent}                         from '../about/about.component'
 import {LoginComponent}                         from '../login/login.component'
 
+import {GlobalStorageService}                   from '../../services/general/global-storage.service';
+
 @Component({
   selector: 'app',
   templateUrl: './app/components/app/app.component.html',
@@ -19,7 +21,7 @@ import {LoginComponent}                         from '../login/login.component'
 ])
 
 export class AppComponent {
-  constructor(private _router: Router) { }
+  constructor(private _globalStorage: GlobalStorageService, private _router: Router) { }
 
   isActive(route) {
     return this._router.isRouteActive(this._router.generate(route));

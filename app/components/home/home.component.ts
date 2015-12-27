@@ -1,4 +1,6 @@
-import {Component} from 'angular2/core';
+import {Component}            from 'angular2/core';
+
+import {GlobalStorageService} from '../../services/general/global-storage.service';
 
 @Component({
   selector: 'home',
@@ -7,5 +9,7 @@ import {Component} from 'angular2/core';
 })
 
 export class HomeComponent {
-
+  constructor(private _globalStorage: GlobalStorageService) {
+    console.log(this._globalStorage);
+  }
 }

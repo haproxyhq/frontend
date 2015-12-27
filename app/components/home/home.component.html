@@ -1,1 +1,4 @@
 <p>The home page</p>
+<div [hidden]="!_globalStorage.authenticated">
+  <p>Logged in with token: {{_globalStorage.accessToken}}
+</div>
