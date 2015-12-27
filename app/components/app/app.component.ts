@@ -22,6 +22,6 @@ export class AppComponent {
   constructor(private _router: Router) { }
 
   isActive(route) {
-    return this._router.isRouteActive(this._router.generate(route)));
+    return this._router.isRouteActive(this._router.generate(route));
   }
 }
