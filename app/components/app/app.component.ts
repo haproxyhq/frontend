@@ -1,9 +1,9 @@
-import {Component, OnInit}              from 'angular2/core';
-import {RouteConfig, ROUTER_DIRECTIVES} from 'angular2/router';
+import {Component, OnInit}                      from 'angular2/core';
+import {RouteConfig, ROUTER_DIRECTIVES, Router} from 'angular2/router';
 
-import {HomeComponent}                  from '../home/home.component'
-import {AboutComponent}                 from '../about/about.component'
-import {LoginComponent}                 from '../login/login.component'
+import {HomeComponent}                          from '../home/home.component'
+import {AboutComponent}                         from '../about/about.component'
+import {LoginComponent}                         from '../login/login.component'
 
 @Component({
   selector: 'app',
@@ -19,5 +19,9 @@ import {LoginComponent}                 from '../login/login.component'
 ])
 
 export class AppComponent {
+  constructor(private _router: Router) { }
 
+  isActive(route) {
+    return this._router.isRouteActive(this._router.generate(route)));
+  }
 }
