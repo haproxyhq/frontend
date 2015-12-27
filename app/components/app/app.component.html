@@ -9,11 +9,11 @@
         <li [class.active]="isActive(['About'])"><a [routerLink]="['About']">About</a></li>
       </ul>
       <ul class="nav navbar-nav navbar-right">
-        <li [class.hidden]="_globalStorage.authenticated"
+        <li *ngIf="!_globalStorage.authenticated"
             [class.active]="isActive(['Login'])">
             <a [routerLink]="['Login']"><span class="glyphicon glyphicon-log-in"></span> Login</a>
         </li>
-        <li [class.hidden]="!_globalStorage.authenticated"><a [routerLink]="['Home']"><span class="glyphicon glyphicon-log-out"></span> Logout</a></li>
+        <li *ngIf="_globalStorage.authenticated"><a [routerLink]="['Home']"><span class="glyphicon glyphicon-log-out"></span> Logout</a></li>
       </ul>
     </div>
   </div>
