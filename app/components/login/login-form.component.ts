@@ -2,14 +2,14 @@ import {Component, Input, EventEmitter}   from 'angular2/core';
 import {NgForm}                           from 'angular2/common';
 
 import {Credentials}                      from '../../models/credentials.model';
-import {FormResult}                       from '../../models/form-result.model'
+import {FormResult}                       from '../../models/form-result.model';
 
 import {AuthenticationService}            from '../../services/general/authentication.service';
 
 @Component({
   selector: 'login-form',
-  templateUrl: './app/components/login/login-form.component.html',
-  styleUrls: ['./app/components/login/login-form.component.css'],
+  templateUrl: './components/login/login-form.component.html',
+  styleUrls: ['./components/login/login-form.component.css']
 })
 
 export class LoginFormComponent {

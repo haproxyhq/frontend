@@ -9,7 +9,7 @@ export class GlobalStorageService {
 
   constructor() {
     this._isAuthenticated = false;
-    this._accessToken = "";
+    this._accessToken = '';
     this._headers = new Headers();
   }
 

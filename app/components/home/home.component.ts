@@ -4,8 +4,8 @@ import {GlobalStorageService} from '../../services/general/global-storage.servic
 
 @Component({
   selector: 'home',
-  templateUrl: './app/components/home/home.component.html',
-  styleUrls: ['./app/components/home/home.component.css'],
+  templateUrl: './components/home/home.component.html',
+  styleUrls: ['./components/home/home.component.css']
 })
 
 export class HomeComponent {

@@ -1,16 +1,16 @@
-import {Component, OnInit}                      from 'angular2/core';
+import {Component}                              from 'angular2/core';
 import {RouteConfig, ROUTER_DIRECTIVES, Router} from 'angular2/router';
 
-import {HomeComponent}                          from '../home/home.component'
-import {AboutComponent}                         from '../about/about.component'
-import {LoginComponent}                         from '../login/login.component'
+import {HomeComponent}                          from '../home/home.component';
+import {AboutComponent}                         from '../about/about.component';
+import {LoginComponent}                         from '../login/login.component';
 
 import {GlobalStorageService}                   from '../../services/general/global-storage.service';
 
 @Component({
   selector: 'app',
-  templateUrl: './app/components/app/app.component.html',
-  styleUrls: ['./app/components/app/app.component.css'],
+  templateUrl: './components/app/app.component.html',
+  styleUrls: ['./components/app/app.component.css'],
   directives: [ROUTER_DIRECTIVES]
 })
 
