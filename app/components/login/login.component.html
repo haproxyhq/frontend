@@ -1,5 +1,11 @@
-<login-form
-  [formResult]="formResult"
-  [loginComplete]="loginComplete"
-  [hidden]="formResult.success && formResult.submitted">
-</login-form>
+<div class="container-fluid">
+  <div class="row">
+    <div class="col-md-6 col-centered">
+      <login-form
+        [formResult]="formResult"
+        [loginComplete]="loginComplete"
+        [hidden]="formResult.success && formResult.submitted">
+      </login-form>
+    </div>
+  </div>
+</div>
