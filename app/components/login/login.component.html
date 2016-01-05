@@ -3,8 +3,3 @@
   [loginComplete]="loginComplete"
   [hidden]="formResult.success && formResult.submitted">
 </login-form>
-<div
-  [hidden]="!(!formResult.success && formResult.submitted)"
-  class="alert alert-danger">
-  <p>Login failed.</p>
-</div>

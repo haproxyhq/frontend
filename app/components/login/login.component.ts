@@ -5,8 +5,12 @@ import {NgIf}                     from 'angular2/common';
 import {LoginFormComponent}       from '../login/login-form.component';
 
 import {FormResult}               from '../../models/form-result.model';
+import {ToastModel}               from '../../models/toast.model';
 
 import {GlobalStorageService}     from '../../services/general/global-storage.service';
+
+//references doesn't work here because angular defines $ as another type than jquery does: https://github.com/angular/angular/issues/4725
+declare var $;
 
 @Component({
   selector: 'login',
@@ -21,7 +25,11 @@ export class LoginComponent {
 
   constructor(private _globalStorage: GlobalStorageService, private _router: Router) {
     this.loginComplete.subscribe(res => {
-      if (res) this._router.navigate(['Home']);
+      if (res) {
+        this._router.navigate(['Home']);
+      } else {
+        $.snackbar(new ToastModel('Login failed', 'toast', 3000, true));
+      }
     },
     () => {});
   }

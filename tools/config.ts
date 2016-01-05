@@ -46,8 +46,17 @@ export const NPM_DEPENDENCIES = [
   { src: 'angular2/bundles/angular2.min.js', inject: 'libs', dest: LIB_DEST },
   { src: 'angular2/bundles/router.js', inject: 'libs', dest: LIB_DEST }, // use router.min.js with alpha47
   { src: 'angular2/bundles/http.min.js', inject: 'libs', dest: LIB_DEST },
+  { src: 'jquery/dist/jquery.min.js', inject: 'libs', dest: LIB_DEST },
+  { src: 'bootstrap/dist/js/bootstrap.min.js', inject: 'libs', dest: LIB_DEST },
+  { src: 'arrive/minified/arrive.min.js', inject: 'libs', dest: LIB_DEST },
+  { src: 'bootstrap-material-design/dist/js/ripples.min.js', inject: 'libs', dest: LIB_DEST },
+  { src: 'bootstrap-material-design/dist/js/material.min.js', inject: 'libs', dest: LIB_DEST },
+  { src: 'snackbarjs/dist/snackbar.min.js', inject: 'libs', dest: LIB_DEST },
 
-  { src: 'bootstrap/dist/css/bootstrap.min.css', inject: true, dest: CSS_DEST }
+  { src: 'bootstrap/dist/css/bootstrap.min.css', inject: true, dest: CSS_DEST },
+  { src: 'bootstrap-material-design/dist/css/bootstrap-material-design.min.css', inject: true, dest: CSS_DEST },
+  { src: 'bootstrap-material-design/dist/css/ripples.min.css', inject: true, dest: CSS_DEST },
+  { src: 'snackbarjs/dist/snackbar.min.css', inject: true, dest: CSS_DEST }
 ];
 
 // Declare local files that needs to be injected
