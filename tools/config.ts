@@ -60,8 +60,7 @@ export const APP_ASSETS = [
   { src: `${ASSETS_SRC}/js/ripples.min.js`, inject: true, dest: LIB_DEST },
   { src: `${ASSETS_SRC}/js/material.min.js`, inject: true, dest: LIB_DEST },
   { src: `${ASSETS_SRC}/css/ripples.min.css`, inject: true, dest: CSS_DEST },
-  //use assets_dest here because we use less ans .css is only available in dest
-  { src: `${ASSETS_DEST}/css/style.css`, inject: true, dest: CSS_DEST }
+  { src: `${ASSETS_SRC}/css/style.css`, inject: true, dest: CSS_DEST }
 ];
 
 NPM_DEPENDENCIES
