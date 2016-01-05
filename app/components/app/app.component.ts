@@ -4,6 +4,7 @@ import {RouteConfig, ROUTER_DIRECTIVES, Router} from 'angular2/router';
 import {HomeComponent}                          from '../home/home.component';
 import {AboutComponent}                         from '../about/about.component';
 import {LoginComponent}                         from '../login/login.component';
+import {LogoutComponent}                        from '../logout/logout.component';
 
 import {GlobalStorageService}                   from '../../services/general/global-storage.service';
 
@@ -15,9 +16,10 @@ import {GlobalStorageService}                   from '../../services/general/glo
 })
 
 @RouteConfig([
-  { path:'/',      name: 'Home',   component: HomeComponent },
-  { path:'/about', name: 'About',  component: AboutComponent },
-  { path:'/login', name: 'Login',  component: LoginComponent }
+  { path:'/',       name: 'Home',   component: HomeComponent },
+  { path:'/about',  name: 'About',  component: AboutComponent },
+  { path:'/login',  name: 'Login',  component: LoginComponent },
+  { path:'/logout', name: 'Logout', component: LogoutComponent }
 ])
 
 export class AppComponent {
