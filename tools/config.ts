@@ -49,19 +49,19 @@ export const NPM_DEPENDENCIES = [
   { src: 'jquery/dist/jquery.min.js', inject: 'libs', dest: LIB_DEST },
   { src: 'bootstrap/dist/js/bootstrap.min.js', inject: 'libs', dest: LIB_DEST },
   { src: 'arrive/minified/arrive.min.js', inject: 'libs', dest: LIB_DEST },
-  { src: 'bootstrap-material-design/dist/js/ripples.min.js', inject: 'libs', dest: LIB_DEST },
-  { src: 'bootstrap-material-design/dist/js/material.min.js', inject: 'libs', dest: LIB_DEST },
   { src: 'snackbarjs/dist/snackbar.min.js', inject: 'libs', dest: LIB_DEST },
 
   { src: 'bootstrap/dist/css/bootstrap.min.css', inject: true, dest: CSS_DEST },
-  { src: 'bootstrap-material-design/dist/css/bootstrap-material-design.min.css', inject: true, dest: CSS_DEST },
-  { src: 'bootstrap-material-design/dist/css/ripples.min.css', inject: true, dest: CSS_DEST },
   { src: 'snackbarjs/dist/snackbar.min.css', inject: true, dest: CSS_DEST }
 ];
 
 // Declare local files that needs to be injected
 export const APP_ASSETS = [
-  { src: `${ASSETS_SRC}/css/style.css`, inject: true, dest: CSS_DEST }
+  { src: `${ASSETS_SRC}/js/ripples.min.js`, inject: true, dest: LIB_DEST },
+  { src: `${ASSETS_SRC}/js/material.min.js`, inject: true, dest: LIB_DEST },
+  { src: `${ASSETS_SRC}/css/ripples.min.css`, inject: true, dest: CSS_DEST },
+  //use assets_dest here because we use less ans .css is only available in dest
+  { src: `${ASSETS_DEST}/css/style.css`, inject: true, dest: CSS_DEST }
 ];
 
 NPM_DEPENDENCIES
