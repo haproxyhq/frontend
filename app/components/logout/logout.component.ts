@@ -1,7 +1,7 @@
 import {Component}              from 'angular2/core';
 import {Router}                 from 'angular2/router';
 
-import {GlobalStorageService}   from '../../services/general/global-storage.service';
+import {AuthenticationService}   from '../../services/general/authentication.service';
 
 @Component({
   selector: 'logout',
@@ -10,8 +10,8 @@ import {GlobalStorageService}   from '../../services/general/global-storage.serv
 
 export class LogoutComponent {
 
-  constructor(private _globalStorage: GlobalStorageService, private _router: Router) {
-    if (this._globalStorage.clear()) this._router.navigate(['Login']);
+  constructor(private _authenticationService: AuthenticationService, private _router: Router) {
+    if (this._authenticationService.logout()) this._router.navigate(['Login']);
   }
 
 }

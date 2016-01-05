@@ -5,9 +5,9 @@ import {GlobalStorageService}     from '../../services/general/global-storage.se
 
 @Injectable()
 export class AuthenticationService {
-  constructor(private _http:Http, private _globalStorage:GlobalStorageService) { }
+  constructor(private _http: Http, private _globalStorage: GlobalStorageService) { }
 
-  login(user) {
+  login(user): EventEmitter<boolean> {
     var event: EventEmitter<boolean> = new EventEmitter();
     var headers = this._globalStorage.headers;
 
@@ -27,5 +27,9 @@ export class AuthenticationService {
         }
     );
     return event;
+  }
+
+  logout(): boolean {
+    return this._globalStorage.clear();
   }
 }
