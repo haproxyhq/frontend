@@ -17,6 +17,9 @@ export class GlobalStorageService {
     this._headers = new Headers();
   }
 
+  /**
+  * Start of getters/setters for storage items
+  **/
   set authenticated(value: boolean) {
     this.set(GlobalStorageService.IS_AUTHENTICATED_KEY, value);
   }
@@ -38,6 +41,9 @@ export class GlobalStorageService {
     return this._headers;
   }
 
+  /**
+  * Start of public accessible storage functions
+  **/
   public set(key: string, value: any): boolean {
     return this.addToLocalStorage(key, value);
   }
@@ -46,6 +52,13 @@ export class GlobalStorageService {
     return this.getFromLocalStorage(key);
   }
 
+  public clear(): boolean {
+    return this.clearAllFromLocalStorage();
+  }
+
+  /**
+  * Start of private storage helper functions
+  **/
   private browserSupportsLocalStorage(): boolean {
     try {
       return ('localStorage' in window && window['localStorage'] !== null);
