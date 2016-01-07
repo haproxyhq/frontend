@@ -17,11 +17,11 @@
       <ul class="nav navbar-nav navbar-right">
         <ul *ngIf="!_globalStorage.authenticated" class="nav navbar-nav navbar-right">
           <li [class.active]="isActive(['Login'])">
-              <a [routerLink]="['Login']"><span class="glyphicon glyphicon-log-in"></span> Login</a>
+              <a [routerLink]="['Login']"><i class="material-icons">input</i> Login</a>
           </li>
         </ul>
         <ul *ngIf="_globalStorage.authenticated" class="nav navbar-nav navbar-right">
-          <li><a [routerLink]="['Logout']"><span class="glyphicon glyphicon-log-out"></span> Logout</a></li>
+          <li><a [routerLink]="['Logout']"><i class="material-icons">power_settings_new</i> Logout</a></li>
         </ul>
       </ul>
     </div>
