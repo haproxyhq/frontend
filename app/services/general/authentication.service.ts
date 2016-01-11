@@ -1,18 +1,18 @@
 import {Injectable, EventEmitter} from 'angular2/core';
-import {Http, Response}           from 'angular2/http';
+import {Response, Headers}        from 'angular2/http';
 
 import {GlobalStorageService}     from '../../services/general/global-storage.service';
+import {CustomHttpService}        from '../../services/general/custom-http.service';
 
 @Injectable()
 export class AuthenticationService {
-  constructor(private _http: Http, private _globalStorage: GlobalStorageService) { }
+  constructor(private _http: CustomHttpService, private _globalStorage: GlobalStorageService) { }
 
   login(user): EventEmitter<boolean> {
     var event: EventEmitter<boolean> = new EventEmitter();
-    var headers = this._globalStorage.headers;
+    var headers: Headers = new Headers();
 
     headers.append('Content-Type', 'application/x-www-form-urlencoded;charset=utf-8');
-    headers.append('Accept', 'application/json;charset=utf-8');
 
     this._http.post('http://localhost:8080/login', user, { headers:headers })
       .map((res: Response) => res.json())

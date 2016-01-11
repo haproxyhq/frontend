@@ -5,17 +5,14 @@ import {CookieModel}  from '../../models/cookie.model';
 
 @Injectable()
 export class GlobalStorageService {
-  private static ACCESS_TOKEN_KEY: string = 'accessToken';
-  private static ACCESS_TOKEN_HEADER_KEY: string = 'X-Auth-Token';
-  private static IS_AUTHENTICATED_KEY: string = 'authenticated';
+  public static ACCESS_TOKEN_HEADER_KEY: string = 'X-Auth-Token';
 
-  private _headers: Headers;
+  private static ACCESS_TOKEN_KEY: string = 'accessToken';
+  private static IS_AUTHENTICATED_KEY: string = 'authenticated';
 
   private _prefix: string = 'hq.';
 
-  constructor() {
-    this._headers = new Headers();
-  }
+  constructor() {}
 
   /**
   * Start of getters/setters for storage items
@@ -30,15 +27,10 @@ export class GlobalStorageService {
 
   set accessToken(accessToken: string) {
     this.set(GlobalStorageService.ACCESS_TOKEN_KEY, accessToken);
-    this._headers.append(GlobalStorageService.ACCESS_TOKEN_HEADER_KEY, accessToken);
   }
 
   get accessToken() {
     return this.get(GlobalStorageService.ACCESS_TOKEN_KEY);
-  }
-
-  get headers() {
-    return this._headers;
   }
 
   /**

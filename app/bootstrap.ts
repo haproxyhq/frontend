@@ -6,6 +6,7 @@ import {HTTP_PROVIDERS}                                           from 'angular2
 import {AppComponent}                                             from './components/app/app.component';
 
 // Service imports
+import {CustomHttpService}                                        from './services/general/custom-http.service';
 import {GlobalStorageService}                                     from './services/general/global-storage.service';
 import {AuthenticationService}                                    from './services/general/authentication.service';
 
@@ -13,6 +14,7 @@ bootstrap(AppComponent, [
   HTTP_PROVIDERS,
   ROUTER_PROVIDERS,
   provide(LocationStrategy, { useClass: HashLocationStrategy }),
+  CustomHttpService,
   GlobalStorageService,
   AuthenticationService,
 ]);
