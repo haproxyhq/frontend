@@ -24,7 +24,7 @@ export class LoginComponent {
   public loginComplete: EventEmitter<boolean> = new EventEmitter();
 
   constructor(private _globalStorage: GlobalStorageService, private _router: Router) {
-    this.loginComplete.subscribe(res => {
+    this.loginComplete.subscribe((res) => {
       if (res) {
         this._router.navigate(['Home']);
       } else {

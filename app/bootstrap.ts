@@ -9,6 +9,7 @@ import {AppComponent}                                             from './compon
 import {CustomHttpService}                                        from './services/general/custom-http.service';
 import {GlobalStorageService}                                     from './services/general/global-storage.service';
 import {AuthenticationService}                                    from './services/general/authentication.service';
+import {UserService}                                              from './services/user/user.service';
 
 bootstrap(AppComponent, [
   HTTP_PROVIDERS,
@@ -17,4 +18,5 @@ bootstrap(AppComponent, [
   CustomHttpService,
   GlobalStorageService,
   AuthenticationService,
+  UserService,
 ]);

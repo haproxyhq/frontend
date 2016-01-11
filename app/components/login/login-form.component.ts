@@ -22,14 +22,14 @@ export class LoginFormComponent {
   constructor(private _authenticationService: AuthenticationService) { }
 
   onSubmit() {
-    this._authenticationService.login(JSON.stringify(this.model))
+    this._authenticationService.login(this.model)
       .subscribe(
-        res => {
+        (res) => {
           this.formResult.submitted = true;
           this.formResult.success = res;
           this.loginComplete.next(res);
         },
-        () => { }
+        () => {}
       );
   }
 }

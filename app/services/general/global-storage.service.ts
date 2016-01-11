@@ -2,6 +2,7 @@ import {Injectable}   from 'angular2/core';
 import {Headers}      from 'angular2/http';
 
 import {CookieModel}  from '../../models/cookie.model';
+import {User}         from '../../models/wrapper/user.model';
 
 @Injectable()
 export class GlobalStorageService {
@@ -9,6 +10,7 @@ export class GlobalStorageService {
 
   private static ACCESS_TOKEN_KEY: string = 'accessToken';
   private static IS_AUTHENTICATED_KEY: string = 'authenticated';
+  private static USER_KEY: string = 'user';
 
   private _prefix: string = 'hq.';
 
@@ -21,7 +23,7 @@ export class GlobalStorageService {
     this.set(GlobalStorageService.IS_AUTHENTICATED_KEY, value);
   }
 
-  get authenticated() {
+  get authenticated(): boolean {
     return this.get(GlobalStorageService.IS_AUTHENTICATED_KEY);
   }
 
@@ -29,8 +31,16 @@ export class GlobalStorageService {
     this.set(GlobalStorageService.ACCESS_TOKEN_KEY, accessToken);
   }
 
-  get accessToken() {
+  get accessToken(): string {
     return this.get(GlobalStorageService.ACCESS_TOKEN_KEY);
+  }
+
+  set user(user: User) {
+    this.set(GlobalStorageService.USER_KEY, user);
+  }
+
+  get user(): User {
+    return new User(this.get(GlobalStorageService.USER_KEY));
   }
 
   /**

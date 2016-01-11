@@ -51,7 +51,7 @@ export class CustomHttpService {
   }
 
   private _beforeCall(req: Request | RequestOptionsArgs): void {
-    if (this._globalStorage.authenticated) {
+    if (this._globalStorage.accessToken !== null) {
       req.headers.append(GlobalStorageService.ACCESS_TOKEN_HEADER_KEY, this._globalStorage.accessToken);
     }
     req.headers.append('Accept', 'application/json;charset=utf-8');
