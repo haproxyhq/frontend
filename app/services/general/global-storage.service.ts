@@ -45,21 +45,21 @@ export class GlobalStorageService {
   * Start of public accessible storage functions
   **/
   public set(key: string, value: any): boolean {
-    return this.addToLocalStorage(key, value);
+    return this._addToLocalStorage(key, value);
   }
 
   public get(key: string): any {
-    return this.getFromLocalStorage(key);
+    return this._getFromLocalStorage(key);
   }
 
   public clear(): boolean {
-    return this.clearAllFromLocalStorage();
+    return this._clearAllFromLocalStorage();
   }
 
   /**
   * Start of private storage helper functions
   **/
-  private browserSupportsLocalStorage(): boolean {
+  private _browserSupportsLocalStorage(): boolean {
     try {
       return ('localStorage' in window && window['localStorage'] !== null);
     } catch (e) {
@@ -67,7 +67,7 @@ export class GlobalStorageService {
     }
   }
 
-  private addToLocalStorage(key: string, value: any): boolean {
+  private _addToLocalStorage(key: string, value: any): boolean {
     try {
       var stringValue: string;
       if (value instanceof Object) {
@@ -77,11 +77,11 @@ export class GlobalStorageService {
       return false;
     }
 
-    if (!this.browserSupportsLocalStorage()) {
+    if (!this._browserSupportsLocalStorage()) {
       //emmit error "local storage not supported"
 
       //emmit broadcast about stored item
-      return this.addToCookies(key, stringValue);
+      return this._addToCookies(key, stringValue);
     }
 
     try {
@@ -90,15 +90,15 @@ export class GlobalStorageService {
       //emmit broadcast about stored item
     } catch (e) {
       //emmit global-storage-service error
-      return this.addToCookies(key, stringValue);
+      return this._addToCookies(key, stringValue);
     }
     return true;
   }
 
-  private getFromLocalStorage(key): any {
-    if (!this.browserSupportsLocalStorage()) {
+  private _getFromLocalStorage(key): any {
+    if (!this._browserSupportsLocalStorage()) {
       //emmit error "local storage not supported"
-      return this.getFromCookies(key);
+      return this._getFromCookies(key);
     }
 
     let item: string = localStorage.getItem(this._prefix + key);
@@ -108,11 +108,11 @@ export class GlobalStorageService {
     return item;
   }
 
-  private removeFromLocalStorage(key: string): boolean {
-    if (!this.browserSupportsLocalStorage()) {
+  private _removeFromLocalStorage(key: string): boolean {
+    if (!this._browserSupportsLocalStorage()) {
       //emmit error "local storage not supported"
       //emmit broadcast about removed item
-      return this.removeFromCookies(key);
+      return this._removeFromCookies(key);
     }
 
     try {
@@ -120,16 +120,16 @@ export class GlobalStorageService {
       //emmit broadcast about removed item
     } catch (e) {
       //emmit global-storage-service error
-      return this.removeFromCookies(key);
+      return this._removeFromCookies(key);
     }
     return true;
   }
 
-  private clearAllFromLocalStorage(): boolean {
+  private _clearAllFromLocalStorage(): boolean {
 
-    if (!this.browserSupportsLocalStorage()) {
+    if (!this._browserSupportsLocalStorage()) {
       //emmit error "local storage not supported"
-      return this.clearAllFromCookies();
+      return this._clearAllFromCookies();
     }
 
     var prefixLength = this._prefix.length;
@@ -137,17 +137,17 @@ export class GlobalStorageService {
     for (var key in localStorage) {
       if (key.substr(0, prefixLength) === this._prefix) {
         try {
-          this.removeFromLocalStorage(key.substr(prefixLength));
+          this._removeFromLocalStorage(key.substr(prefixLength));
         } catch (e) {
           //emmit global-storage-service error
-          return this.clearAllFromCookies();
+          return this._clearAllFromCookies();
         }
       }
     }
     return true;
   }
 
-  private browserSupportsCookies(): boolean {
+  private _browserSupportsCookies(): boolean {
     try {
       return navigator.cookieEnabled ||
         ('cookie' in document && (document.cookie.length > 0 ||
@@ -158,8 +158,8 @@ export class GlobalStorageService {
     }
   }
 
-  private addToCookies(key: string, value: string): boolean {
-    if (!this.browserSupportsCookies()) {
+  private _addToCookies(key: string, value: string): boolean {
+    if (!this._browserSupportsCookies()) {
       //emmit error "cookies not supported"
       return false;
     }
@@ -189,8 +189,8 @@ export class GlobalStorageService {
     return true;
   }
 
-  private getFromCookies(key: string): any {
-    if (!this.browserSupportsCookies()) {
+  private _getFromCookies(key: string): any {
+    if (!this._browserSupportsCookies()) {
       //emmit error "cookies not supported"
       return false;
     }
@@ -210,11 +210,11 @@ export class GlobalStorageService {
     return null;
   }
 
-  private removeFromCookies(key: string): boolean {
-    return this.addToCookies(key, null);
+  private _removeFromCookies(key: string): boolean {
+    return this._addToCookies(key, null);
   }
 
-  private clearAllFromCookies(): boolean {
+  private _clearAllFromCookies(): boolean {
     let thisCookie: string = null;
     let thisKey: string = null;
     let prefixLength: number = this._prefix.length;
@@ -227,7 +227,7 @@ export class GlobalStorageService {
         thisCookie = thisCookie.substring(1, thisCookie.length);
       }
       let key = thisCookie.substring(prefixLength, thisCookie.indexOf('='));
-      if (returnValue) returnValue = this.removeFromCookies(key);
+      if (returnValue) returnValue = this._removeFromCookies(key);
     }
     return returnValue;
   }
