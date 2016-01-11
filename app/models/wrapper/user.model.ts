@@ -19,9 +19,10 @@ export class User {
   }
 
   public isAdmin(): boolean {
+    let result = false;
     this.authorities.forEach((authority, index, array) => {
-      if (authority.authority === User.ADMIN_AUTHORITY_KEY) return true;
+      if (authority.authority === User.ADMIN_AUTHORITY_KEY) result = true;
     });
-    return false;
+    return result;
   }
 }
