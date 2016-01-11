@@ -4,12 +4,13 @@ import {ROUTER_DIRECTIVES, Router}  from 'angular2/router';
 import {GlobalStorageService}       from '../../services/general/global-storage.service';
 
 import {ProtectedDirective}         from '../../directives/general/protected.directive';
+import {ProtectedAdminDirective}    from '../../directives/general/protected-admin.directive';
 
 @Component({
   selector: 'settings',
   templateUrl: './components/settings/settings.component.html',
   styleUrls: ['./components/settings/settings.component.css'],
-  directives: [ROUTER_DIRECTIVES, ProtectedDirective]
+  directives: [ROUTER_DIRECTIVES, ProtectedDirective, ProtectedAdminDirective]
 })
 
 export class SettingsComponent {
