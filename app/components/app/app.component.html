@@ -10,14 +10,12 @@
       </button>
     </div>
     <div class="collapse navbar-collapse" id="bs-navbar-collapse-1">
-      <ul *ngIf="!_globalStorage.authenticated"  class="nav navbar-nav">
+      <ul class="nav navbar-nav">
         <li [class.active]="isActive(['Home'])"><a [routerLink]="['Home']">Home</a></li>
-        <li [class.active]="isActive(['About'])"><a [routerLink]="['About']">About</a></li>
-      </ul>
-      <ul *ngIf="_globalStorage.authenticated" class="nav navbar-nav">
-        <li [class.active]="isActive(['Home'])"><a [routerLink]="['Home']">Home</a></li>
-        <li [class.active]="isActive(['Concepts'])"><a [routerLink]="['Concepts']">Concepts</a></li>
-        <li [class.active]="isActive(['Agents'])"><a [routerLink]="['Agents']">Agents</a></li>
+        <template [ngIf]="_globalStorage.authenticated">
+          <li [class.active]="isActive(['Concepts'])"><a [routerLink]="['Concepts']">Concepts</a></li>
+          <li [class.active]="isActive(['Agents'])"><a [routerLink]="['Agents']">Agents</a></li>
+        </template>
         <li [class.active]="isActive(['About'])"><a [routerLink]="['About']">About</a></li>
       </ul>
       <ul class="nav navbar-nav navbar-right">
