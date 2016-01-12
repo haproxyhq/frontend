@@ -25,7 +25,9 @@ declare var $;
 export class SettingsProfileComponent {
   private _user: User;
 
-  constructor(private _globalStorage: GlobalStorageService, private _restoreService: RestoreService<User>, private _userService: UserService) {
+  constructor(private _globalStorage: GlobalStorageService,
+    private _restoreService: RestoreService<User>,
+    private _userService: UserService) {
     this._restoreService.setItem(this._globalStorage.user);
     this._user = this._restoreService.getItem();
   }
@@ -37,13 +39,13 @@ export class SettingsProfileComponent {
           this._globalStorage.user = this._user;
           $.snackbar(new ToastModel('Profile saved'));
         } else {
-          $.snackbar(new ToastModel('Error saving profile'))
+          $.snackbar(new ToastModel('Error saving profile'));
         }
       }
-    )
+    );
   }
 
   revertChanges() {
-    this._user = this._restoreService.restoreItem();
+    this._user = this._restoreService.reset();
   }
 }

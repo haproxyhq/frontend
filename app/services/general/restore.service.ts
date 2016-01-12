@@ -14,8 +14,21 @@ export class RestoreService<T> {
     return this._currentItem;
   }
 
+  /**
+  * restores the original item. currentItem === originalItem
+  * @returns this.getItem(): the original item
+  **/
   public restoreItem() :T {
     this._currentItem = this._originalItem;
+    return this.getItem();
+  }
+
+  /**
+  * resets the restore service.
+  * @returns currentItem: A new, deep copy of the original item
+  **/
+  public reset(): T {
+    this._currentItem = this._clone(this._originalItem);
     return this.getItem();
   }
 
