@@ -1,0 +1,27 @@
+<div protected>
+  <div class="container well">
+    <div class="row">
+      <div class="col-md-12">
+        <h1>Profile</h1>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-6">
+        <input-field [(value)]="_user.firstName" label="First name"></input-field>
+      </div>
+      <div class="col-md-6">
+        <input-field [(value)]="_user.name" label="Name"></input-field>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-12">
+        <input-field [(value)]="_user.username" label="Username"></input-field>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-12">
+        <save-cancel-fabs (save)="saveChanges()" (cancel)="revertChanges()"></save-cancel-fabs>
+      </div>
+    </div>
+  </div>
+</div>
