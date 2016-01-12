@@ -37,17 +37,17 @@ export class CustomHttpService {
 
   public put(url: string, body: string, options?: RequestOptionsArgs): Observable<Response> {
     let opts: RequestOptionsArgs = this._build(RequestMethod.Put, url, options, body);
-    return this.http.put(url, body, options).do((res:Response) => { this._afterCall(res); });
+    return this.http.put(url, body, opts).do((res:Response) => { this._afterCall(res); });
   }
 
   public patch(url: string, body: string, options?: RequestOptionsArgs): Observable<Response> {
     let opts: RequestOptionsArgs = this._build(RequestMethod.Get, url, options, body);
-    return this.http.patch(url, body, options).do((res:Response) => { this._afterCall(res); });
+    return this.http.patch(url, body, opts).do((res:Response) => { this._afterCall(res); });
   }
 
   public delete(url: string, options?: RequestOptionsArgs): Observable<Response> {
     let opts: RequestOptionsArgs = this._build(RequestMethod.Delete, url, options);
-    return this.http.delete(url, options).do((res:Response) => { this._afterCall(res); });
+    return this.http.delete(url, opts).do((res:Response) => { this._afterCall(res); });
   }
 
   private _beforeCall(req: Request | RequestOptionsArgs): void {
@@ -55,6 +55,7 @@ export class CustomHttpService {
       req.headers.append(GlobalStorageService.ACCESS_TOKEN_HEADER_KEY, this._globalStorage.accessToken);
     }
     req.headers.append('Accept', 'application/json;charset=utf-8');
+    if (!req.headers.has('Content-Type')) req.headers.append('Content-Type', 'application/json;charset=utf-8');
   }
 
   private _afterCall(res: Response) {
