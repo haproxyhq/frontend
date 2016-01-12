@@ -1,4 +1,5 @@
 import {Authority} from './authority.model';
+import {Link} from './link.model';
 
 export class User {
   private static ADMIN_AUTHORITY_KEY: string = 'ROLE_ADMIN';
@@ -7,6 +8,7 @@ export class User {
   public firstName: string;
   public name: string;
   public authorities: Array<Authority> = new Array<Authority>();
+  public links: Array<Link> = new Array<Link>();
 
   constructor(plainUser: any) {
     this.username = plainUser.username;
@@ -16,13 +18,21 @@ export class User {
     plainUser.authorities.forEach((authority, index, array) => {
       this.authorities.push(new Authority(authority.authority, authority.description, authority.name));
     });
+
+    plainUser.links.forEach((link, index, array) => {
+      this.links.push(new Link(link.rel, link.href));
+    });
   }
 
   public isAdmin(): boolean {
-    let result = false;
-    this.authorities.forEach((authority, index, array) => {
-      if (authority.authority === User.ADMIN_AUTHORITY_KEY) result = true;
+    return this.authorities.some((authority, index, array): boolean => {
+      return authority.authority === User.ADMIN_AUTHORITY_KEY;
     });
-    return result;
+  }
+
+  public getSelfLink(): string {
+    return this.links.find((link, index, array): boolean => {
+      return link.rel === 'self';
+    }).href;
   }
 }
