@@ -35,4 +35,12 @@ export class User {
       return link.rel === 'self';
     }).href;
   }
+
+  public getRestModel(): Object {
+    let restUser: any = {};
+    restUser.firstName = this.firstName;
+    restUser.name = this.name;
+    restUser.email = this.username;
+    return restUser;
+  }
 }
