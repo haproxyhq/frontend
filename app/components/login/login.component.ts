@@ -28,7 +28,7 @@ export class LoginComponent {
       if (res) {
         this._router.navigate(['Home']);
       } else {
-        $.snackbar(new ToastModel('Login failed', '', 3000, true));
+        $.snackbar(new ToastModel('Login failed'));
       }
     },
     () => {});
