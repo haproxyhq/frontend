@@ -3,6 +3,7 @@
     <div class="form-group label-floating">
       <label class="control-label" for="focusedInput">{{label}}</label>
       <input type="text" class="form-control" id="focusedInput"
+          [required]="required"
           [(ngModel)]="value" (ngModelChange)="updateValue(value)">
     </div>
   </div>

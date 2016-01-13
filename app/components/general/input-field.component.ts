@@ -9,6 +9,7 @@ import {Component, Input, Output, EventEmitter} from 'angular2/core';
 export class InputFieldComponent {
   @Input() label: string;
   @Input() value: string;
+  @Input() required: boolean = false;
   @Output() valueChange = new EventEmitter();
 
   constructor() {}
