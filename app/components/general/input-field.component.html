@@ -5,6 +5,7 @@
       <input type="text" class="form-control" id="focusedInput"
           [required]="required"
           [(ngModel)]="value" (ngModelChange)="updateValue(value)">
+      <completion *ngIf="showCompletion()" [completion]="completion" [search]="value"></completion>
     </div>
   </div>
 </div>
