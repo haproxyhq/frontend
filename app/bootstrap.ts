@@ -10,7 +10,7 @@ import {CustomHttpService}                                        from './servic
 import {GlobalStorageService}                                     from './services/general/global-storage.service';
 import {AuthenticationService}                                    from './services/general/authentication.service';
 import {UserService}                                              from './services/user/user.service';
-import {CompletionService}                                        from './services/config/completion.service';
+import {CompletionService}                                        from './services/completion/completion.service';
 
 bootstrap(AppComponent, [
   HTTP_PROVIDERS,
