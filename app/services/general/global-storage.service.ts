@@ -3,6 +3,7 @@ import {Headers}      from 'angular2/http';
 
 import {CookieModel}  from '../../models/cookie.model';
 import {User}         from '../../models/wrapper/user.model';
+import {Completion}   from '../../models/wrapper/completion.model';
 
 @Injectable()
 export class GlobalStorageService {
@@ -11,6 +12,7 @@ export class GlobalStorageService {
   private static ACCESS_TOKEN_KEY: string = 'accessToken';
   private static IS_AUTHENTICATED_KEY: string = 'authenticated';
   private static USER_KEY: string = 'user';
+  private static COMPLETIONS_KEY: string = 'completions';
 
   private _prefix: string = 'hq.';
 
@@ -41,6 +43,21 @@ export class GlobalStorageService {
 
   get user(): User {
     return new User(this.get(GlobalStorageService.USER_KEY));
+  }
+
+  set completions(completions: Array<Completion>) {
+    this.set(GlobalStorageService.COMPLETIONS_KEY, completions);
+  }
+
+  get completions() {
+    let completions: Array<Completion> = new Array<Completion>();
+    let plainObject = JSON.parse(this.get(GlobalStorageService.COMPLETIONS_KEY));
+    if (plainObject !== null) {
+      plainObject.forEach((elem, index, array) => {
+        completions.push(new Completion(elem));
+      });
+    }
+    return completions;
   }
 
   /**
