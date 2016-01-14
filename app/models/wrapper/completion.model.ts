@@ -10,7 +10,7 @@ export class Completion {
     this.version = plainCompletion.version;
 
     plainCompletion.data.forEach((elem: any, index, array) => {
-      this.data.push(new CompletionSection(elem.keyword, elem.params, elem.id));
+      this.data.push(new CompletionSection(elem.keyword, elem.params, elem.anchor));
     });
   }
 }
