@@ -1,6 +1,6 @@
 <div *ngIf="completion" class="panel panel-default stick-bottom">
   <ul>
-    <li *ngFor="#item of (_data | filterCompletions:search); #i = index">
+    <li *ngFor="#item of (completion.data | filterCompletions:search); #i = index">
       <span class="highlight">{{item.highlight}}</span>{{item.normal}}
       <span class="params">{{item.params}}</span>
       <a target="_blank" href="{{completion.url}}{{item.anchor}}" class="pull-right">More..</a>
