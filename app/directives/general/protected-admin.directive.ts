@@ -8,10 +8,10 @@ import {GlobalStorageService}                 from '../../services/general/globa
 
 export class ProtectedAdminDirective {
 
-    constructor(private _globalStorage: GlobalStorageService, private _router: Router, private _location: Location) {
-        if (!this._globalStorage.user.isAdmin()) {
-            this._location.replaceState('/');
-            this._router.navigate(['Unauthorized']);
-        }
+  constructor(private _globalStorage: GlobalStorageService, private _router: Router, private _location: Location) {
+    if (!this._globalStorage.user.isAdmin()) {
+      this._location.replaceState('/');
+      this._router.navigate(['Unauthorized']);
     }
+  }
 }
