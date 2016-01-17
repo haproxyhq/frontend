@@ -3,7 +3,7 @@ import {CompletionSection}  from './completion-section.model';
 export class Completion {
   public url: string;
   public version: string;
-  public data: Array<CompletionSection> = new Array<CompletionSection>();
+  public data: Array<CompletionSection> = [];
 
   constructor(plainCompletion: any) {
     this.url = plainCompletion.url;
