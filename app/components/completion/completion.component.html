@@ -4,7 +4,7 @@
       <hr *ngIf="i != 0" />
       <span class="highlight">{{item.highlight}}</span>{{item.normal}}
       <span class="params">{{item.params}}</span>
-      <a target="_blank" href="{{completion.url}}{{item.anchor}}" class="pull-right">More..</a>
+      <a target="_blank" href="{{completion.url}}{{item.anchor}}" class="pull-right" (click)="moreClicked($event)">More..</a>
     </li>
   </ul>
 </div>

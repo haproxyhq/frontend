@@ -19,4 +19,8 @@ export class CompletionComponent {
 
   constructor() {}
 
+  moreClicked(event) {
+    event.cancelBubble = true;
+    this.selectedValueEvent.next(this.search);
+  }
 }
