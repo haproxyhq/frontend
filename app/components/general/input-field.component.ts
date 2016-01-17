@@ -18,10 +18,11 @@ export class InputFieldComponent {
   @Output() valueChange = new EventEmitter();
 
   private _showCompletion = false;
+  private _blurEnabled = true;
 
   constructor() {}
 
-  updateValue(value) {
+  updateValue(value: string) {
     this.valueChange.next(value);
   }
 
@@ -29,7 +30,16 @@ export class InputFieldComponent {
     return this.completion !== undefined && this.completion !== null;
   }
 
-  toggleCompletion() {
-    return this._showCompletion = !this._showCompletion;
+  toggleBlur(value: boolean) {
+    this._blurEnabled = value;
+  }
+
+  toggleCompletion(value: boolean) {
+    if (this._blurEnabled) this._showCompletion = value;
+  }
+
+  handleSelectedValueChange(value, input) {
+    this.updateValue(value);
+    input.focus();
   }
 }

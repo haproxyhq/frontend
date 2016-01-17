@@ -1,9 +1,9 @@
-import {Component, Input}       from 'angular2/core';
+import {Component, Input, EventEmitter, Output} from 'angular2/core';
 
-import {Completion}             from '../../models/wrapper/completion.model';
-import {CompletionSection}      from '../../models/wrapper/completion-section.model';
+import {Completion}                             from '../../models/wrapper/completion.model';
+import {CompletionSection}                      from '../../models/wrapper/completion-section.model';
 
-import {FilterCompletionsPipe}  from '../../pipes/completion/filter-completions.pipe';
+import {FilterCompletionsPipe}                  from '../../pipes/completion/filter-completions.pipe';
 
 @Component({
   selector: 'completion',
@@ -15,6 +15,7 @@ import {FilterCompletionsPipe}  from '../../pipes/completion/filter-completions.
 export class CompletionComponent {
   @Input() completion: Completion;
   @Input() search: string;
+  @Output('selected-value') selectedValueEvent: EventEmitter<String> = new EventEmitter();
 
   constructor() {}
 

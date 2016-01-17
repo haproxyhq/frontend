@@ -5,9 +5,17 @@
       <input type="text" class="form-control" id="focusedInput"
           [required]="required"
           [(ngModel)]="value" (ngModelChange)="updateValue(value)"
-          (focus)="toggleCompletion()"
-          (blur)="toggleCompletion()">
-      <completion class="ng-animate completion" [hidden]="!_showCompletion" *ngIf="showCompletion()" [completion]="completion" [search]="value"></completion>
+          (focus)="toggleCompletion(true)"
+          (blur)="toggleCompletion(false)"
+          #valueInput>
+      <completion class="ng-animate completion"
+        *ngIf="showCompletion()"
+        [hidden]="!_showCompletion"
+        [completion]="completion"
+        [search]="value"
+        (selected-value)="handleSelectedValueChange($event, valueInput)"
+        (mouseenter)="toggleBlur(false)"
+        (mouseleave)="toggleBlur(true)"></completion>
     </div>
   </div>
 </div>
