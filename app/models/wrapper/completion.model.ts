@@ -1,5 +1,5 @@
 import {CompletionSection}  from './completion-section.model';
-import {RestWrapperModel}   from './rest-wrapper.model.ts';
+import {RestWrapperModel}   from './rest-wrapper.model';
 
 export class Completion extends RestWrapperModel {
   public url: string;
