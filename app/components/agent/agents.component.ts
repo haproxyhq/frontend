@@ -4,9 +4,9 @@ import {GlobalStorageService} from '../../services/general/global-storage.servic
 
 import {ProtectedDirective}   from '../../directives/general/protected.directive';
 
-import {AgentComponent}       from './agent.component';
+import {AgentComponent}       from './agent-detail.component.ts';
 
-import {Agent}                from '../../models/wrapper/agent.model.ts';
+import {Agent}                from '../../models/wrapper/agent.model';
 
 var AGENTS: Array<Agent> = [
   new Agent({
