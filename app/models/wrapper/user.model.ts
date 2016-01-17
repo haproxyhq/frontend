@@ -1,6 +1,6 @@
-import {Authority} from './authority.model';
-import {Link} from './link.model';
-import {RestWrapperModel} from './rest-wrapper.model.ts';
+import {Authority}        from './authority.model';
+import {Link}             from './link.model';
+import {RestWrapperModel} from './rest-wrapper.model';
 
 export class User extends RestWrapperModel {
   private static ADMIN_AUTHORITY_KEY: string = 'ROLE_ADMIN';

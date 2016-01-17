@@ -2,7 +2,7 @@ import {Component}                              from 'angular2/core';
 import {RouteConfig, ROUTER_DIRECTIVES, Router} from 'angular2/router';
 
 import {HomeComponent}                          from '../home/home.component';
-import {ConceptsComponent}                      from '../concept/concepts.component';
+import {SchemasComponent}                       from '../schema/schemas.component';
 import {AgentsComponent}                        from '../agent/agents.component';
 import {AboutComponent}                         from '../about/about.component';
 import {LoginComponent}                         from '../login/login.component';
@@ -22,7 +22,7 @@ import {GlobalStorageService}                   from '../../services/general/glo
 
 @RouteConfig([
   { path:'/',                   name: 'Home',                 component: HomeComponent },
-  { path:'/concepts',           name: 'Concepts',             component: ConceptsComponent },
+  { path:'/schemas',            name: 'Schemas',              component: SchemasComponent },
   { path:'/agents',             name: 'Agents',               component: AgentsComponent },
   { path:'/about',              name: 'About',                component: AboutComponent },
   { path:'/login',              name: 'Login',                component: LoginComponent },
