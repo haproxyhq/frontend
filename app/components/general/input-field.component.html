@@ -4,8 +4,10 @@
       <label class="control-label" for="focusedInput">{{label}}</label>
       <input type="text" class="form-control" id="focusedInput"
           [required]="required"
-          [(ngModel)]="value" (ngModelChange)="updateValue(value)">
-      <completion *ngIf="showCompletion()" [completion]="completion" [search]="value"></completion>
+          [(ngModel)]="value" (ngModelChange)="updateValue(value)"
+          (focus)="toggleCompletion()"
+          (blur)="toggleCompletion()">
+      <completion class="ng-animate completion" [hidden]="!_showCompletion" *ngIf="showCompletion()" [completion]="completion" [search]="value"></completion>
     </div>
   </div>
 </div>

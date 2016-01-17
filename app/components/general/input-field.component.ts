@@ -17,6 +17,8 @@ export class InputFieldComponent {
   @Input('completion-data') completion: Completion;
   @Output() valueChange = new EventEmitter();
 
+  private _showCompletion = false;
+
   constructor() {}
 
   updateValue(value) {
@@ -25,5 +27,9 @@ export class InputFieldComponent {
 
   showCompletion(): boolean {
     return this.completion !== undefined && this.completion !== null;
+  }
+
+  toggleCompletion() {
+    return this._showCompletion = !this._showCompletion;
   }
 }
