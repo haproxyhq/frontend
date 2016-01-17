@@ -1,12 +1,10 @@
 import {Component}            from 'angular2/core';
 
-import {GlobalStorageService} from '../../services/general/global-storage.service';
-
 import {ProtectedDirective}   from '../../directives/general/protected.directive';
 
-import {AgentComponent}       from './agent-detail.component.ts';
+import {AgentDetailComponent}       from './agent-detail.component';
 
-import {Agent}                from '../../models/wrapper/agent.model';
+import {Agent} from '../../models/wrapper/agent.model';
 
 var AGENTS: Array<Agent> = [
   new Agent({
@@ -33,10 +31,10 @@ var AGENTS: Array<Agent> = [
   selector: 'agents',
   templateUrl: './components/agent/agents.component.html',
   styleUrls: ['./components/agent/agents.component.css'],
-  directives: [ProtectedDirective, AgentComponent]
+  directives: [ProtectedDirective, AgentDetailComponent]
 })
 export class AgentsComponent {
   public agents: Array<Agent> = AGENTS;
 
-  constructor(private _globalStorage: GlobalStorageService) { }
+  constructor() { }
 }
