@@ -7,15 +7,19 @@
           [(ngModel)]="value" (ngModelChange)="updateValue(value)"
           (focus)="toggleCompletion(true)"
           (blur)="toggleCompletion(false)"
+          (keydown)="onKeyDown($event)"
+          (keyup)="_keyCode.next($event.keyCode)"
           #valueInput>
       <completion class="ng-animate completion"
         *ngIf="showCompletion()"
         [hidden]="!_showCompletion"
         [completion]="completion"
         [search]="value"
+        [key-code]="_keyCode"
         (selected-value)="handleSelectedValueChange($event, valueInput)"
         (mouseenter)="toggleBlur(false)"
-        (mouseleave)="toggleBlur(true)"></completion>
+        (mouseleave)="toggleBlur(true)"
+        max-result-count="15"></completion>
     </div>
   </div>
 </div>

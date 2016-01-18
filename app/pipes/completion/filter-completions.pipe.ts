@@ -24,7 +24,8 @@ export class FilterCompletionsPipe implements PipeTransform {
         item.highlight = item.keyword;
         item.normal = '';
       } else {
-        item.highlight = item.normal = '';
+        item.highlight = '';
+        item.normal = item.keyword;
       }
 
       return keywordStartsWith || searchStartsWith;

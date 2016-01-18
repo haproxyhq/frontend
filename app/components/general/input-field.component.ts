@@ -19,6 +19,7 @@ export class InputFieldComponent {
 
   private _showCompletion = false;
   private _blurEnabled = true;
+  private _keyCode: EventEmitter<number> = new EventEmitter();
 
   constructor() {}
 
@@ -42,4 +43,11 @@ export class InputFieldComponent {
     this.updateValue(value);
     input.focus();
   }
+
+  onKeyDown(event) {
+    if (event.keyCode === 38 || event.keyCode === 40) {
+      event.preventDefault();
+    }
+  }
+
 }
