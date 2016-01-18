@@ -2,7 +2,7 @@
   <ul>
     <li class="completion-item"
       *ngFor="#item of _filtered; #i = index"
-      (click)="selectedValueEvent.next(item.keyword)"
+      (click)="mouseSelectKeyword(item.keyword)"
       [class.selected]="_selected == i"
       (mouseover)="_selected = i">
       <hr *ngIf="i != 0" />
