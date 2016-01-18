@@ -34,28 +34,11 @@ export class CompletionComponent implements OnInit {
     this.keyCode.subscribe(
       (code) => {
         if (code === 38) {
-          this._setFiltered(false);
-          if (this._selected > -1) {
-            this._selected = this._selected - 1;
-            this._keySelection = true;
-          }
+          this._keyUpPressed();
         } else if (code === 40) {
-          this._setFiltered(false);
-          if (this._selected === this._getListLength()) {
-            this._selected = 0;
-          } else {
-            this._selected = this._selected + 1;
-          }
-          this._keySelection = true;
+          this._keyDownPressed();
         } else if (code === 13) {
-          if (this._selected !== -1 && this._selected < this._filtered.length) {
-            this.selectedValueEvent.next(this._filtered[this._selected].keyword);
-            this.search = this._filtered[this._selected].keyword;
-            this._setFiltered();
-            this._selected = -1;
-          } else if (this._selected === this._filtered.length) {
-            this._loadMoreResults();
-          }
+          this._enterPressed();
         } else {
           this._setFiltered();
           this._resetScroll = true;
@@ -63,6 +46,35 @@ export class CompletionComponent implements OnInit {
         }
       }
     );
+  }
+
+  private _keyUpPressed() {
+    this._setFiltered(false);
+    if (this._selected > -1) {
+      this._selected = this._selected - 1;
+      this._keySelection = true;
+    }
+  }
+
+  private _keyDownPressed() {
+    this._setFiltered(false);
+    if (this._selected === this._getListLength()) {
+      this._selected = 0;
+    } else {
+      this._selected = this._selected + 1;
+    }
+    this._keySelection = true;
+  }
+
+  private _enterPressed() {
+    if (this._selected !== -1 && this._selected < this._filtered.length) {
+      this.selectedValueEvent.next(this._filtered[this._selected].keyword);
+      this.search = this._filtered[this._selected].keyword;
+      this._setFiltered();
+      this._selected = -1;
+    } else if (this._selected === this._filtered.length) {
+      this._loadMoreResults();
+    }
   }
 
   private _getListLength(): number {
