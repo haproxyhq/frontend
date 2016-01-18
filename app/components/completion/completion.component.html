@@ -1,6 +1,10 @@
 <div *ngIf="completion" class="panel panel-default stick-bottom">
   <ul>
-    <li class="completion-item" *ngFor="#item of (completion.data | filterCompletions:search); #i = index" (click)="selectedValueEvent.next(item.keyword)">
+    <li class="completion-item"
+      *ngFor="#item of _filtered; #i = index"
+      (click)="selectedValueEvent.next(item.keyword)"
+      [class.selected]="_selected == i"
+      (mouseover)="_selected = i">
       <hr *ngIf="i != 0" />
       <span class="highlight">{{item.highlight}}</span>{{item.normal}}
       <span class="params">{{item.params}}</span>
