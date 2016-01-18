@@ -1,3 +1,19 @@
 .form-control, .form-group.form-control {
   background-image: none;
 }
+
+.completion {
+  transition: all 0.35s ease-in-out;
+}
+
+.completion.ng-enter {
+  opacity: 0;
+}
+
+.completion.ng-enter-active {
+  opacity: 1;
+}
+
+.completion.ng-leave-active {
+  opacity: 0;
+}

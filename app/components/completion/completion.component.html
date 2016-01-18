@@ -1,9 +1,23 @@
 <div *ngIf="completion" class="panel panel-default stick-bottom">
   <ul>
-    <li *ngFor="#item of (completion.data | filterCompletions:search); #i = index">
+    <li class="completion-item"
+      *ngFor="#item of _filtered; #i = index"
+      (click)="_mouseSelectKeyword(item.keyword)"
+      [class.selected]="_setSelectedItem(i, liItem)"
+      (mousemove)="_setSelectedItemMouse(i, $event)"
+      #liItem>
+      <hr *ngIf="i != 0" />
       <span class="highlight">{{item.highlight}}</span>{{item.normal}}
       <span class="params">{{item.params}}</span>
-      <a target="_blank" href="{{completion.url}}{{item.anchor}}" class="pull-right">More..</a>
+      <a target="_blank" href="{{completion.url}}{{item.anchor}}" class="pull-right" (click)="_moreClicked($event)">More..</a>
+    </li>
+    <li *ngIf="_showMoreResults()"
+      (click)="_loadMoreResults()"
+      [class.selected]="_setSelectedItem(_filtered.length, liItem)"
+      (mousemove)="_setSelectedItemMouse(_filtered.length, $event)"
+      #liItem>
+      <hr />
+      <a class="load-more-link">Load more results</a>
     </li>
   </ul>
 </div>
