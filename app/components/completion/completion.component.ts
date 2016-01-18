@@ -29,6 +29,8 @@ export class CompletionComponent implements OnInit {
   constructor() {}
 
   ngOnInit() {
+    //clone the completion to have an independend instance to work on
+    this.completion = new Completion(JSON.parse(JSON.stringify(this.completion)));
     this._setFiltered();
 
     this.keyCode.subscribe(
