@@ -12,7 +12,10 @@
       <a target="_blank" href="{{completion.url}}{{item.anchor}}" class="pull-right" (click)="_moreClicked($event)">More..</a>
     </li>
     <li *ngIf="_showMoreResults()"
-      (click)="_loadMoreResults()">
+      (click)="_loadMoreResults()"
+      [class.selected]="_setSelectedItem(_filtered.length, liItem)"
+      (mousemove)="_setSelectedItemMouse(_filtered.length, $event)"
+      #liItem>
       <hr />
       <a class="load-more-link">Load more results</a>
     </li>

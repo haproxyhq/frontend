@@ -18,7 +18,7 @@ export class CompletionComponent implements OnInit {
   @Input('max-result-count') defaultResultCount: number = 10;
   @Output('selected-value') selectedValueEvent: EventEmitter<String> = new EventEmitter();
 
-  private _resultCount: number = this.defaultResultCount;
+  private _resultCount: number = +this.defaultResultCount;
   private _selected: number = -1;
   private _filterCompletionsPipe: FilterCompletionsPipe = new FilterCompletionsPipe();
   private _preFiltered: Array<CompletionSection>;
@@ -41,7 +41,7 @@ export class CompletionComponent implements OnInit {
           }
         } else if (code === 40) {
           this._setFiltered(false);
-          if (this._selected === this._filtered.length - 1) {
+          if (this._selected === this._getListLength()) {
             this._selected = 0;
           } else {
             this._selected = this._selected + 1;
@@ -53,6 +53,8 @@ export class CompletionComponent implements OnInit {
             this.search = this._filtered[this._selected].keyword;
             this._setFiltered();
             this._selected = -1;
+          } else if (this._selected === this._filtered.length) {
+            this._loadMoreResults();
           }
         } else {
           this._setFiltered();
@@ -63,19 +65,24 @@ export class CompletionComponent implements OnInit {
     );
   }
 
+  private _getListLength(): number {
+    if (this._showMoreResults()) return this._filtered.length;
+    return this._filtered.length - 1;
+  }
+
   private _showMoreResults() {
     return this._resultCount < (this._preFiltered.length - 1);
   }
 
   private _loadMoreResults() {
-    this._resultCount += this.defaultResultCount;
+    this._resultCount += +this.defaultResultCount;
     if (this._resultCount >= this._preFiltered.length) this._resultCount = this._preFiltered.length - 1;
     this._setFiltered(false);
     this.selectedValueEvent.next(this.search);
   }
 
   private _setFiltered(reset: boolean = true) {
-    if (reset) this._resultCount = this.defaultResultCount;
+    if (reset) this._resultCount = +this.defaultResultCount;
     this._preFiltered = this._filterCompletionsPipe.transform(this.completion.data, [this.search]);
     this._filtered = this._preFiltered.slice(0, this._resultCount);
   }
