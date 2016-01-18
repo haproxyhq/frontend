@@ -124,9 +124,10 @@ export class CompletionComponent implements OnInit {
   }
 
   private _mouseSelectKeyword(value: string) {
-    this.search = value;
-    this._filtered = this._filterCompletionsPipe.transform(this.completion.data, [value]);
     this.selectedValueEvent.next(value);
+    this.search = value;
+    this._setFiltered();
+    this._selected = -1;
   }
 
   private _moreClicked(event) {
