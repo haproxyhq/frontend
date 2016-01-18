@@ -4,6 +4,7 @@ import {Headers}      from 'angular2/http';
 import {CookieModel}  from '../../models/cookie.model';
 import {User}         from '../../models/wrapper/user.model';
 import {Completion}   from '../../models/wrapper/completion.model';
+import {Agent}        from '../../models/wrapper/agent.model';
 
 @Injectable()
 export class GlobalStorageService {
@@ -13,6 +14,7 @@ export class GlobalStorageService {
   private static IS_AUTHENTICATED_KEY: string = 'authenticated';
   private static USER_KEY: string = 'user';
   private static COMPLETIONS_KEY: string = 'completions';
+  private static AGENTS_KEY: string = 'agents';
 
   private _prefix: string = 'hq.';
 
@@ -58,6 +60,21 @@ export class GlobalStorageService {
       });
     }
     return completions;
+  }
+
+  set agents(agents: Array<Agent>) {
+    this.set(GlobalStorageService.AGENTS_KEY, agents);
+  }
+
+  get agents() {
+    let agents: Array<Agent> = [];
+    let plainObject = JSON.parse(this.get(GlobalStorageService.AGENTS_KEY));
+    if(plainObject !== null) {
+      plainObject.forEach((elem, index, array) => {
+        agents.push(new Agent(elem));
+      });
+    }
+    return agents;
   }
 
   /**
