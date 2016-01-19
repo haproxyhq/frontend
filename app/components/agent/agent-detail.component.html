@@ -1,1 +1,9 @@
-{{ agent.name }}
+<div class="agent-detail-container">
+  <div class="abc-icon-sizer">
+    <abc-icon [iconText]="'A'"></abc-icon>
+  </div>
+  <div class="agent-detail-details">
+    <h4 class="truncate">{{ agent.name }}</h4>
+    <h5 class="truncate">{{ agent.ip }}</h5>
+  </div>
+</div>

@@ -20,7 +20,7 @@ export class AgentService {
       .map((res: Response) => res.json())
       .subscribe(
         (res) => {
-          let agents: Array<Agent> = new Array<Agent>();
+          let agents: Array<Agent> = [];
           res.content.forEach((elem, index, array) => {
             agents.push(new Agent(elem));
           });

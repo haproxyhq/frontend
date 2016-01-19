@@ -1,10 +1,10 @@
-import {Component}            from 'angular2/core';
+import {Component, OnInit}            from 'angular2/core';
 
 import {ProtectedDirective}   from '../../directives/general/protected.directive';
 
 import {AgentDetailComponent}       from './agent-detail.component';
-
 import {Agent} from '../../models/wrapper/agent.model';
+import {AgentService} from '../../services/agent/agent.service';
 
 var AGENTS: Array<Agent> = [
   new Agent({
@@ -33,8 +33,14 @@ var AGENTS: Array<Agent> = [
   styleUrls: ['./components/agent/agents.component.css'],
   directives: [ProtectedDirective, AgentDetailComponent]
 })
-export class AgentsComponent {
+export class AgentsComponent implements OnInit{
   public agents: Array<Agent> = AGENTS;
 
-  constructor() { }
+  constructor(private _agentService: AgentService) {
+
+  }
+
+  ngOnInit(): void {
+    //console.log(this._agentService.getAgents());
+  }
 }

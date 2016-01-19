@@ -29,7 +29,7 @@ export abstract class RestWrapperModel {
    *
    * @param {any} plainObject
    */
-  public abstract transformPlainObject(plainObject: any): void;
+  protected abstract transformPlainObject(plainObject: any): void;
 
   /**
    * transforms the given attributes of this object into a POJO

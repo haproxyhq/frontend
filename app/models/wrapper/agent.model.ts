@@ -14,11 +14,12 @@ export class Agent extends RestWrapperModel {
     this.transformPlainObject(plainObject);
   }
 
-  getRestModel(): Object {
+  protected transformPlainObject(plainObject :any): void {
+    return this._transformFromPOJO(plainObject, 'name', 'description', 'ip', 'version');
+  }
+
+  public getRestModel(): Object {
     return this._transformToPOJO('name', 'description', 'ip', 'version');
   }
 
-  transformPlainObject(plainObject :any): void {
-    return this._transformFromPOJO(plainObject, 'name', 'description', 'ip', 'version');
-  }
 }
