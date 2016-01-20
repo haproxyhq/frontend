@@ -30,19 +30,22 @@ export class CustomHttpService {
     return this.http.get(url, opts).do((res:Response) => { this._afterCall(res); });
   }
 
-  public post(url: string, body: string, options?: RequestOptionsArgs): Observable<Response> {
-    let opts: RequestOptionsArgs = this._build(RequestMethod.Post, url, options, body);
-    return this.http.post(url, body, opts).do((res:Response) => { this._afterCall(res); });
+  public post(url: string, body: any, options?: RequestOptionsArgs): Observable<Response> {
+    let bodyString: string = JSON.stringify(body);
+    let opts: RequestOptionsArgs = this._build(RequestMethod.Post, url, options, bodyString);
+    return this.http.post(url, bodyString, opts).do((res:Response) => { this._afterCall(res); });
   }
 
-  public put(url: string, body: string, options?: RequestOptionsArgs): Observable<Response> {
-    let opts: RequestOptionsArgs = this._build(RequestMethod.Put, url, options, body);
-    return this.http.put(url, body, opts).do((res:Response) => { this._afterCall(res); });
+  public put(url: string, body: any, options?: RequestOptionsArgs): Observable<Response> {
+    let bodyString: string = JSON.stringify(body);
+    let opts: RequestOptionsArgs = this._build(RequestMethod.Put, url, options, bodyString);
+    return this.http.put(url, bodyString, opts).do((res:Response) => { this._afterCall(res); });
   }
 
-  public patch(url: string, body: string, options?: RequestOptionsArgs): Observable<Response> {
-    let opts: RequestOptionsArgs = this._build(RequestMethod.Get, url, options, body);
-    return this.http.patch(url, body, opts).do((res:Response) => { this._afterCall(res); });
+  public patch(url: string, body: any, options?: RequestOptionsArgs): Observable<Response> {
+    let bodyString: string = JSON.stringify(body);
+    let opts: RequestOptionsArgs = this._build(RequestMethod.Get, url, options, bodyString);
+    return this.http.patch(url, bodyString, opts).do((res:Response) => { this._afterCall(res); });
   }
 
   public delete(url: string, options?: RequestOptionsArgs): Observable<Response> {
