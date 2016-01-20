@@ -31,7 +31,7 @@ export class UserService {
   public saveUser(user: User): EventEmitter<User> {
     let event: EventEmitter<User> = new EventEmitter<User>();
 
-    this._http.patch(user.getSelfLink(), JSON.stringify(user.getRestModel()))
+    this._http.patch(user.getSelfLink(), user.getRestModel())
       .map((res: Response) => res.json())
       .subscribe(
         (res) => {

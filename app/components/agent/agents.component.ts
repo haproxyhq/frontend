@@ -15,10 +15,9 @@ import {AgentService} from '../../services/agent/agent.service';
 export class AgentsComponent implements OnInit {
   public agents: Array<Agent> = [];
   public agentsLoaded: boolean = false;
+  public newAgent: Agent = new Agent({});
 
-  public constructor(private _agentService: AgentService) {
-
-  }
+  public constructor(private _agentService: AgentService) {}
 
   public ngOnInit(): void {
     this._agentService.getAgents().subscribe((agents) => {
@@ -27,8 +26,11 @@ export class AgentsComponent implements OnInit {
     });
   }
 
-  public openAddAgentModal(): void {
-    console.log('open');
-    $('#add-agent-modal').modal('show');
+  public onAddAgentSubmit(): void {
+    this._agentService.addAgent(this.newAgent).subscribe((agent) => {
+      this.agents.push(agent);
+      $('#add-agent-modal').modal('hide');
+      this.newAgent = new Agent({});
+    });
   }
 }
