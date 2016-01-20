@@ -17,6 +17,7 @@ export class AgentService {
   **/
   public getAgents(): EventEmitter<Array<Agent>> {
     var event: EventEmitter<Array<Agent>> = new EventEmitter<Array<Agent>>();
+
     this._http.get('http://localhost:8080/agents')
       .map((res: Response) => res.json())
       .subscribe(
@@ -34,6 +35,18 @@ export class AgentService {
         },
         () => {}
       );
+    return event;
+  }
+
+  public addAgent(agent: Agent) {
+    var event: EventEmitter<Agent> = new EventEmitter<Agent>();
+
+    this._http.post('http://localhost:8080/agents', agent.getRestModel())
+      .map((res: Response) => res.json())
+      .subscribe((res: Response) => {
+        event.emit(new Agent(res));
+      });
+
     return event;
   }
 }
