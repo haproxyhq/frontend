@@ -14,14 +14,21 @@ import {AgentService} from '../../services/agent/agent.service';
 })
 export class AgentsComponent implements OnInit {
   public agents: Array<Agent> = [];
+  public agentsLoaded: boolean = false;
 
-  constructor(private _agentService: AgentService) {
+  public constructor(private _agentService: AgentService) {
 
   }
 
-  ngOnInit(): void {
+  public ngOnInit(): void {
     this._agentService.getAgents().subscribe((agents) => {
       this.agents = agents;
+      this.agentsLoaded = true;
     });
+  }
+
+  public openAddAgentModal(): void {
+    console.log('open');
+    $('#add-agent-modal').modal('show');
   }
 }
