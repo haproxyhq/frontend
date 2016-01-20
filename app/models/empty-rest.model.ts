@@ -1,6 +1,5 @@
-export interface EmptyRestModel {
-  value: any[];
-  relTargetType: string;
-  rel: string;
-  collectionValue: boolean;
+export class EmptyRestModel {
+  public static instanceOf(object: any): boolean {
+    return 'value' in object && 'relTargetType' in object && 'rel' in object && 'collectionValue' in object;
+  }
 }

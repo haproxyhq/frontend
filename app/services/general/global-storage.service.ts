@@ -52,7 +52,7 @@ export class GlobalStorageService {
   }
 
   get completions() {
-    let completions: Array<Completion> = new Array<Completion>();
+    let completions: Array<Completion> = [];
     let plainObject = JSON.parse(this.get(GlobalStorageService.COMPLETIONS_KEY));
     if (plainObject !== null) {
       plainObject.forEach((elem, index, array) => {

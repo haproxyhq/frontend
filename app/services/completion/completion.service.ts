@@ -20,7 +20,7 @@ export class CompletionService {
       .map((res: Response) => res.json())
       .subscribe(
         (res) => {
-          let completions: Array<Completion> = new Array<Completion>();
+          let completions: Array<Completion> = [];
           res.content.forEach((elem, index, array) => {
             completions.push(new Completion(elem));
           });

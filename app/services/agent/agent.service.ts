@@ -4,6 +4,7 @@ import {Response}                 from 'angular2/http';
 import {CustomHttpService}        from '../../services/general/custom-http.service';
 
 import {Agent}                    from '../../models/wrapper/agent.model';
+import {EmptyRestModel} from '../../models/empty-rest.model';
 
 @Injectable()
 export class AgentService {
@@ -21,9 +22,11 @@ export class AgentService {
       .subscribe(
         (res) => {
           let agents: Array<Agent> = [];
-          res.content.forEach((elem, index, array) => {
-            agents.push(new Agent(elem));
-          });
+          if(res.content && !(EmptyRestModel.instanceOf(res.content[0]))) {
+            res.content.forEach((elem, index, array) => {
+              agents.push(new Agent(elem));
+            });
+          }
           event.emit(agents);
         },
         (err) => {

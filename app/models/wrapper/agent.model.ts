@@ -21,5 +21,4 @@ export class Agent extends RestWrapperModel {
   public getRestModel(): Object {
     return this._transformToPOJO('name', 'description', 'ip', 'version');
   }
-
 }
