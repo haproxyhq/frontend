@@ -2,7 +2,7 @@
   <div class="col-md-12">
     <div class="form-group label-floating">
       <label class="control-label" for="focusedInput">{{label}}</label>
-      <input type="text" class="form-control" id="focusedInput"
+      <input type="text" class="form-control" id="focusedInput" tabindex="500"
           [required]="required"
           [(ngModel)]="value" (ngModelChange)="updateValue(value)"
           (focus)="toggleCompletion(true)"
