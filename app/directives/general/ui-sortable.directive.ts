@@ -1,19 +1,23 @@
-///<reference path="../typings/angular2/angular2.d.ts" />
-///<reference path="../typings/es6-promise/es6-promise.d.ts" />
-////<reference path="../typings/jquery/jquery.d.ts" />
-////<reference path="../typings/jqueryui/jqueryui.d.ts" />
-//////<reference path="../typings/angular-ui2-sortable/angular-ui2-sortable.d.ts" />
+/**
+* !! Important !!
+* this is based on https://github.com/angular-ui/ui-sortable/tree/ng2
+* I had to modify it to work with the current beta of angular2:
+* - be carefull updating this to a newer version of the branch
+* - be carefull making changes to this
+**/
 
 import {
-  Component, View, bootstrap, NgIf, NgFor, forwardRef, Inject,
-  Directive, onCheck,
-  ElementRef
-} from 'angular2/angular2';
+  Component, View, forwardRef, Inject,
+  Directive,
+  ElementRef,
+  Input, Output, OnInit, EventEmitter
+} from 'angular2/core';
 // import {formDirectives} from 'angular2/forms';
 // import {Directive, onCheck} from 'angular2/angular2';
 // import {ElementRef} from 'angular2/angular2';
 // import {Renderer} from 'angular2/src/render/api';
 
+declare var $;
 
 @Directive({
   selector: '[ui-sortable]',
@@ -21,13 +25,51 @@ import {
   properties: ['uiSortable', 'ngModel']
 })
 
-export class UiSortableComponent {
+export class UiSortableComponent implements OnInit {
   static uiSortableConfig = {
     // the default for jquery-ui sortable is "> *", we need to restrict this to
     // ng-repeat items
     // if the user uses
     items: '> *:not(template)'
   };
+
+  @Input('ui-sortable') options: Object;
+  @Input('ng-model') inputModel: Array<any>;
+  @Output('ng-model') onModelChange = new EventEmitter();
+
+  savedNodes: any;
+
+  opts = {};
+
+  // directive specific options
+  directiveOpts = {
+    'ui-floating': undefined
+  };
+
+  callbacks = {
+    activate:null,
+    receive: null,
+    remove:null,
+    start:null,
+    stop:null,
+    update:null
+  };
+
+  wrappers = {
+    helper: null
+  };
+
+  element: any;
+  $element: any;
+  //options: Object;
+  model: Array<any>;
+
+  optionsSetPromiseResolve: Function;
+  modelSetPromiseResolve: Function;
+
+  // We set this to true after the constructor,
+  // the options & model setters and init have run
+  isComponentReady = false;
 
   static combineCallbacks(first, second) {
     var firstIsFunc = first && (typeof first === 'function');
@@ -132,11 +174,11 @@ export class UiSortableComponent {
     if (o1 === null || o2 === null) return false;
     if (o1 !== o1 && o2 !== o2) return true; // NaN === NaN
     var t1 = typeof o1, t2 = typeof o2, length, key, keySet;
-    if (t1 == t2) {
-      if (t1 == 'object') {
+    if (t1 === t2) {
+      if (t1 === 'object') {
         if (isArray(o1)) {
           if (!isArray(o2)) return false;
-          if ((length = o1.length) == o2.length) {
+          if ((length = o1.length) === o2.length) {
             for (key = 0; key < length; key++) {
               if (!UiSortableComponent.equals(o1[key], o2[key])) return false;
             }
@@ -146,7 +188,7 @@ export class UiSortableComponent {
           if (!isDate(o2)) return false;
           return UiSortableComponent.equals(o1.getTime(), o2.getTime());
         } else if (isRegExp(o1)) {
-          return isRegExp(o2) ? o1.toString() == o2.toString() : false;
+          return isRegExp(o2) ? o1.toString() === o2.toString() : false;
         } else {
           keySet = {};
           for (key in o1) {
@@ -166,42 +208,6 @@ export class UiSortableComponent {
     }
     return false;
   }
-
-
-
-  savedNodes: any;
-
-  opts = {};
-
-  // directive specific options
-  directiveOpts = {
-    'ui-floating': undefined
-  };
-
-  callbacks = {
-    activate:null,
-    receive: null,
-    remove:null,
-    start:null,
-    stop:null,
-    update:null
-  };
-
-  wrappers = {
-    helper: null
-  };
-
-  element: any;
-  $element: any;
-  options: Object;
-  model: Array<any>;
-
-  optionsSetPromiseResolve: Function;
-  modelSetPromiseResolve: Function;
-
-  // We set this to true after the constructor,
-  // the options & model setters and init have run
-  isComponentReady = false;
 
   constructor(_ngEl: ElementRef) {
     this.element = $(_ngEl.nativeElement);
@@ -224,7 +230,6 @@ export class UiSortableComponent {
       this.optionsSetPromiseResolve = null;
       this.modelSetPromiseResolve = null;
       // console.log('Promise.all');
-      this.init();
       this.isComponentReady = true;
     });
 
@@ -236,14 +241,11 @@ export class UiSortableComponent {
     // });
   }
 
-  set uiSortable(options) {
-    this.options = options;
-    // console.log('set uiSortable', options);
+  ngOnInit() {
+    //console.log('set uiSortable', this.options);
     this.element.sortable('option', this.options);
     this.optionsSetPromiseResolve();
-  }
 
-  set ngModel(model) {
     // Any the model changes after the first time
     if (this.isComponentReady) {
       // When we add or remove elements, we need the sortable to 'refresh'
@@ -257,12 +259,10 @@ export class UiSortableComponent {
         }
       }, 0);
     }
-    this.model = model;
-    // console.log('set ngModel', model);
+    this.model = this.inputModel;
+    //console.log('set ngModel', this.model);
     this.modelSetPromiseResolve();
-  }
 
-  init() {
     $.extend(this.opts, this.directiveOpts, UiSortableComponent.uiSortableConfig, this.options);
 
     if (!$.fn || !$.fn.jquery) {
@@ -391,9 +391,15 @@ export class UiSortableComponent {
            ('dropindex' in ui.item.sortable) &&
            !ui.item.sortable.isCanceled()) {
 
+             console.log(ui.item.sortable.dropindex);
+             console.log(ui.item.sortable.index);
+             console.log(this.model);
             this.model.splice(
               ui.item.sortable.dropindex, 0,
               this.model.splice(ui.item.sortable.index, 1)[0]);
+              console.log(this.model);
+              this.onModelChange.next(this.model);
+
         } else {
           // if the item was not moved, then restore the elements
           // so that the ngRepeat's comment are correct.
@@ -543,7 +549,7 @@ export class UiSortableComponent {
 
   patchSortableOption(key, value) {
     if (this.callbacks[key]) {
-      if( key === 'stop' ){
+      if (key === 'stop') {
         value = UiSortableComponent.combineCallbacks(value, this.afterStop);
       }
       // wrap the callback
