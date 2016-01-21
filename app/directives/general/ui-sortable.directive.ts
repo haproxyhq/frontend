@@ -391,13 +391,9 @@ export class UiSortableComponent implements OnInit {
            ('dropindex' in ui.item.sortable) &&
            !ui.item.sortable.isCanceled()) {
 
-             console.log(ui.item.sortable.dropindex);
-             console.log(ui.item.sortable.index);
-             console.log(this.model);
             this.model.splice(
               ui.item.sortable.dropindex, 0,
               this.model.splice(ui.item.sortable.index, 1)[0]);
-              console.log(this.model);
               this.onModelChange.next(this.model);
 
         } else {
