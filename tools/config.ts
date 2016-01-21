@@ -59,6 +59,7 @@ export const NPM_DEPENDENCIES = [
 export const APP_ASSETS = [
   { src: `${ASSETS_SRC}/js/ripples.min.js`, inject: true, dest: LIB_DEST },
   { src: `${ASSETS_SRC}/js/material.min.js`, inject: true, dest: LIB_DEST },
+  { src: `${ASSETS_SRC}/js/jquery-ui.min.js`, inject: true, dest: LIB_DEST },
   { src: `${ASSETS_SRC}/css/ripples.min.css`, inject: true, dest: CSS_DEST },
   { src: `${ASSETS_SRC}/css/style.css`, inject: true, dest: CSS_DEST }
 ];
