@@ -1,10 +1,12 @@
 import {Component, OnInit}            from 'angular2/core';
 
-import {ProtectedDirective}   from '../../directives/general/protected.directive';
+import {ProtectedDirective}           from '../../directives/general/protected.directive';
 
-import {AgentDetailComponent}       from './agent-detail.component';
-import {Agent} from '../../models/wrapper/agent.model';
-import {AgentService} from '../../services/agent/agent.service';
+import {AgentDetailComponent}         from './agent-detail.component';
+import {Agent}                        from '../../models/wrapper/agent.model';
+import {AgentService}                 from '../../services/agent/agent.service';
+
+declare var $;
 
 @Component({
   selector: 'agents',
@@ -12,6 +14,7 @@ import {AgentService} from '../../services/agent/agent.service';
   styleUrls: ['./components/agent/agents.component.css'],
   directives: [ProtectedDirective, AgentDetailComponent]
 })
+
 export class AgentsComponent implements OnInit {
   public agents: Array<Agent> = [];
   public agentsLoaded: boolean = false;
