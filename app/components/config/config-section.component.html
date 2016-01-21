@@ -1,0 +1,27 @@
+<div protected>
+  <div class="row">
+    <div class="col-md-12">
+      <div class="panel panel-default">
+        <div class="panel-heading" data-toggle="collapse" data-target="#content">#Type and name</div>
+        <div id="content" class="panel-collapse collapse">
+          <div class="panel-body" [ui-sortable]="_sortableOptions" [(ng-model)]="_valueStrings">
+              <div class="row border" *ngFor="#value of _valueStrings; #i = index">
+                <div class="col-md-3">
+                  <span>Option: {{_valueStrings[i]}}</span>
+                </div>
+                <div class="col-md-9">
+                  <input-field
+                    placeholder="Option"
+                    [(value)]="_values[value]"
+                    [completion-data]="_completion"
+                    (focus)="_onFocusChange(i)"
+                    (blur)="_onBlurChange(i)"></input-field>
+                </div>
+              </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    {{_values | json}}
+  </div>
+</div>
