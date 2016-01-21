@@ -20,9 +20,8 @@ import {
 declare var $;
 
 @Directive({
-  selector: '[ui-sortable]',
+  selector: '[ui-sortable]'
   // lifecycle: [onCheck],
-  properties: ['uiSortable', 'ngModel']
 })
 
 export class UiSortableComponent implements OnInit {
