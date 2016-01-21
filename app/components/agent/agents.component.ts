@@ -3,10 +3,12 @@ import {Component, OnInit}            from 'angular2/core';
 import {ProtectedDirective}           from '../../directives/general/protected.directive';
 
 import {AgentDetailComponent}         from './agent-detail.component';
+
+import {GlobalStorageService}         from '../../services/general/global-storage.service';
 import {AgentService}                 from '../../services/agent/agent.service';
 
 import {Agent}                        from '../../models/wrapper/agent.model';
-import {ToastModel}                    from '../../models/toast.model';
+import {ToastModel}                   from '../../models/toast.model';
 
 declare var $;
 
@@ -22,11 +24,12 @@ export class AgentsComponent implements OnInit {
   public agentsLoaded: boolean = false;
   public newAgent: Agent = new Agent({});
 
-  public constructor(private _agentService: AgentService) {}
+  public constructor(private _globalStorage: GlobalStorageService, private _agentService: AgentService) {}
 
   public ngOnInit(): void {
     this._agentService.getAgents().subscribe((agents) => {
       this.agents = agents;
+      this._globalStorage.agents = this.agents;
       if (this.agents !== null) {
         this.agentsLoaded = true;
       } else {
@@ -38,6 +41,7 @@ export class AgentsComponent implements OnInit {
   public onAddAgentSubmit(): void {
     this._agentService.addAgent(this.newAgent).subscribe((agent) => {
       this.agents.push(agent);
+      this._globalStorage.agents = this.agents;
       $('#add-agent-modal').modal('hide');
       this.newAgent = new Agent({});
     });
