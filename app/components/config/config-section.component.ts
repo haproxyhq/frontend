@@ -44,7 +44,13 @@ export class ConfigSectionComponent {
     }
   }
 
-  private _onBlurChange(index) {
-    console.log('hier' + index);
+  private _onBlurChange(i) {
+    if (this._values[this._valueStrings[i]] === '') {
+      console.log('remove because empty' + i);
+    }
+  }
+
+  private _removeField(index) {
+    console.log('remove ' + index);
   }
 }

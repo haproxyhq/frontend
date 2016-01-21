@@ -2,22 +2,43 @@
   <div class="row">
     <div class="col-md-12">
       <div class="panel panel-default">
-        <div class="panel-heading" data-toggle="collapse" data-target="#content">#Type and name</div>
+        <div class="panel-heading" data-toggle="collapse" data-target="#content">
+          <span><i class="material-icons">drag_handle</i></span>
+          <span>#Type and name</span>
+        </div>
         <div id="content" class="panel-collapse collapse">
-          <div class="panel-body" [ui-sortable]="_sortableOptions" [(ng-model)]="_valueStrings">
+          <div class="panel-body">
+            <div [ui-sortable]="_sortableOptions" [(ng-model)]="_valueStrings">
               <div class="row border" *ngFor="#value of _valueStrings; #i = index">
                 <div class="col-md-3">
                   <span>Option: {{_valueStrings[i]}}</span>
                 </div>
-                <div class="col-md-9">
-                  <input-field
-                    placeholder="Option"
-                    [(value)]="_values[value]"
-                    [completion-data]="_completion"
-                    (focus)="_onFocusChange(i)"
-                    (blur)="_onBlurChange(i)"></input-field>
+                <div class="col-md-12">
+                  <div class="row">
+                    <div class="col-md-1">
+                      <span><i class="material-icons">drag_handle</i></span>
+                    </div>
+                    <div class="col-md-10">
+                      <input-field
+                        placeholder="Option"
+                        [(value)]="_values[value]"
+                        [completion-data]="_completion"
+                        (focus)="_onFocusChange(i)"
+                        (blur)="_onBlurChange(i)"></input-field>
+                    </div>
+                    <template [ngIf]="i != (_valueStrings.length - 1)">
+                      <div class="col-md-1">
+                        <div class="pull-right">
+                          <span (click)="_removeField(i)">
+                            <i class="material-icons">highlight_off</i>
+                          </span>
+                        </div>
+                      </div>
+                    </template>
+                  </div>
                 </div>
               </div>
+            </div>
           </div>
         </div>
       </div>
