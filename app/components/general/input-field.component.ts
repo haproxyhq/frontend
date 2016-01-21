@@ -16,6 +16,8 @@ export class InputFieldComponent {
   @Input() required: boolean = false;
   @Input('completion-data') completion: Completion;
   @Output() valueChange = new EventEmitter();
+  @Output('focus') focusChange = new EventEmitter();
+  @Output('blur') blurChange = new EventEmitter();
 
   private _showCompletion = false;
   private _blurEnabled = true;
@@ -36,6 +38,12 @@ export class InputFieldComponent {
   }
 
   toggleCompletion(value: boolean) {
+    if (value) {
+      this.focusChange.next(true);
+    } else {
+      this.blurChange.next(true);
+    }
+
     if (this._blurEnabled) this._showCompletion = value;
   }
 
