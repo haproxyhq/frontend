@@ -13,7 +13,11 @@ import {CompletionSection}    from '../../models/wrapper/completion-section.mode
 @Pipe({name: 'filterCompletions'})
 export class FilterCompletionsPipe implements PipeTransform {
   transform(values: Array<CompletionSection>, args:string[]) : any {
-    return values.filter((item: CompletionSection) => {
+    return values.sort((a: CompletionSection, b: CompletionSection) => {
+      if ((a.keyword + a.params) < (b.keyword + b.params)) return -1;
+      if ((a.keyword + a.params) > (b.keyword + b.params)) return 1;
+      return 0;
+    }).filter((item: CompletionSection) => {
       let keywordStartsWith: boolean = item.keyword.startsWith(args[0]);
       let searchStartsWith: boolean = args[0].startsWith(item.keyword);
 
