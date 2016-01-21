@@ -1,8 +1,8 @@
-import {Component, Input}            from 'angular2/core';
+import {Component, Input}   from 'angular2/core';
 
-import {Agent} from '../../models/wrapper/agent.model';
+import {Agent}              from '../../models/wrapper/agent.model';
 
-import {AbcIconComponent} from '../abc-icon/abc-icon.component';
+import {AbcIconComponent}   from '../general/abc-icon.component';
 
 @Component({
   selector: 'agent-detail',
