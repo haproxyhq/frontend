@@ -20,9 +20,9 @@ import {Completion}                   from '../../models/wrapper/completion.mode
 
 export class ConfigSectionComponent {
   private _completion: Completion;
-  private _valueStrings: Array<string> = ['value0'];
+  private _valueStrings: Array<number> = [0];
   private _values = {
-    value0: ''
+    0: ''
   };
 
   private _sortableOptions: Object;
@@ -31,26 +31,68 @@ export class ConfigSectionComponent {
     this._completion = this._globalStorage.completions[0];
     let that = this;
     this._sortableOptions = {
-      stop: function(e, v) {
+      /**
+      * the callback stop function for the sortable action
+      * @param e the event fired
+      * @param s the sortable object
+      **/
+      stop: function(e, s): void {
+        that._valueStrings.forEach((elem, index, array) => {
+          if (index !== (array.length - 1)) that._removeFieldIfEmpty(index);
+        });
+        if (that._values[that._valueStrings.slice(-1)[0]] !== '') that._addBlankField();
         that._ref.detectChanges();
       }
     };
   }
 
-  private _onFocusChange(index) {
-    if (index === this._valueStrings.length - 1) {
-      this._values['value' + (index + 1)] = '';
-      this._valueStrings.push('value' + (index + 1));
+  /**
+  * adds a new blank field, if the focused input is the last one
+  * @param i the index of the focused input
+  **/
+  private _onFocusChange(i: number): void {
+    let key = this._valueStrings[i];
+    if (key === this._valueStrings.slice(-1)[0]) {
+      this._addBlankField();
     }
   }
 
-  private _onBlurChange(i) {
-    if (this._values[this._valueStrings[i]] === '') {
-      console.log('remove because empty' + i);
+  /**
+  * removes the field if it is empty
+  * @param i the index of the
+  **/
+  private _onBlurChange(i: number): void {
+    this._removeFieldIfEmpty(i);
+  }
+
+  /**
+  * removes the specific item
+  * @param i the index of the key in the _valueStrings array
+  **/
+  private _removeField(i: number): void {
+    let key = this._valueStrings[i];
+    this._valueStrings.splice(i, 1);
+    delete this._values[key];
+  }
+
+  /**
+  * removes the specific item if the value for the key at this index is empty
+  * @param i the index of the element in _valueStrings to check
+  **/
+  private _removeFieldIfEmpty(i: number): void {
+    let key = this._valueStrings[i];
+    if (this._values[key] === '') {
+      this._removeField(i);
     }
   }
 
-  private _removeField(index) {
-    console.log('remove ' + index);
+  /**
+  * adds a blank value to the end of the list
+  **/
+  private _addBlankField(): void {
+    let sortedCopy = JSON.parse(JSON.stringify(this._valueStrings)).sort();
+    let key = sortedCopy.slice(-1)[0];
+    this._values[key + 1] = '';
+    this._valueStrings.push(key + 1);
   }
 }
