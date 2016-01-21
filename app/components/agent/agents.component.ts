@@ -3,8 +3,10 @@ import {Component, OnInit}            from 'angular2/core';
 import {ProtectedDirective}           from '../../directives/general/protected.directive';
 
 import {AgentDetailComponent}         from './agent-detail.component';
-import {Agent}                        from '../../models/wrapper/agent.model';
 import {AgentService}                 from '../../services/agent/agent.service';
+
+import {Agent}                        from '../../models/wrapper/agent.model';
+import {ToastModel}                    from '../../models/toast.model';
 
 declare var $;
 
@@ -25,7 +27,11 @@ export class AgentsComponent implements OnInit {
   public ngOnInit(): void {
     this._agentService.getAgents().subscribe((agents) => {
       this.agents = agents;
-      this.agentsLoaded = true;
+      if (this.agents !== null) {
+        this.agentsLoaded = true;
+      } else {
+        $.snackbar(new ToastModel('Loading Agents failed'));
+      }
     });
   }
 
