@@ -1,4 +1,4 @@
-import {Component,ChangeDetectorRef, ChangeDetectionStrategy}  from 'angular2/core';
+import {Component,ChangeDetectorRef, ChangeDetectionStrategy, Input}  from 'angular2/core';
 
 import {InputFieldComponent}          from '../general/input-field.component';
 
@@ -9,6 +9,7 @@ import {ProtectedDirective}           from '../../directives/general/protected.d
 import {UiSortableComponent}          from '../../directives/general/ui-sortable.directive';
 
 import {Completion}                   from '../../models/wrapper/completion.model';
+import {ConfigSection}                from '../../models/wrapper/config-section.model';
 import {Config}                       from '../../models/wrapper/config.model';
 
 @Component({
@@ -20,11 +21,15 @@ import {Config}                       from '../../models/wrapper/config.model';
 })
 
 export class ConfigSectionComponent {
+  @Input() config: Config;
+
   private _completion: Completion;
   private _valueStrings: Array<number> = [0];
   private _values = {
     0: ''
   };
+  private _type: string;
+  private _name: string = '';
 
   private _sortableOptions: Object;
 
@@ -103,11 +108,27 @@ export class ConfigSectionComponent {
   **/
   private _transformToConfig(): Config {
     let plainConfig = {
+      section: {},
       values: []
     };
     this._valueStrings.forEach((key) => {
       plainConfig.values.push(this._values[key]);
     });
+    plainConfig.section = new ConfigSection(this._name, this._type);
     return new Config(plainConfig);
+  }
+
+  /**
+  * parses the @Input() field to the internal structure
+  **/
+  private _parseConfig() {
+    if (this.config !== null) {
+      this.config.values.forEach((value, index, array) => {
+        this._valueStrings.push(index);
+        this._values[index] = value;
+      });
+      this._name = this.config.section.name;
+      this._type = this.config.section.type;
+    }
   }
 }

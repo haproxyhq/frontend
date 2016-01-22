@@ -8,33 +8,62 @@
         </div>
         <div id="content" class="panel-collapse collapse">
           <div class="panel-body">
-            <div [ui-sortable]="_sortableOptions" [(ng-model)]="_valueStrings">
-              <div class="row border" *ngFor="#value of _valueStrings; #i = index">
-                <div class="col-md-3">
-                  <span>Option: {{_valueStrings[i]}}</span>
+            <div class="row">
+              <div class="col-md-2">
+                <div class="row">
+                  <label for="type-select" class="col-md-3 control-label">Type</label>
+                  <div class="col-md-9 type-select">
+                    <select id="type-select" class="form-control" [(ngModel)]="_type">
+                      <option>global</option>
+                      <option>defaults</option>
+                      <option>backend</option>
+                      <option>frontend</option>
+                      <option>listen</option>
+                    </select>
+                  </div>
                 </div>
-                <div class="col-md-12">
-                  <div class="row">
-                    <div class="col-md-1">
-                      <span><i class="material-icons">drag_handle</i></span>
+              </div>
+              <div class="col-md-9">
+                <div class="row">
+                  <input-field
+                    placeholder="Name"
+                    [(name)]="_name"></input-field>
+                </div>
+              </div>
+              <div class="col-md-1">
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-md-12">
+                <div [ui-sortable]="_sortableOptions" [(ng-model)]="_valueStrings">
+                  <div class="row border" *ngFor="#value of _valueStrings; #i = index">
+                    <div class="col-md-3">
+                      <span>Option: {{_valueStrings[i]}}</span>
                     </div>
-                    <div class="col-md-10">
-                      <input-field
-                        placeholder="Option"
-                        [(value)]="_values[value]"
-                        [completion-data]="_completion"
-                        (focus)="_onFocusChange(i)"
-                        (blur)="_onBlurChange(i)"></input-field>
-                    </div>
-                    <template [ngIf]="i != (_valueStrings.length - 1)">
-                      <div class="col-md-1">
-                        <div class="pull-right">
-                          <span (click)="_removeField(i)">
-                            <i class="material-icons">highlight_off</i>
-                          </span>
+                    <div class="col-md-12">
+                      <div class="row">
+                        <div class="col-md-1">
+                          <span><i class="material-icons">drag_handle</i></span>
+                        </div>
+                        <div class="col-md-10">
+                          <input-field
+                            placeholder="Option"
+                            [(value)]="_values[value]"
+                            [completion-data]="_completion"
+                            (focus)="_onFocusChange(i)"
+                            (blur)="_onBlurChange(i)"></input-field>
+                        </div>
+                        <div class="col-md-1">
+                          <template [ngIf]="i != (_valueStrings.length - 1)">
+                            <div class="pull-right">
+                              <span (click)="_removeField(i)">
+                                <i class="material-icons">highlight_off</i>
+                              </span>
+                            </div>
+                          </template>
                         </div>
                       </div>
-                    </template>
+                    </div>
                   </div>
                 </div>
               </div>
@@ -45,5 +74,6 @@
     </div>
     <p>{{_valueStrings | json}}</p>
     <p>{{_values | json}}</p>
+    <p>{{_type}}</p>
   </div>
 </div>
