@@ -9,6 +9,7 @@ import {ProtectedDirective}           from '../../directives/general/protected.d
 import {UiSortableComponent}          from '../../directives/general/ui-sortable.directive';
 
 import {Completion}                   from '../../models/wrapper/completion.model';
+import {Config}                       from '../../models/wrapper/config.model';
 
 @Component({
   selector: 'config-section',
@@ -94,5 +95,19 @@ export class ConfigSectionComponent {
     let key = sortedCopy.slice(-1)[0];
     this._values[key + 1] = '';
     this._valueStrings.push(key + 1);
+  }
+
+  /**
+  * transforms the plain value object to an config object
+  * @return returns a new Config instance
+  **/
+  private _transformToConfig(): Config {
+    let plainConfig = {
+      values: []
+    };
+    this._valueStrings.forEach((key) => {
+      plainConfig.values.push(this._values[key]);
+    });
+    return new Config(plainConfig);
   }
 }
