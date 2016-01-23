@@ -47,7 +47,7 @@ export class ConfigSectionComponent implements OnInit {
       **/
       stop: function(e, s): void {
         that._valueStrings.forEach((elem, index, array) => {
-          if (index !== (array.length - 1)) that._removeFieldIfEmpty(index);
+          if (index !== (array.length - 1)) that._removeFieldIfEmpty(elem);
         });
         if (that._values[that._valueStrings.slice(-1)[0]] !== '') that._addBlankField();
         that.configSectionEvent.next(that._transformToConfigSection());
