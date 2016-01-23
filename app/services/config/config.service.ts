@@ -13,7 +13,7 @@ export class ConfigService {
 
   /**
   * gets all configs from the backend
-  * @return EventEmitter<ConfigHolder>
+  * @return EventEmitter<Config>
   **/
   public getConfigs(): EventEmitter<Array<Config>> {
     var event: EventEmitter<Array<Config>> = new EventEmitter();
