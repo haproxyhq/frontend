@@ -108,13 +108,17 @@ export class ConfigSectionComponent {
   **/
   private _transformToConfig(): Config {
     let plainConfig = {
-      section: {},
+      section: {
+        name: '',
+        type: ''
+      },
       values: []
     };
     this._valueStrings.forEach((key) => {
       plainConfig.values.push(this._values[key]);
     });
-    plainConfig.section = new ConfigSection(this._name, this._type);
+    plainConfig.section.name = this._name;
+    plainConfig.section.type = this._type;
     return new Config(plainConfig);
   }
 
