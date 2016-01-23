@@ -10,12 +10,12 @@ export class ConfigHolder extends RestWrapperModel {
   }
 
   protected transformPlainObject(plainObject :any): void {
-    plainObject.config.forEach((config, index, array) => {
+    plainObject.forEach((config, index, array) => {
       this.config.push(new Config(config));
     });
   }
 
   public getRestModel(): Object {
-    return this._transformToPOJO('name', 'description', 'ip', 'version');
+    return null;
   }
 }
