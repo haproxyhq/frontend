@@ -14,11 +14,7 @@
                   <label for="type-select" class="col-md-3 control-label">Type</label>
                   <div class="col-md-9 type-select">
                     <select id="type-select" class="form-control" [ngModel]="_type" (ngModelChange)="_valueChange('_type', $event)">
-                      <option>global</option>
-                      <option>defaults</option>
-                      <option>backend</option>
-                      <option>frontend</option>
-                      <option>listen</option>
+                      <option *ngFor="#type of types; #i = index">{{type}}</option>
                     </select>
                   </div>
                 </div>

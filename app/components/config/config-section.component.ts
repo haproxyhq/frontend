@@ -1,4 +1,4 @@
-import {Component,ChangeDetectorRef, ChangeDetectionStrategy, Input, Output, EventEmitter}  from 'angular2/core';
+import {Component,ChangeDetectorRef, ChangeDetectionStrategy, Input, Output, EventEmitter, OnInit}  from 'angular2/core';
 
 import {InputFieldComponent}          from '../general/input-field.component';
 
@@ -20,16 +20,17 @@ import {ConfigTypeSection}            from '../../models/wrapper/config-type-sec
   directives: [ProtectedDirective, UiSortableComponent, InputFieldComponent]
 })
 
-export class ConfigSectionComponent {
+export class ConfigSectionComponent implements OnInit {
   @Input() completion: Completion;
+  @Input() types: Array<string>;
   @Input('section') configSection: ConfigSection;
-  @Output('section') configSectionEvent = new EventEmitter();
+  @Output('sectionChange') configSectionEvent = new EventEmitter();
 
   private _valueStrings: Array<number> = [0];
   private _values = {
     0: ''
   };
-  private _type: string = 'global';
+  private _type: string = '';
   private _name: string = '';
 
   private _sortableOptions: Object;
@@ -51,6 +52,10 @@ export class ConfigSectionComponent {
         that._ref.detectChanges();
       }
     };
+  }
+
+  ngOnInit() {
+    this._parseConfig();
   }
 
   /**
@@ -147,12 +152,14 @@ export class ConfigSectionComponent {
   **/
   private _parseConfig() {
     if (this.configSection !== null) {
+      this._valueStrings = [];
       this.configSection.values.forEach((value, index, array) => {
         this._valueStrings.push(index);
         this._values[index] = value;
       });
       this._name = this.configSection.section.name;
       this._type = this.configSection.section.type;
+      this._addBlankField();
     }
   }
 }
