@@ -56,8 +56,8 @@ export class ConfigEditComponent implements OnInit {
   **/
   private _sectionChange(key, value) {
     this._sections[key] = value;
-    this._ref.detectChanges();
     this.configChange.next(this._transformToConfig());
+    this._ref.detectChanges();
   }
 
   /**
