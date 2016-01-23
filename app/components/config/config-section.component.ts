@@ -62,8 +62,7 @@ export class ConfigSectionComponent implements OnInit {
   * adds a new blank field, if the focused input is the last one
   * @param i the index of the focused input
   **/
-  private _onFocusChange(i: number): void {
-    let key = this._valueStrings[i];
+  private _onFocusChange(key: number): void {
     if (key === this._valueStrings.slice(-1)[0]) {
       this._addBlankField();
     }
@@ -89,16 +88,16 @@ export class ConfigSectionComponent implements OnInit {
   * removes the field if it is empty
   * @param i the index of the
   **/
-  private _onBlurChange(i: number): void {
-    this._removeFieldIfEmpty(i);
+  private _onBlurChange(key: number): void {
+    this._removeFieldIfEmpty(key);
   }
 
   /**
   * removes the specific item
   * @param i the index of the key in the _valueStrings array
   **/
-  private _removeField(i: number): void {
-    let key = this._valueStrings[i];
+  private _removeField(key: number): void {
+    var i = this._valueStrings.indexOf(key, 0);
     this._valueStrings.splice(i, 1);
     delete this._values[key];
     this.configSectionEvent.next(this._transformToConfigSection());
@@ -108,10 +107,9 @@ export class ConfigSectionComponent implements OnInit {
   * removes the specific item if the value for the key at this index is empty
   * @param i the index of the element in _valueStrings to check
   **/
-  private _removeFieldIfEmpty(i: number): void {
-    let key = this._valueStrings[i];
+  private _removeFieldIfEmpty(key: number): void {
     if (this._values[key] === '') {
-      this._removeField(i);
+      this._removeField(key);
     }
   }
 
