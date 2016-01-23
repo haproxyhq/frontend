@@ -4,7 +4,16 @@
       <div class="panel panel-default" #parentDiv>
         <div class="panel-heading" (click)="_toggleCollapse(parentDiv)">
           <span><i class="material-icons">drag_handle</i></span>
-          <span>#Type and name</span>
+          <span class="header-text">
+            <template [ngIf]="_type != ''">
+              <span class="header-type">{{_type}} </span>
+              <span class="header-name">{{_name}}</span>
+            </template>
+            <template [ngIf]="_type == ''">
+              <span class="header-type placeholder">Type </span>
+              <span class="header-name placeholder">&lt;name&gt;</span>
+            </template>
+          </span>
         </div>
         <div class="panel-collapse collapse">
           <div class="panel-body">
@@ -70,9 +79,5 @@
         </div>
       </div>
     </div>
-    <p>{{_valueStrings | json}}</p>
-    <p>{{_values | json}}</p>
-    <p>{{_type}}</p>
-    <p>{{_name}}</p>
   </div>
 </div>
