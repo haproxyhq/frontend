@@ -21,9 +21,9 @@ import {ConfigTypeSection}            from '../../models/wrapper/config-type-sec
 })
 
 export class ConfigSectionComponent {
+  @Input() completion: Completion;
   @Input('section') configSection: ConfigSection;
   @Output('section') configSectionEvent = new EventEmitter();
-  @Input() completion: Completion;
 
   private _valueStrings: Array<number> = [0];
   private _values = {
