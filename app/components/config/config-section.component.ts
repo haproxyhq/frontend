@@ -12,6 +12,8 @@ import {Completion}                   from '../../models/wrapper/completion.mode
 import {ConfigSection}                from '../../models/wrapper/config-section.model';
 import {ConfigTypeSection}            from '../../models/wrapper/config-type-section.model';
 
+declare var $;
+
 @Component({
   selector: 'config-section',
   changeDetection: ChangeDetectionStrategy.Default,
@@ -56,6 +58,14 @@ export class ConfigSectionComponent implements OnInit {
 
   ngOnInit() {
     this._parseConfigSection();
+  }
+
+  /**
+  * toggles the panel body
+  * Information: need to do this with jQuery because bootstrap always selects the first instance of config-section
+  **/
+  private _toggleCollapse(parentDiv) {
+    $(parentDiv).find('.collapse').collapse('toggle');
   }
 
   /**

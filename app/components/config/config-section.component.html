@@ -1,12 +1,12 @@
 <div protected>
   <div class="row">
     <div class="col-md-12">
-      <div class="panel panel-default">
-        <div class="panel-heading" data-toggle="collapse" data-target="#content">
+      <div class="panel panel-default" #parentDiv>
+        <div class="panel-heading" (click)="_toggleCollapse(parentDiv)">
           <span><i class="material-icons">drag_handle</i></span>
           <span>#Type and name</span>
         </div>
-        <div id="content" class="panel-collapse collapse">
+        <div class="panel-collapse collapse">
           <div class="panel-body">
             <div class="row">
               <div class="col-md-2">
