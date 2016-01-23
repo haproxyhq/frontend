@@ -55,7 +55,7 @@ export class ConfigSectionComponent implements OnInit {
   }
 
   ngOnInit() {
-    this._parseConfig();
+    this._parseConfigSection();
   }
 
   /**
@@ -150,7 +150,7 @@ export class ConfigSectionComponent implements OnInit {
   /**
   * parses the @Input() field to the internal structure
   **/
-  private _parseConfig() {
+  private _parseConfigSection() {
     if (this.configSection !== null) {
       this._valueStrings = [];
       this.configSection.values.forEach((value, index, array) => {
