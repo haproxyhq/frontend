@@ -4,7 +4,7 @@ import {Response}                 from 'angular2/http';
 import {CustomHttpService}        from '../../services/general/custom-http.service';
 
 import {Agent}                    from '../../models/wrapper/agent.model';
-import {EmptyRestModel} from '../../models/empty-rest.model';
+import {EmptyRestModel}           from '../../models/empty-rest.model';
 
 @Injectable()
 export class AgentService {
