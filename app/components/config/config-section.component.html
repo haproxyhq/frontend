@@ -13,7 +13,7 @@
                 <div class="row">
                   <label for="type-select" class="col-md-3 control-label">Type</label>
                   <div class="col-md-9 type-select">
-                    <select id="type-select" class="form-control" [(ngModel)]="_type">
+                    <select id="type-select" class="form-control" [ngModel]="_type" (ngModelChange)="_valueChange('_type', $event)">
                       <option>global</option>
                       <option>defaults</option>
                       <option>backend</option>
@@ -27,7 +27,8 @@
                 <div class="row">
                   <input-field
                     placeholder="Name"
-                    [(name)]="_name"></input-field>
+                    [value]="_name"
+                    (valueChange)="_valueChange('_name', $event)"></input-field>
                 </div>
               </div>
               <div class="col-md-1">
@@ -48,7 +49,8 @@
                         <div class="col-md-10">
                           <input-field
                             placeholder="Option"
-                            [(value)]="_values[value]"
+                            [value]="_values[value]"
+                            (valueChange)="_inputChange(value, $event)"
                             [completion-data]="_completion"
                             (focus)="_onFocusChange(i)"
                             (blur)="_onBlurChange(i)"></input-field>
@@ -75,5 +77,6 @@
     <p>{{_valueStrings | json}}</p>
     <p>{{_values | json}}</p>
     <p>{{_type}}</p>
+    <p>{{_name}}</p>
   </div>
 </div>

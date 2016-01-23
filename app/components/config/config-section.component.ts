@@ -1,4 +1,4 @@
-import {Component,ChangeDetectorRef, ChangeDetectionStrategy, Input}  from 'angular2/core';
+import {Component,ChangeDetectorRef, ChangeDetectionStrategy, Input, Output, EventEmitter}  from 'angular2/core';
 
 import {InputFieldComponent}          from '../general/input-field.component';
 
@@ -21,14 +21,15 @@ import {ConfigTypeSection}            from '../../models/wrapper/config-type-sec
 })
 
 export class ConfigSectionComponent {
-  @Input() config: ConfigSection;
+  @Input('section') configSection: ConfigSection;
+  @Output('section') configSectionEvent = new EventEmitter();
 
   private _completion: Completion;
   private _valueStrings: Array<number> = [0];
   private _values = {
     0: ''
   };
-  private _type: string;
+  private _type: string = 'global';
   private _name: string = '';
 
   private _sortableOptions: Object;
@@ -47,6 +48,7 @@ export class ConfigSectionComponent {
           if (index !== (array.length - 1)) that._removeFieldIfEmpty(index);
         });
         if (that._values[that._valueStrings.slice(-1)[0]] !== '') that._addBlankField();
+        that.configSectionEvent.next(that._transformToConfigSection());
         that._ref.detectChanges();
       }
     };
@@ -61,6 +63,22 @@ export class ConfigSectionComponent {
     if (key === this._valueStrings.slice(-1)[0]) {
       this._addBlankField();
     }
+  }
+
+  /**
+  * react to a value change
+  **/
+  private _valueChange(fieldKey, value) {
+    this[fieldKey] = value;
+    this.configSectionEvent.next(this._transformToConfigSection());
+  }
+
+  /**
+  * react to a value change in an input
+  **/
+  private _inputChange(key, value) {
+    this._values[key] = value;
+    this.configSectionEvent.next(this._transformToConfigSection());
   }
 
   /**
@@ -79,6 +97,7 @@ export class ConfigSectionComponent {
     let key = this._valueStrings[i];
     this._valueStrings.splice(i, 1);
     delete this._values[key];
+    this.configSectionEvent.next(this._transformToConfigSection());
   }
 
   /**
@@ -106,7 +125,7 @@ export class ConfigSectionComponent {
   * transforms the plain value object to an config section object
   * @return returns a new ConfigSection instance
   **/
-  private _transformToConfig(): ConfigSection {
+  private _transformToConfigSection(): ConfigSection {
     let plainConfig = {
       section: {
         name: '',
@@ -115,7 +134,9 @@ export class ConfigSectionComponent {
       values: []
     };
     this._valueStrings.forEach((key) => {
-      plainConfig.values.push(this._values[key]);
+      if (this._values[key] !== '') {
+        plainConfig.values.push(this._values[key]);
+      }
     });
     plainConfig.section.name = this._name;
     plainConfig.section.type = this._type;
@@ -126,13 +147,13 @@ export class ConfigSectionComponent {
   * parses the @Input() field to the internal structure
   **/
   private _parseConfig() {
-    if (this.config !== null) {
-      this.config.values.forEach((value, index, array) => {
+    if (this.configSection !== null) {
+      this.configSection.values.forEach((value, index, array) => {
         this._valueStrings.push(index);
         this._values[index] = value;
       });
-      this._name = this.config.section.name;
-      this._type = this.config.section.type;
+      this._name = this.configSection.section.name;
+      this._type = this.configSection.section.type;
     }
   }
 }
