@@ -23,8 +23,8 @@ import {ConfigTypeSection}            from '../../models/wrapper/config-type-sec
 export class ConfigSectionComponent {
   @Input('section') configSection: ConfigSection;
   @Output('section') configSectionEvent = new EventEmitter();
+  @Input() completion: Completion;
 
-  private _completion: Completion;
   private _valueStrings: Array<number> = [0];
   private _values = {
     0: ''
@@ -34,8 +34,7 @@ export class ConfigSectionComponent {
 
   private _sortableOptions: Object;
 
-  constructor(private _ref: ChangeDetectorRef, private _globalStorage: GlobalStorageService) {
-    this._completion = this._globalStorage.completions[0];
+  constructor(private _ref: ChangeDetectorRef) {
     let that = this;
     this._sortableOptions = {
       /**

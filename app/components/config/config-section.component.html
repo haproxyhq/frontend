@@ -51,7 +51,7 @@
                             placeholder="Option"
                             [value]="_values[value]"
                             (valueChange)="_inputChange(value, $event)"
-                            [completion-data]="_completion"
+                            [completion-data]="completion"
                             (focus)="_onFocusChange(i)"
                             (blur)="_onBlurChange(i)"></input-field>
                         </div>
