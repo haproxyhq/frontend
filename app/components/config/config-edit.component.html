@@ -1,0 +1,15 @@
+<div protected>
+  <div class="row">
+    <div class="col-md-12">
+      <div [ui-sortable]="_sortableOptions" [(ng-model)]="_sectionHelper">
+        <div *ngFor="#sectionKey of _sectionHelper; #i = index">
+          <config-section
+            [section]="_sections[sectionKey]"
+            (sectionChange)="_sectionChange(sectionKey, $event)"
+            [types]="types"
+            [completion]="_completion"></config-section>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
