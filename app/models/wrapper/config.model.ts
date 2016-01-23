@@ -2,8 +2,7 @@ import {RestWrapperModel}     from './rest-wrapper.model';
 import {ConfigSection}        from './config-section.model';
 
 export class Config extends RestWrapperModel {
-  public section: ConfigSection;
-  public values: Array<String> = [];
+  public config: Array<ConfigSection> = [];
 
   constructor(plainObject: any) {
     super();
@@ -11,11 +10,12 @@ export class Config extends RestWrapperModel {
   }
 
   protected transformPlainObject(plainObject :any): void {
-    this.section = new ConfigSection(plainObject.section.name, plainObject.section.type);
-    this.values = plainObject.values;
+    plainObject.config.forEach((configSection, index, array) => {
+      this.config.push(new ConfigSection(configSection));
+    });
   }
 
   public getRestModel(): Object {
-    return this._transformToPOJO('section', 'valus');
+    return this._transformToPOJO('config');
   }
 }

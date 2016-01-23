@@ -10,7 +10,7 @@ import {UiSortableComponent}          from '../../directives/general/ui-sortable
 
 import {Completion}                   from '../../models/wrapper/completion.model';
 import {ConfigSection}                from '../../models/wrapper/config-section.model';
-import {Config}                       from '../../models/wrapper/config.model';
+import {ConfigTypeSection}            from '../../models/wrapper/config-type-section.model';
 
 @Component({
   selector: 'config-section',
@@ -21,7 +21,7 @@ import {Config}                       from '../../models/wrapper/config.model';
 })
 
 export class ConfigSectionComponent {
-  @Input() config: Config;
+  @Input() config: ConfigSection;
 
   private _completion: Completion;
   private _valueStrings: Array<number> = [0];
@@ -103,10 +103,10 @@ export class ConfigSectionComponent {
   }
 
   /**
-  * transforms the plain value object to an config object
-  * @return returns a new Config instance
+  * transforms the plain value object to an config section object
+  * @return returns a new ConfigSection instance
   **/
-  private _transformToConfig(): Config {
+  private _transformToConfig(): ConfigSection {
     let plainConfig = {
       section: {
         name: '',
@@ -119,7 +119,7 @@ export class ConfigSectionComponent {
     });
     plainConfig.section.name = this._name;
     plainConfig.section.type = this._type;
-    return new Config(plainConfig);
+    return new ConfigSection(plainConfig);
   }
 
   /**
