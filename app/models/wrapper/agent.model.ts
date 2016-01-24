@@ -18,7 +18,7 @@ export class Agent extends RestWrapperModel {
 
   protected transformPlainObject(plainObject :any): void {
     if (Object.keys(plainObject).length) {
-      this.configHolder = new Config(plainObject.configHolder);
+      if (plainObject.configHolder != null) this.configHolder = new Config(plainObject.configHolder);
       this._transformFromPOJO(plainObject, 'name', 'description', 'ip', 'version');
     }
   }
