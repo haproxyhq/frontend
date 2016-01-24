@@ -2,7 +2,7 @@
   <div class="fab bottom right" data-toggle="modal" data-target="#add-agent-modal">
     <a class="btn btn-primary btn-fab"><i class="material-icons">add</i></a>
   </div>
-  <div class="container">
+  <div class="agents-container">
     <template [ngIf]="agentsLoaded">
       <template [ngIf]="agents.length === 0">
         <div class="row">
@@ -17,7 +17,7 @@
       </template>
       <template [ngIf]="agents.length !== 0">
         <div class="row">
-          <div *ngFor="#agent of agents" class="col-md-6 agent-detail">
+          <div *ngFor="#agent of agents" class="col-md-3 col-sx-3 agent-detail">
             <agent-detail [agent]="agent"></agent-detail>
           </div>
         </div>
