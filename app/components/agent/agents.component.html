@@ -17,7 +17,7 @@
       </template>
       <template [ngIf]="agents.length !== 0">
         <div class="row">
-          <div *ngFor="#agent of agents" class="col-md-6 col-sx-12">
+          <div *ngFor="#agent of agents" class="col-md-6 agent-detail">
             <agent-detail [agent]="agent"></agent-detail>
           </div>
         </div>
