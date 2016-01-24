@@ -3,7 +3,7 @@
     <div class="col-md-12">
       <div class="panel panel-default" #parentDiv>
         <div class="panel-heading" (click)="_toggleCollapse(parentDiv)">
-          <span><i class="material-icons">drag_handle</i></span>
+          <span class="drag-icon-head-span"><i class="material-icons drag-icon-head">drag_handle</i></span>
           <span class="header-text">
             <template [ngIf]="_type != ''">
               <span class="header-type">{{_type}} </span>
