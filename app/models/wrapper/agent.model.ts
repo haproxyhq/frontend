@@ -1,4 +1,5 @@
 import {RestWrapperModel} from './rest-wrapper.model';
+import {Config}           from './config.model';
 
 /**
  * this model wraps the data for a Agent returned by the backend
@@ -8,6 +9,7 @@ export class Agent extends RestWrapperModel {
   public description: string;
   public ip: string;
   public version: string;
+  public configHolder: Config;
 
   constructor(plainObject: any) {
     super();
@@ -15,7 +17,10 @@ export class Agent extends RestWrapperModel {
   }
 
   protected transformPlainObject(plainObject :any): void {
-    return this._transformFromPOJO(plainObject, 'name', 'description', 'ip', 'version');
+    if (Object.keys(plainObject).length) {
+      this.configHolder = new Config(plainObject.configHolder);
+      this._transformFromPOJO(plainObject, 'name', 'description', 'ip', 'version');
+    }
   }
 
   public getRestModel(): Object {
