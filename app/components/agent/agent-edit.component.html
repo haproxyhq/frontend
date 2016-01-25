@@ -1,0 +1,19 @@
+<div protected>
+  <template [ngIf]="_agent != null">
+    <div class="container">
+      <div class="row">
+        <div class="col-md-4">
+          <div class="panel-default panel">
+          </div>
+        </div>
+        <div class="col-md-8">
+          <config-edit
+            [(config)]="_agent.configHolder"
+            [completion]="_completion"
+            [types]="_types">
+          </config-edit>
+        </div>
+      </div>
+    </div>
+  </template>
+</div>
