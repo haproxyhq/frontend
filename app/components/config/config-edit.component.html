@@ -4,7 +4,7 @@
       <div [ui-sortable]="_sortableOptions" [(ng-model)]="_sectionHelper">
         <div *ngFor="#sectionKey of _sectionHelper; #i = index">
           <config-section
-            [section]="_sections[sectionKey]"
+            [section-emitter]="_configSectionEmitter[sectionKey]"
             (sectionChange)="_sectionChange(sectionKey, $event)"
             [types]="types"
             [completion]="completion"></config-section>

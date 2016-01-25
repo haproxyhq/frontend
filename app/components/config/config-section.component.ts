@@ -25,8 +25,10 @@ declare var $;
 export class ConfigSectionComponent implements OnInit {
   @Input() completion: Completion;
   @Input() types: Array<string>;
-  @Input('section') configSection: ConfigSection;
+  @Input('section-emitter') configSectionEmitter: EventEmitter<ConfigSection>;
   @Output('sectionChange') configSectionEvent = new EventEmitter();
+
+  private _configSection: ConfigSection;
 
   private _valueStrings: Array<number> = [0];
   private _values = {
@@ -57,7 +59,10 @@ export class ConfigSectionComponent implements OnInit {
   }
 
   ngOnInit() {
-    this._parseConfigSection();
+    this.configSectionEmitter.subscribe((configSection) => {
+      this._configSection = configSection;
+      this._parseConfigSection();
+    });
   }
 
   /**
@@ -159,14 +164,14 @@ export class ConfigSectionComponent implements OnInit {
   * parses the @Input() field to the internal structure
   **/
   private _parseConfigSection() {
-    if (this.configSection !== null) {
+    if (this._configSection !== null) {
       this._valueStrings = [];
-      this.configSection.values.forEach((value, index, array) => {
+      this._configSection.values.forEach((value, index, array) => {
         this._valueStrings.push(index);
         this._values[index] = value;
       });
-      this._name = this.configSection.section.name;
-      this._type = this.configSection.section.type;
+      this._name = this._configSection.section.name;
+      this._type = this._configSection.section.type;
       this._addBlankField();
     }
   }
