@@ -25,6 +25,7 @@ declare var $;
 export class AgentsComponent implements OnInit {
   public agents: Array<Agent> = [];
   public schemas: Array<Schema> = [];
+  public selectedSchema: number = -1;
   public agentsLoaded: boolean = false;
   public schemasLoaded: boolean = false;
   public newAgent: Agent = new Agent({});
@@ -47,7 +48,6 @@ export class AgentsComponent implements OnInit {
     this._schemaService.getSchemas().subscribe((schemas) => {
       this.schemas = schemas;
       this._globalStorage.schemas = this.schemas;
-      console.log(this._globalStorage.schemas);
       if (this.schemas !== null) {
         this.schemasLoaded = true;
       } else {
@@ -57,6 +57,11 @@ export class AgentsComponent implements OnInit {
   }
 
   public onAddAgentSubmit(): void {
+    if(this.selectedSchema !== -1) {
+      this.newAgent.configHolder = this.schemas[this.selectedSchema].getConfigHolder();
+    } else {
+      this.newAgent.configHolder = null;
+    }
     this._agentService.addAgent(this.newAgent).subscribe((agent) => {
       this.agents.push(agent);
       this._globalStorage.agents = this.agents;

@@ -22,6 +22,10 @@ export class Schema extends RestWrapperModel {
     if (plainObject.configHolder !== null && plainObject.configHolder !== undefined) {
       this.configHolder = new Config(plainObject.configHolder);
     }
-    this._transformFromPOJO(plainObject, 'id', 'name', 'description');
+    this._transformFromPOJO(plainObject, 'name', 'description');
+  }
+
+  public getConfigHolder(): Config {
+    return this.configHolder;
   }
 }
