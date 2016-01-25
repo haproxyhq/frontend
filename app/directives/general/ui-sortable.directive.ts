@@ -33,7 +33,7 @@ export class UiSortableComponent implements OnInit {
   };
 
   @Input('ui-sortable') options: Object;
-  @Input('ng-model') inputModel: Array<any>;
+  @Input('ng-model') model: Array<any>;
   @Output('ng-model') onModelChange = new EventEmitter();
 
   savedNodes: any;
@@ -61,7 +61,7 @@ export class UiSortableComponent implements OnInit {
   element: any;
   $element: any;
   //options: Object;
-  model: Array<any>;
+  //model: Array<any>;
 
   optionsSetPromiseResolve: Function;
   modelSetPromiseResolve: Function;
@@ -258,7 +258,7 @@ export class UiSortableComponent implements OnInit {
         }
       }, 0);
     }
-    this.model = this.inputModel;
+    //this.model = this.inputModel;
     //console.log('set ngModel', this.model);
     this.modelSetPromiseResolve();
 

@@ -1,0 +1,89 @@
+<div protected>
+  <div class="row">
+    <div class="col-md-12">
+      <div class="panel panel-default" #parentDiv>
+        <div class="panel-heading" (click)="_toggleCollapse(parentDiv)">
+          <span class="drag-icon-head-span"><i class="material-icons drag-icon-head">drag_handle</i></span>
+          <span class="header-text">
+            <template [ngIf]="_type != ''">
+              <span class="header-type">{{_type}} </span>
+              <span class="header-name">{{_name}}</span>
+            </template>
+            <template [ngIf]="_type == ''">
+              <span class="header-type placeholder">Type </span>
+              <span class="header-name placeholder">&lt;name&gt;</span>
+            </template>
+          </span>
+        </div>
+        <div class="panel-collapse collapse">
+          <div class="panel-body">
+            <div class="row">
+              <div class="col-md-12">
+                <div class="input-group">
+                  <label for="type-select" class="input-group-addon label-input">Type</label>
+                  <span class="input-group-addon type-select">
+                    <select class="type-select" [ngModel]="_type" (ngModelChange)="_valueChange('_type', $event)" tabindex="500">
+                      <option disabled selected>select an type</option>
+                      <option *ngFor="#type of types; #i = index">{{type}}</option>
+                    </select>
+                  </span>
+                  <div class="input-field name">
+                    <input-field
+                      placeholder="Name"
+                      [value]="_name"
+                      (valueChange)="_valueChange('_name', $event)"></input-field>
+                  </div>
+                  <div class="input-group-addon">
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-md-12">
+                <hr />
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-md-12" [ui-sortable]="_sortableOptions" [(ng-model)]="_valueStrings">
+                <div class="row"
+                  [class.first]="i == 0"
+                  *ngFor="#value of _valueStrings; #i = index">
+                  <div class="col-md-12">
+                    <div class="input-group">
+                      <div class="input-group-addon drag-input">
+                        <i class="material-icons drag-icon">drag_handle</i>
+                      </div>
+                      <div class="input-field">
+                        <input-field
+                          placeholder="Option"
+                          [value]="_values[value]"
+                          (valueChange)="_inputChange(value, $event)"
+                          [completion-data]="completion"
+                          (focus)="_onFocusChange(value)"
+                          (blur)="_onBlurChange(value)"></input-field>
+                      </div>
+                      <div class="input-group-addon">
+                        <template [ngIf]="i != (_valueStrings.length - 1)">
+                          <span class="close-input" (click)="_removeField(i)">
+                            <i class="material-icons close-icon">highlight_off</i>
+                          </span>
+                        </template>
+                      </div>
+                    </div>
+                    <template [ngIf]="i != (_valueStrings.length - 1)">
+                      <div class="row">
+                        <div class="col-md-12">
+                          <hr />
+                        </div>
+                      </div>
+                    </template>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

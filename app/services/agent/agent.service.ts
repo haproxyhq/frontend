@@ -4,7 +4,7 @@ import {Response}                 from 'angular2/http';
 import {CustomHttpService}        from '../../services/general/custom-http.service';
 
 import {Agent}                    from '../../models/wrapper/agent.model';
-import {EmptyRestModel} from '../../models/empty-rest.model';
+import {EmptyRestModel}           from '../../models/empty-rest.model';
 
 @Injectable()
 export class AgentService {
@@ -38,6 +38,10 @@ export class AgentService {
     return event;
   }
 
+  /**
+  * adds a new agent
+  * @return EventEmitter<Agent>
+  **/
   public addAgent(agent: Agent) {
     var event: EventEmitter<Agent> = new EventEmitter<Agent>();
 
@@ -47,6 +51,27 @@ export class AgentService {
         event.emit(new Agent(res));
       });
 
+    return event;
+  }
+
+  /**
+  * saves the given agent
+  * @return EventEmitter<Agent>
+  **/
+  public saveAgent(agent: Agent) {
+    var event: EventEmitter<Agent> = new EventEmitter<Agent>();
+
+    this._http.patch(agent.getSelfLink(), agent.getRestModel())
+      .map((res: Response) => res.json())
+      .subscribe(
+        (res) => {
+          event.next(new Agent(res));
+        },
+        (err) => {
+          event.next(null);
+        },
+        () => {}
+    );
     return event;
   }
 }

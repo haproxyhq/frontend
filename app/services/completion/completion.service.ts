@@ -4,6 +4,7 @@ import {Response}                 from 'angular2/http';
 import {CustomHttpService}        from '../../services/general/custom-http.service';
 
 import {Completion}               from '../../models/wrapper/completion.model';
+import {EmptyRestModel}           from '../../models/empty-rest.model';
 
 @Injectable()
 export class CompletionService {
@@ -21,9 +22,11 @@ export class CompletionService {
       .subscribe(
         (res) => {
           let completions: Array<Completion> = [];
-          res.content.forEach((elem, index, array) => {
-            completions.push(new Completion(elem));
-          });
+          if(res.content && !(EmptyRestModel.instanceOf(res.content[0]))) {
+            res.content.forEach((elem, index, array) => {
+              completions.push(new Completion(elem));
+            });
+          }
           event.emit(completions);
         },
         (err) => {

@@ -1,0 +1,75 @@
+@import './../../assets/css/less/_colors.less';
+
+.input-group-addon.drag-input {
+  padding-top: 0px;
+}
+
+.drag-icon {
+  color: @grey-300;
+  font-size: 1.8em;
+}
+
+.drag-icon-head {
+  color: @grey-400;
+  font-size: 2em;
+  margin-top: 5px;
+}
+
+.drag-icon-head-span {
+  float: left;
+}
+
+.close-icon {
+  color: @grey-300;
+  font-size: 1.8em;
+}
+
+.close-input, .drag-input, .drag-icon-head-span {
+  cursor: pointer;
+}
+
+.type-select {
+  border: 0;
+  background-image: linear-gradient(#ad1457, #ad1457), linear-gradient(#D2D2D2, #D2D2D2);
+  background-size: 0 0, 0 0;
+  background-repeat: no-repeat;
+  background-position: center bottom, center calc(100% - 1px);
+  background-color: rgba(0, 0, 0, 0);
+  transition: background 0s ease-out;
+  float: none;
+  box-shadow: none;
+  border-radius: 0;
+  font-size: 16px;
+  font-weight: 400;
+  line-height: 1;
+  min-width: 150px;
+}
+
+.input-group-addon.type-select {
+  background-size: 0 2px, 80% 1px;
+}
+
+.label-input {
+  font-weight: 400;
+  color: @grey;
+}
+
+.input-field.name {
+  padding-top: 7px;
+  margin-left: 10px;
+}
+
+.panel-heading {
+  line-height:38px;
+}
+
+.header-text {
+  font-size: 1.2em;
+  margin-left: 10px;
+  color: @grey-700;
+}
+
+.header-name.placeholder {
+  color: @grey;
+  font-family: Courier New;
+}

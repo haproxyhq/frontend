@@ -1,4 +1,5 @@
 import {Component, OnInit}            from 'angular2/core';
+import {Router}                       from 'angular2/router';
 
 import {ProtectedDirective}           from '../../directives/general/protected.directive';
 
@@ -24,7 +25,7 @@ export class AgentsComponent implements OnInit {
   public agentsLoaded: boolean = false;
   public newAgent: Agent = new Agent({});
 
-  public constructor(private _globalStorage: GlobalStorageService, private _agentService: AgentService) {}
+  public constructor(private _globalStorage: GlobalStorageService, private _agentService: AgentService, private _router: Router) {}
 
   public ngOnInit(): void {
     this._agentService.getAgents().subscribe((agents) => {
@@ -45,5 +46,9 @@ export class AgentsComponent implements OnInit {
       $('#add-agent-modal').modal('hide');
       this.newAgent = new Agent({});
     });
+  }
+
+  private _selectAgent(id: string) {
+    this._router.navigate(['Agent Edit', { id: id }]);
   }
 }

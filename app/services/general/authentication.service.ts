@@ -3,13 +3,17 @@ import {Response, Headers}        from 'angular2/http';
 
 import {Credentials}              from '../../models/credentials.model';
 
-import {GlobalStorageService}     from '../../services/general/global-storage.service';
-import {CustomHttpService}        from '../../services/general/custom-http.service';
-import {UserService}              from '../../services/user/user.service';
+import {GlobalStorageService}     from './global-storage.service';
+import {CustomHttpService}        from './custom-http.service';
+import {UserService}              from '../user/user.service';
+import {CompletionService}        from '../completion/completion.service';
 
 @Injectable()
 export class AuthenticationService {
-  constructor(private _http: CustomHttpService, private _globalStorage: GlobalStorageService, private _userService: UserService) { }
+  constructor(private _http: CustomHttpService,
+    private _globalStorage: GlobalStorageService,
+    private _userService: UserService,
+    private _completionService: CompletionService) { }
 
   login(user: Credentials): EventEmitter<boolean> {
     var event: EventEmitter<boolean> = new EventEmitter();
@@ -27,6 +31,15 @@ export class AuthenticationService {
               if (user !== null) {
                 this._globalStorage.authenticated = true;
                 this._globalStorage.user = user;
+
+                //initially load completions
+                this._completionService.getCompletions().subscribe(
+                  (res) => {
+                    this._globalStorage.completions = res;
+                  },
+                  () => {}
+                );
+
                 event.emit(true);
               } else event.emit(false);
             },
