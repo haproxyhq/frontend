@@ -6,7 +6,12 @@ export class ConfigSection {
   public values: Array<String> = [];
 
   constructor(plainObject: any) {
-    this.section = new ConfigTypeSection(plainObject.section.name, plainObject.section.type);
-    this.values = plainObject.values;
+    if (plainObject !== null) {
+      this.section = new ConfigTypeSection(plainObject.section.name, plainObject.section.type);
+      this.values = plainObject.values;
+    } else {
+      this.section = new ConfigTypeSection('','');
+      this.values = [];
+    }
   }
 }

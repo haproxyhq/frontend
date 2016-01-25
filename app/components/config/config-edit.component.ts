@@ -78,9 +78,7 @@ export class ConfigEditComponent implements OnInit {
       config: []
     };
     this._sectionHelper.forEach((key) => {
-      if (this._sections[key] !== null) {
-        plainConfig.config.push(this._sections[key]);
-      }
+      plainConfig.config.push(this._sections[key]);
     });
     return new Config(plainConfig);
   }
@@ -92,6 +90,7 @@ export class ConfigEditComponent implements OnInit {
     if (this._config !== null) {
       this._sectionHelper = [];
       this._sections = {};
+      this._configSectionEmitter = [];
       this._config.config.forEach((section, index, array) => {
         this._sectionHelper.push(index);
         this._sections[index] = section;

@@ -23,8 +23,8 @@
                   <label for="type-select" class="input-group-addon label-input">Type</label>
                   <span class="input-group-addon type-select">
                     <select class="type-select" [ngModel]="_type" (ngModelChange)="_valueChange('_type', $event)" tabindex="500">
-                      <option disabled selected>select an type</option>
-                      <option *ngFor="#type of types; #i = index">{{type}}</option>
+                      <option disabled selected></option>
+                      <option *ngFor="#type of types; #i = index" [selected]="type == _type">{{type}}</option>
                     </select>
                   </span>
                   <div class="input-field name">
