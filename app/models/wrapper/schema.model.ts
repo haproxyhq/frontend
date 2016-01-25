@@ -10,6 +10,7 @@ export class Schema extends RestWrapperModel {
   private configHolder: Config;
 
   public constructor(plainObject: any) {
+    super();
     this.transformPlainObject(plainObject);
   }
 
