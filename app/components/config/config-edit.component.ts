@@ -24,8 +24,10 @@ import {ConfigSection}                from '../../models/wrapper/config-section.
 export class ConfigEditComponent implements OnInit {
   @Input() completion: Completion;
   @Input() types: Array<string>;
-  @Input() config: Config;
+  @Input('config-emitter') configEmitter: EventEmitter<Config>;
   @Output() configChange = new EventEmitter();
+
+  private _config: Config;
 
   private _sectionHelper: Array<number> = [];
   private _sections = {};
@@ -48,7 +50,10 @@ export class ConfigEditComponent implements OnInit {
   }
 
   ngOnInit() {
-    this._parseConfig();
+    this.configEmitter.subscribe((config) => {
+      this._config = config;
+      this._parseConfig();
+    });
   }
 
   /**
@@ -77,11 +82,13 @@ export class ConfigEditComponent implements OnInit {
   }
 
   /**
-  * parses the @Input() field to the internal structure
+  * parses the @Input() emittet config to the internal structure
   **/
   private _parseConfig() {
-    if (this.config !== null) {
-      this.config.config.forEach((section, index, array) => {
+    if (this._config !== null) {
+      this._sectionHelper = [];
+      this._sections = {};
+      this._config.config.forEach((section, index, array) => {
         this._sectionHelper.push(index);
         this._sections[index] = section;
       });
