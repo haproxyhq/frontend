@@ -12,6 +12,7 @@ import {AuthenticationService}                                    from './servic
 import {UserService}                                              from './services/user/user.service';
 import {CompletionService}                                        from './services/completion/completion.service';
 import {AgentService}                                             from './services/agent/agent.service';
+import {SchemaService}                                            from './services/schema/schema.service';
 
 bootstrap(AppComponent, [
   HTTP_PROVIDERS,
@@ -23,4 +24,5 @@ bootstrap(AppComponent, [
   UserService,
   CompletionService,
   AgentService,
+  SchemaService
 ]);
