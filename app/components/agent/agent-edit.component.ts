@@ -32,7 +32,6 @@ export class AgentEditComponent implements OnInit {
     this._agent = this._globalStorage.getAgent(id);
     if (this._agent !== null) {
       this._completion = this._globalStorage.getCompletion(this._agent.version);
-      console.log(this._completion);
     }
   }
 }
