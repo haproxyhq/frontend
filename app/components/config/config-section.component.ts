@@ -178,6 +178,7 @@ export class ConfigSectionComponent implements OnInit {
       });
       this._name = this._configSection.section.name;
       this._type = this._configSection.section.type;
+      if (this._configSection.values.length !== 0) this._addBlankField();
     }
   }
 }
