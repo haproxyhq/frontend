@@ -28,7 +28,6 @@ import {GlobalStorageService}                   from '../../services/general/glo
   { path:'/agents/:id',         name: 'Agent Edit',           component: AgentEditComponent },
   { path:'/about',              name: 'About',                component: AboutComponent },
   { path:'/login',              name: 'Login',                component: LoginComponent },
-  { path:'/settings',           name: 'Settings',             component: SettingsComponent },
   { path:'/settings/profile',   name: 'Settings Profile',     component: SettingsProfileComponent },
   { path:'/settings/admin',     name: 'Settings Admin',       component: SettingsComponent },
   { path:'/unauthorized',       name: 'Unauthorized',         component: UnauthorizedComponent },

@@ -12,6 +12,7 @@ import {InputFieldComponent}        from '../general/input-field.component';
 import {ToastModel}                 from '../../models/toast.model';
 import {Agent}                      from '../../models/wrapper/agent.model';
 import {Config}                     from '../../models/wrapper/config.model';
+import {ConfigSection}              from '../../models/wrapper/config-section.model';
 import {Completion}                 from '../../models/wrapper/completion.model';
 
 import {ProtectedDirective}         from '../../directives/general/protected.directive';
@@ -52,12 +53,20 @@ export class AgentEditComponent implements OnInit, AfterViewInit {
   }
 
   /**
+  * check if a section is empty
+  * @return true if section is empty, false if section is not empty
+  **/
+  private _isEmptySection(section: ConfigSection) {
+    return (section.section.name.trim() === '' && section.section.type.trim() === '' && section.values.length === 0);
+  }
+
+  /**
   * saves the edited agent
   **/
   private _saveChanges() {
     // filter an eventually null section (we add a null value to the section array for adding a blank section)
     this._agent.configHolder.config = this._agent.configHolder.config.filter((configSection, index, array) => {
-      return configSection !== null;
+      return configSection !== null && !this._isEmptySection(configSection);
     });
     // setting agent to the agent model again because the restore service causes it to be Object
     this._agent = new Agent(this._agent);
@@ -93,8 +102,7 @@ export class AgentEditComponent implements OnInit, AfterViewInit {
   private _addSection() {
     if (this._agent.configHolder === null) {
       let plainConfig = {
-        config: [
-        ]
+        config: []
       };
       this._agent.configHolder = new Config(plainConfig);
     }

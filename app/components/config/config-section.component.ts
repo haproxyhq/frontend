@@ -123,8 +123,10 @@ export class ConfigSectionComponent implements OnInit {
   * @param i the index of the element in _valueStrings to check
   **/
   private _removeFieldIfEmpty(key: number): void {
-    if (this._values[key] === '') {
-      this._removeField(key);
+    if ((this._valueStrings.length - 1) !== this._valueStrings.indexOf(key)) {
+      if (this._values[key] === '') {
+        this._removeField(key);
+      }
     }
   }
 
@@ -164,15 +166,19 @@ export class ConfigSectionComponent implements OnInit {
   * parses the @Input() field to the internal structure
   **/
   private _parseConfigSection() {
-    if (this._configSection !== null) {
+    if (this._configSection !== null && this._configSection !== undefined) {
       this._valueStrings = [];
+      if (this._configSection.values.length === 0) {
+        this._valueStrings = [0];
+        this._values = { 0: '' };
+      }
       this._configSection.values.forEach((value, index, array) => {
         this._valueStrings.push(index);
         this._values[index] = value;
       });
       this._name = this._configSection.section.name;
       this._type = this._configSection.section.type;
-      this._addBlankField();
+      if (this._configSection.values.length !== 0) this._addBlankField();
     }
   }
 }
