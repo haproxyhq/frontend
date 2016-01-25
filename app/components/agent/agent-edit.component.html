@@ -1,14 +1,24 @@
 <div protected>
   <template [ngIf]="_agent != null">
+    <div class="fab bottom right" (click)="_addSection()">
+      <a class="btn btn-primary btn-fab"><i class="material-icons">add</i></a>
+    </div>
     <div class="container">
       <div class="row">
         <div class="col-md-4">
           <div class="panel-default panel">
+            <div class="panel-body">
+              <h2>{{_agent.name}}</h2>
+              <p>{{_agent.description}}</p>
+              <p>{{_agent.ip}}</p>
+              <save-cancel-fabs (save)="_saveChanges()" (cancel)="_revertChanges()"></save-cancel-fabs>
+            </div>
           </div>
         </div>
         <div class="col-md-8">
           <config-edit
-            [(config)]="_agent.configHolder"
+            [config-emitter]="_configEmitter"
+            (configChange)="_configChange($event)"
             [completion]="_completion"
             [types]="_types">
           </config-edit>
