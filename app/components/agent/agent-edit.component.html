@@ -3,9 +3,9 @@
     <div class="fab bottom right" (click)="_addSection()">
       <a class="btn btn-primary btn-fab"><i class="material-icons">add</i></a>
     </div>
-    <div class="container slide-in">
+    <div class="container">
       <div class="row">
-        <div class="col-md-4">
+        <div class="col-md-4 slide-in-left">
           <div class="panel-default panel">
             <div class="panel-body">
               <h2>{{_agent.name}}</h2>
@@ -15,7 +15,7 @@
             </div>
           </div>
         </div>
-        <div class="col-md-8">
+        <div class="col-md-8 slide-in">
           <config-edit
             [config-emitter]="_configEmitter"
             (configChange)="_configChange($event)"
