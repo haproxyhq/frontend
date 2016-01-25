@@ -18,7 +18,7 @@ export class SchemaService {
    * gets all schemas from the backend
    * @return EventEmitter<Config>
    **/
-  public getConfigs(): EventEmitter<Array<Schema>> {
+  public getSchemas(): EventEmitter<Array<Schema>> {
     var event: EventEmitter<Array<Schema>> = new EventEmitter();
     this._http.get('http://localhost:8080/schemas')
       .map((res: Response) => res.json())
