@@ -62,6 +62,12 @@ export class GlobalStorageService {
     return completions;
   }
 
+  public getCompletion(version: string) {
+    return this.completions.find((completion, index, array) => {
+      if (completion.version === version) return true;
+    });
+  }
+
   set agents(agents: Array<Agent>) {
     this.set(GlobalStorageService.AGENTS_KEY, agents);
   }
@@ -75,6 +81,17 @@ export class GlobalStorageService {
       });
     }
     return agents;
+  }
+
+  /**
+  * gets an agent from the local storage which matches the given id
+  * @param id the agent id
+  * @return the agent
+  **/
+  public getAgent(id: string): Agent {
+    return this.agents.find((agent, index, array) => {
+      if (agent.id === id) return true;
+    });
   }
 
   /**
