@@ -1,6 +1,9 @@
 import {RestWrapperModel} from './rest-wrapper.model';
 import {Config} from './config.model';
 
+/**
+ * mode for wrapping schema entity objects
+ */
 export class Schema extends RestWrapperModel {
   private name: string;
   private description: string;
