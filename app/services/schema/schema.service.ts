@@ -4,7 +4,7 @@ import {Response}                 from 'angular2/http';
 import {CustomHttpService}        from '../../services/general/custom-http.service';
 
 import {EmptyRestModel}           from '../../models/empty-rest.model';
-import {Schema} from '../../models/wrapper/schema.model.ts';
+import {Schema}                   from '../../models/wrapper/schema.model';
 
 /**
  * takes care of all CRUD operations on schemas

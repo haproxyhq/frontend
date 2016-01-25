@@ -5,6 +5,7 @@ import {CookieModel}  from '../../models/cookie.model';
 import {User}         from '../../models/wrapper/user.model';
 import {Completion}   from '../../models/wrapper/completion.model';
 import {Agent}        from '../../models/wrapper/agent.model';
+import {Schema}       from '../../models/wrapper/schema.model';
 
 @Injectable()
 export class GlobalStorageService {
@@ -15,6 +16,7 @@ export class GlobalStorageService {
   private static USER_KEY: string = 'user';
   private static COMPLETIONS_KEY: string = 'completions';
   private static AGENTS_KEY: string = 'agents';
+  private static SCHEMAS_KEY: string = 'schemas';
 
   private _prefix: string = 'hq.';
 
@@ -81,6 +83,21 @@ export class GlobalStorageService {
       });
     }
     return agents;
+  }
+
+  set schemas(schemas: Array<Schema>) {
+    this.set(GlobalStorageService.SCHEMAS_KEY, schemas);
+  }
+
+  get schemas() {
+    let schemas: Array<Schema> = [];
+    let plainObject = JSON.parse(this.get(GlobalStorageService.SCHEMAS_KEY));
+    if(plainObject !== null) {
+      plainObject.forEach((elem, index, array) => {
+        schemas.push(new Schema(elem));
+      });
+    }
+    return schemas;
   }
 
   /**
