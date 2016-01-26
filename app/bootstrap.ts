@@ -13,6 +13,7 @@ import {UserService}                                              from './servic
 import {CompletionService}                                        from './services/completion/completion.service';
 import {AgentService}                                             from './services/agent/agent.service';
 import {SchemaService}                                            from './services/schema/schema.service';
+import {HeartbeatService}                                         from './services/agent/heartbeat.service';
 
 bootstrap(AppComponent, [
   HTTP_PROVIDERS,
@@ -24,5 +25,6 @@ bootstrap(AppComponent, [
   UserService,
   CompletionService,
   AgentService,
-  SchemaService
+  SchemaService,
+  HeartbeatService
 ]);
