@@ -8,9 +8,15 @@
         <div class="col-md-4 slide-in-left">
           <div class="panel-default panel">
             <div class="panel-body">
-              <h2>{{_agent.name}}</h2>
-              <p>{{_agent.description}}</p>
-              <p>{{_agent.ip}}</p>
+              <div class="input-field">
+                <input-field [(value)]="_agent.name" label="Name"></input-field>
+              </div>
+              <div class="input-field">
+                <input-field [(value)]="_agent.description" label="Description"></input-field>
+              </div>
+              <div class="input-field">
+                <input-field [(value)]="_agent.ip" label="Ip"></input-field>
+              </div>
               <save-cancel-fabs (save)="_saveChanges()" (cancel)="_revertChanges()"></save-cancel-fabs>
             </div>
           </div>
@@ -20,7 +26,8 @@
             [config-emitter]="_configEmitter"
             (configChange)="_configChange($event)"
             [completion]="_completion"
-            [types]="_types">
+            [types]="_types"
+            [(restoring)]="_restoring">
           </config-edit>
         </div>
       </div>

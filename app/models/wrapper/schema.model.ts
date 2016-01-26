@@ -5,9 +5,9 @@ import {Config} from './config.model';
  * mode for wrapping schema entity objects
  */
 export class Schema extends RestWrapperModel {
-  private name: string;
-  private description: string;
-  private configHolder: Config;
+  public name: string;
+  public description: string;
+  public configHolder: Config;
 
   public constructor(plainObject: any) {
     super();
@@ -23,9 +23,5 @@ export class Schema extends RestWrapperModel {
       this.configHolder = new Config(plainObject.configHolder);
     }
     this._transformFromPOJO(plainObject, 'name', 'description');
-  }
-
-  public getConfigHolder(): Config {
-    return this.configHolder;
   }
 }

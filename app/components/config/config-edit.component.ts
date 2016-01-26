@@ -24,10 +24,11 @@ import {ConfigSection}                from '../../models/wrapper/config-section.
 export class ConfigEditComponent implements OnInit {
   @Input() completion: Completion;
   @Input() types: Array<string>;
+  @Input() restoring: boolean;
   @Input('config-emitter') configEmitter: EventEmitter<Config>;
+  @Output() restoringChange = new EventEmitter();
   @Output() configChange = new EventEmitter();
 
-  private _configSectionEmitter: Array<EventEmitter<ConfigSection>> = [];
   private _config: Config;
 
   private _sectionHelper: Array<number> = [];
@@ -54,9 +55,7 @@ export class ConfigEditComponent implements OnInit {
     this.configEmitter.subscribe((config) => {
       this._config = config;
       this._parseConfig();
-      this._configSectionEmitter.forEach((emitter, index, array) => {
-        emitter.next(this._sections[this._sectionHelper[index]]);
-      });
+      this._ref.detectChanges();
     });
   }
 
@@ -67,6 +66,17 @@ export class ConfigEditComponent implements OnInit {
     this._sections[key] = value;
     this.configChange.next(this._transformToConfig());
     this._ref.detectChanges();
+  }
+
+  /**
+  * deletes the section with the given key, when the event is fired
+  * @param key the section key
+  **/
+  private _sectionDelete(key) {
+    var i = this._sectionHelper.indexOf(key, 0);
+    this._sectionHelper.splice(i, 1);
+    delete this._sections[key];
+    this.configChange.next(this._transformToConfig());
   }
 
   /**
@@ -90,11 +100,14 @@ export class ConfigEditComponent implements OnInit {
     if (this._config !== null) {
       this._sectionHelper = [];
       this._sections = {};
-      this._configSectionEmitter = [];
+      if (this.restoring) {
+        this.restoring = false;
+        this.restoringChange.next(false);
+        this._ref.detectChanges();
+      }
       this._config.config.forEach((section, index, array) => {
         this._sectionHelper.push(index);
         this._sections[index] = section;
-        this._configSectionEmitter.push(new EventEmitter());
       });
       this._ref.detectChanges();
     }

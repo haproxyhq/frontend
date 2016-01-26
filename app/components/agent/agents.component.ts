@@ -34,6 +34,8 @@ export class AgentsComponent implements OnInit {
   public heartbeatsLoaded: boolean = false;
   public newAgent: Agent = new Agent({});
 
+  private _avaiableVersions: Array<string> = [];
+
   public constructor(private _globalStorage: GlobalStorageService,
                      private _agentService: AgentService,
                      private _schemaService: SchemaService,
@@ -41,6 +43,7 @@ export class AgentsComponent implements OnInit {
                      private _router: Router) {}
 
   public ngOnInit(): void {
+    this._avaiableVersions = this._globalStorage.getAvailableCompletions();
     this._agentService.getAgents().subscribe((agents) => {
       this.agents = agents;
       this._globalStorage.agents = this.agents;
@@ -67,7 +70,7 @@ export class AgentsComponent implements OnInit {
 
   public onAddAgentSubmit(): void {
     if(this.selectedSchema !== -1) {
-      this.newAgent.configHolder = this.schemas[this.selectedSchema].getConfigHolder();
+      this.newAgent.configHolder = this.schemas[this.selectedSchema].configHolder;
     } else {
       this.newAgent.configHolder = null;
     }
