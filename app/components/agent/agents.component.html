@@ -3,7 +3,7 @@
     <a class="btn btn-primary btn-fab"><i class="material-icons">add</i></a>
   </div>
   <div class="agents-container">
-    <template [ngIf]="agentsLoaded">
+    <template [ngIf]="agentsLoaded && heartbeatsLoaded">
       <template [ngIf]="agents.length === 0">
         <div class="row">
           <div class="col-md-12">
@@ -18,7 +18,7 @@
       <template [ngIf]="agents.length !== 0">
         <div class="row">
           <div *ngFor="#agent of agents" class="col-md-3 col-sx-3 agent-detail" (click)="_selectAgent(agent.id)">
-            <agent-detail [agent]="agent"></agent-detail>
+            <agent-detail [agent]="agent" [heartbeat]="agentsHeartbeats.get(agent.id)"></agent-detail>
           </div>
         </div>
       </template>
