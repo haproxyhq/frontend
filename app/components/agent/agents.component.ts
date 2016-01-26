@@ -30,12 +30,15 @@ export class AgentsComponent implements OnInit {
   public schemasLoaded: boolean = false;
   public newAgent: Agent = new Agent({});
 
+  private _avaiableVersions: Array<string> = [];
+
   public constructor(private _globalStorage: GlobalStorageService,
                      private _agentService: AgentService,
                      private _schemaService: SchemaService,
                      private _router: Router) {}
 
   public ngOnInit(): void {
+    this._avaiableVersions = this._globalStorage.getAvailableCompletions();
     this._agentService.getAgents().subscribe((agents) => {
       this.agents = agents;
       this._globalStorage.agents = this.agents;

@@ -54,9 +54,12 @@
             </div>
             <div class="form-group label-floating">
               <label class="control-label" for="version">HAProxy Version</label>
-              <input id="version" type="text" class="form-control" required
-                     [(ngModel)]="newAgent.version"
-                     ngControl="version" #version="ngForm">
+              <select id="version" class="type-select form-control" [(ngModel)]="newAgent.version" #version="ngForm">
+                <option *ngFor="#version of _avaiableVersions; #i = index"
+                  [value]="version"
+                  [selected]="i == 0">
+                  {{version}}</option>
+              </select>
             </div>
             <div class="form-group">
               <label for="schema">Config Schema</label><br />

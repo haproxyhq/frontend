@@ -70,6 +70,14 @@ export class GlobalStorageService {
     });
   }
 
+  public getAvailableCompletions(): Array<string> {
+    let versions: Array<string> = [];
+    this.completions.forEach((completion, index, array) => {
+      versions.push(completion.version);
+    });
+    return versions;
+  }
+
   set agents(agents: Array<Agent>) {
     this.set(GlobalStorageService.AGENTS_KEY, agents);
   }
