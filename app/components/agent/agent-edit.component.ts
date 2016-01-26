@@ -33,6 +33,7 @@ export class AgentEditComponent implements OnInit, AfterViewInit {
   private _agent: Agent = null;
   private _completion: Completion;
   private _types = ['global', 'defaults', 'listen', 'backend', 'frontend'];
+  private _restoring = false;
 
   constructor(private _globalStorage: GlobalStorageService,
     private _agentService: AgentService,
@@ -85,7 +86,8 @@ export class AgentEditComponent implements OnInit, AfterViewInit {
   * resets all changes
   **/
   private _revertChanges() {
-    this._agent = this._restoreService.reset();//this._config;
+    this._agent = this._restoreService.reset();
+    this._restoring = true;
     this._configEmitter.next(this._agent.configHolder);
   }
 

@@ -24,7 +24,9 @@ import {ConfigSection}                from '../../models/wrapper/config-section.
 export class ConfigEditComponent implements OnInit {
   @Input() completion: Completion;
   @Input() types: Array<string>;
+  @Input() restoring: boolean;
   @Input('config-emitter') configEmitter: EventEmitter<Config>;
+  @Output() restoringChange = new EventEmitter();
   @Output() configChange = new EventEmitter();
 
   private _configSectionEmitter: Array<EventEmitter<ConfigSection>> = [];
@@ -57,6 +59,7 @@ export class ConfigEditComponent implements OnInit {
       this._configSectionEmitter.forEach((emitter, index, array) => {
         emitter.next(this._sections[this._sectionHelper[index]]);
       });
+      this._ref.detectChanges();
     });
   }
 
@@ -91,6 +94,11 @@ export class ConfigEditComponent implements OnInit {
       this._sectionHelper = [];
       this._sections = {};
       this._configSectionEmitter = [];
+      if (this.restoring) {
+        this.restoring = false;
+        this.restoringChange.next(false);
+        this._ref.detectChanges();
+      }
       this._config.config.forEach((section, index, array) => {
         this._sectionHelper.push(index);
         this._sections[index] = section;
