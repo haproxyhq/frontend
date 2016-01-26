@@ -3,6 +3,7 @@ import {Component, Input}   from 'angular2/core';
 import {Agent}              from '../../models/wrapper/agent.model';
 
 import {AbcIconComponent}   from '../general/abc-icon.component';
+import {AgentHeartbeatStatus} from '../../models/wrapper/agent-heartbeat-status.model';
 
 @Component({
   selector: 'agent-detail',
@@ -12,4 +13,5 @@ import {AbcIconComponent}   from '../general/abc-icon.component';
 })
 export class AgentDetailComponent {
   @Input() agent: Agent;
+  @Input() heartbeat: AgentHeartbeatStatus;
 }
