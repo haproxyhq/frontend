@@ -7,7 +7,8 @@
             [section-emitter]="_configSectionEmitter[sectionKey]"
             (sectionChange)="_sectionChange(sectionKey, $event)"
             [types]="types"
-            [completion]="completion"></config-section>
+            [completion]="completion"
+            (sectionDelete)="_sectionDelete(sectionKey)"></config-section>
         </div>
       </div>
     </div>

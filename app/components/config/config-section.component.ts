@@ -27,6 +27,7 @@ export class ConfigSectionComponent implements OnInit {
   @Input() types: Array<string>;
   @Input('section-emitter') configSectionEmitter: EventEmitter<ConfigSection>;
   @Output('sectionChange') configSectionEvent = new EventEmitter();
+  @Output('sectionDelete') configSectionDelete = new EventEmitter();
 
   private _configSection: ConfigSection;
 
@@ -128,6 +129,10 @@ export class ConfigSectionComponent implements OnInit {
         this._removeField(key);
       }
     }
+  }
+
+  private _removeSection() {
+    this.configSectionDelete.next(true);
   }
 
   /**

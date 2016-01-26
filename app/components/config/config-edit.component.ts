@@ -73,6 +73,17 @@ export class ConfigEditComponent implements OnInit {
   }
 
   /**
+  * deletes the section with the given key, when the event is fired
+  * @param key the section key
+  **/
+  private _sectionDelete(key) {
+    var i = this._sectionHelper.indexOf(key, 0);
+    this._sectionHelper.splice(i, 1);
+    delete this._sections[key];
+    this.configChange.next(this._transformToConfig());
+  }
+
+  /**
   * transforms the plain object to an config object
   * @return returns a new Config instance
   **/
