@@ -60,7 +60,7 @@
             </div>
             <div class="form-group">
               <label for="schema">Config Schema</label><br />
-              <select id="schema" class="type-select form-control" [(ngModel)]="selectedSchema">
+              <select id="schema" class="form-control" [(ngModel)]="selectedSchema">
                 <option selected [value]="-1">No Schema</option>
                 <option *ngFor="#schema of schemas; #i = index" [value]="i">{{schema.name}}</option>
               </select>
