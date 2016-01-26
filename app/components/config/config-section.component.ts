@@ -1,4 +1,4 @@
-import {Component,ChangeDetectorRef, ChangeDetectionStrategy, Input, Output, EventEmitter, OnInit}  from 'angular2/core';
+import {Component,ChangeDetectorRef, ChangeDetectionStrategy, Input, Output, EventEmitter}  from 'angular2/core';
 
 import {InputFieldComponent}          from '../general/input-field.component';
 
@@ -22,10 +22,13 @@ declare var $;
   directives: [ProtectedDirective, UiSortableComponent, InputFieldComponent]
 })
 
-export class ConfigSectionComponent implements OnInit {
+export class ConfigSectionComponent {
   @Input() completion: Completion;
   @Input() types: Array<string>;
-  @Input('section-emitter') configSectionEmitter: EventEmitter<ConfigSection>;
+  @Input('section') set configSection(configSection: ConfigSection) {
+    this._configSection = configSection;
+    this._parseConfigSection();
+  }
   @Output('sectionChange') configSectionEvent = new EventEmitter();
   @Output('sectionDelete') configSectionDelete = new EventEmitter();
 
@@ -57,13 +60,6 @@ export class ConfigSectionComponent implements OnInit {
         that._ref.detectChanges();
       }
     };
-  }
-
-  ngOnInit() {
-    this.configSectionEmitter.subscribe((configSection) => {
-      this._configSection = configSection;
-      this._parseConfigSection();
-    });
   }
 
   /**
