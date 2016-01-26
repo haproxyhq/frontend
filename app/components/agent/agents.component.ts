@@ -12,6 +12,8 @@ import {SchemaService}                from '../../services/schema/schema.service
 import {Agent}                        from '../../models/wrapper/agent.model';
 import {ToastModel}                   from '../../models/toast.model';
 import {Schema}                       from '../../models/wrapper/schema.model';
+import {HeartbeatService} from '../../services/agent/heartbeat.service';
+import {AgentHeartbeatStatus} from '../../models/wrapper/agent-heartbeat-status.model';
 
 declare var $;
 
@@ -26,13 +28,16 @@ export class AgentsComponent implements OnInit {
   public agents: Array<Agent> = [];
   public schemas: Array<Schema> = [];
   public selectedSchema: number = -1;
+  public agentsHeartbeats: Map<string, AgentHeartbeatStatus> = new Map<>();
   public agentsLoaded: boolean = false;
   public schemasLoaded: boolean = false;
+  public heartbeatsLoaded: boolean = false;
   public newAgent: Agent = new Agent({});
 
   public constructor(private _globalStorage: GlobalStorageService,
                      private _agentService: AgentService,
                      private _schemaService: SchemaService,
+                     private _heartbeatService: HeartbeatService,
                      private _router: Router) {}
 
   public ngOnInit(): void {
@@ -53,6 +58,10 @@ export class AgentsComponent implements OnInit {
       } else {
         $.snackbar(new ToastModel('Loading Schemas failed'));
       }
+    });
+    this._heartbeatService.startHeartbeatPolling().subscribe((heartbeats: Map<string, AgentHeartbeatStatus>) => {
+      this.agentsHeartbeats = heartbeats;
+      this.heartbeatsLoaded = true;
     });
   }
 
