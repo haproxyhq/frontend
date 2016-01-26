@@ -58,7 +58,7 @@ export class AgentsComponent implements OnInit {
 
   public onAddAgentSubmit(): void {
     if(this.selectedSchema !== -1) {
-      this.newAgent.configHolder = this.schemas[this.selectedSchema].getConfigHolder();
+      this.newAgent.configHolder = this.schemas[this.selectedSchema].configHolder;
     } else {
       this.newAgent.configHolder = null;
     }
