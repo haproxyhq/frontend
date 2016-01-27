@@ -28,7 +28,7 @@ export class AgentsComponent implements OnInit {
   public agents: Array<Agent> = [];
   public schemas: Array<Schema> = [];
   public selectedSchema: number = -1;
-  public agentsHeartbeats: Map<string, AgentHeartbeatStatus> = new Map<>();
+  public agentsHeartbeats: Map<string, AgentHeartbeatStatus> = new Map<string, AgentHeartbeatStatus>();
   public agentsLoaded: boolean = false;
   public schemasLoaded: boolean = false;
   public heartbeatsLoaded: boolean = false;

@@ -20,7 +20,7 @@ export class HeartbeatService {
    * @returns {EventEmitter<Map<string, AgentHeartbeatStatus>>}
    */
   public getHeartbeats(): EventEmitter<Map<string, AgentHeartbeatStatus>> {
-    var event: EventEmitter<Map<string, AgentHeartbeatStatus>> = new EventEmitter<>();
+    var event: EventEmitter<Map<string, AgentHeartbeatStatus>> = new EventEmitter<Map<string, AgentHeartbeatStatus>>();
     this._attachGetHeartbeatsEvent(event);
     return event;
   }
@@ -31,7 +31,7 @@ export class HeartbeatService {
    * @returns {EventEmitter<Map<string, AgentHeartbeatStatus>>}
    */
   public startHeartbeatPolling(): EventEmitter<Map<string, AgentHeartbeatStatus>> {
-    var event: EventEmitter<Map<string, AgentHeartbeatStatus>> = new EventEmitter<>();
+    var event: EventEmitter<Map<string, AgentHeartbeatStatus>> = new EventEmitter<Map<string, AgentHeartbeatStatus>>();
     this._getHeartbeatPoll(event);
     return event;
   }
@@ -59,7 +59,7 @@ export class HeartbeatService {
       .map((res: Response) => res.json())
       .subscribe(
         (res) => {
-          let heartbeats: Map<string, AgentHeartbeatStatus> = new Map<>();
+          let heartbeats: Map<string, AgentHeartbeatStatus> = new Map<string, AgentHeartbeatStatus>();
           if(res) {
             Object.keys(res).forEach((elem, index) => {
               heartbeats.set(elem, new AgentHeartbeatStatus(res[elem]));
