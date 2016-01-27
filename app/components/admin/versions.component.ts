@@ -47,5 +47,10 @@ export class VersionsComponent implements OnInit, OnDestroy {
 
   public onAddCompletionSubmit() {
     this.parsingDocs = true;
+    this._completionService.addCompletionWithDocs(this.newCompletion).subscribe((completion) => {
+      this.completions.push(completion);
+      $('#add-completion-modal').modal('hide');
+      this.parsingDocs = false;
+    });
   }
 }

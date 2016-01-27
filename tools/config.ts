@@ -50,6 +50,7 @@ export const NPM_DEPENDENCIES = [
   { src: 'bootstrap/dist/js/bootstrap.min.js', inject: 'libs', dest: LIB_DEST },
   { src: 'arrive/minified/arrive.min.js', inject: 'libs', dest: LIB_DEST },
   { src: 'snackbarjs/dist/snackbar.min.js', inject: 'libs', dest: LIB_DEST },
+  { src: 'haproxy-doc-scraper-jquery-plugin/scraper.js', inject: 'libs', dest: LIB_DEST },
 
   { src: 'bootstrap/dist/css/bootstrap.min.css', inject: true, dest: CSS_DEST },
   { src: 'snackbarjs/dist/snackbar.min.css', inject: true, dest: CSS_DEST }
