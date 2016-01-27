@@ -44,7 +44,6 @@ export class AgentsComponent implements OnInit, OnDestroy {
                      private _router: Router) {}
 
   public ngOnInit(): void {
-    console.log('init');
     this._avaiableVersions = this._globalStorage.getAvailableCompletions();
     this._agentService.getAgents().subscribe((agents) => {
       this.agents = agents;
