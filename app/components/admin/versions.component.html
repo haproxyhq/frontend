@@ -1,5 +1,8 @@
-<div class="panel">
-  <div class="panel-body">
-    version
+<div class="row">
+  <div *ngFor="#completion of completions" class="col-lg-4 col-md-6 col-sm-12 col-xs-12 slide-in">
+    <div class="completion-container zoom-on-hover">
+      <span class="remove-completion"><i class="material-icons">close</i></span>
+      <abc-icon [iconText]="completion.version"></abc-icon>
+    </div>
   </div>
 </div>

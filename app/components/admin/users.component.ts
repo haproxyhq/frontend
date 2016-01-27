@@ -3,6 +3,7 @@ import {OnInit} from 'angular2/core';
 import {OnDestroy} from 'angular2/core';
 import {EventEmitter} from 'angular2/core';
 import {Input} from 'angular2/core';
+import {AbcIconComponent} from '../general/abc-icon.component';
 
 @Component({
   selector: 'users-view',
