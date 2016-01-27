@@ -131,6 +131,10 @@
   transform: scale(1.05);
 }
 
+.rotate {
+  animation: rotate .5s linear infinite;
+}
+
 // add default shadow to material bootstrap elements
 .navbar, .panel, .btn-fab {
   .z-shadow-1;
@@ -190,5 +194,11 @@
     -webkit-transform: translateX(0px) translateZ(0);
     transform: translateX(0px) translateZ(0);
     opacity: 1;
+  }
+}
+
+@keyframes rotate {
+  100% {
+    transform: rotate(360deg);
   }
 }
