@@ -6,6 +6,7 @@ import {Input} from 'angular2/core';
 import {CompletionService} from '../../services/completion/completion.service';
 import {Completion} from '../../models/wrapper/completion.model';
 import {AbcIconComponent} from '../general/abc-icon.component';
+import {GlobalStorageService} from '../../services/general/global-storage.service';
 
 declare var $;
 
@@ -24,7 +25,7 @@ export class VersionsComponent implements OnInit, OnDestroy {
 
   private _fabPressedSubscription: any;
 
-  constructor(private _completionService: CompletionService) { }
+  constructor(private _completionService: CompletionService, private _glogalStorageService: GlobalStorageService) { }
 
   ngOnInit(): void {
     this._fabPressedSubscription = this.fabPressedEmitter.subscribe((selectedTab) => {
@@ -49,6 +50,7 @@ export class VersionsComponent implements OnInit, OnDestroy {
     this.parsingDocs = true;
     this._completionService.addCompletionWithDocs(this.newCompletion).subscribe((completion) => {
       this.completions.push(completion);
+      this._glogalStorageService.completions = this.completions;
       $('#add-completion-modal').modal('hide');
       this.parsingDocs = false;
     });
