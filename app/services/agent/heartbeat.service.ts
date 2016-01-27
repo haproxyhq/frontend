@@ -11,6 +11,9 @@ import {AgentHeartbeatStatus} from '../../models/wrapper/agent-heartbeat-status.
  */
 @Injectable()
 export class HeartbeatService {
+  private _isHeartbeatPolling: boolean = false;
+  private _heartbeatPollingEventEmitter: EventEmitter<Map<string, AgentHeartbeatStatus>> =
+                                        new EventEmitter<Map<string, AgentHeartbeatStatus>>();
 
   constructor(private _http: CustomHttpService) {}
 
@@ -31,20 +34,30 @@ export class HeartbeatService {
    * @returns {EventEmitter<Map<string, AgentHeartbeatStatus>>}
    */
   public startHeartbeatPolling(): EventEmitter<Map<string, AgentHeartbeatStatus>> {
-    var event: EventEmitter<Map<string, AgentHeartbeatStatus>> = new EventEmitter<Map<string, AgentHeartbeatStatus>>();
-    this._getHeartbeatPoll(event);
-    return event;
+    if(!this._isHeartbeatPolling) {
+      this._isHeartbeatPolling = true;
+      this._getHeartbeatPoll();
+    }
+    return this._heartbeatPollingEventEmitter;
+  }
+
+  /**
+   * stops the heartbeat polling loop
+   */
+  public stopHeartbeatPolling(): void {
+    this._isHeartbeatPolling = false;
   }
 
   /**
    * this method represents one loop cycle of polling the heartbeat status. it will keep calling itself every 60 seconds
-   *
-   * @param event the EventEmitter to emit on when the request returns
    */
-  private _getHeartbeatPoll(event) {
-    this._attachGetHeartbeatsEvent(event);
+  private _getHeartbeatPoll() {
+    this._attachGetHeartbeatsEvent(this._heartbeatPollingEventEmitter);
+
     setTimeout(() => {
-      this._getHeartbeatPoll(event);
+      if(this._isHeartbeatPolling) {
+        this._getHeartbeatPoll();
+      }
     }, 30000);
   }
 

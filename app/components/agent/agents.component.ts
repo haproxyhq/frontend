@@ -1,19 +1,20 @@
-import {Component, OnInit}            from 'angular2/core';
-import {Router}                       from 'angular2/router';
+import {Component, OnInit, EventEmitter}            from 'angular2/core';
+import {Router}                                     from 'angular2/router';
 
-import {ProtectedDirective}           from '../../directives/general/protected.directive';
+import {ProtectedDirective}                         from '../../directives/general/protected.directive';
 
-import {AgentDetailComponent}         from './agent-detail.component';
+import {AgentDetailComponent}                       from './agent-detail.component';
 
-import {GlobalStorageService}         from '../../services/general/global-storage.service';
-import {AgentService}                 from '../../services/agent/agent.service';
-import {SchemaService}                from '../../services/schema/schema.service';
+import {GlobalStorageService}                       from '../../services/general/global-storage.service';
+import {AgentService}                               from '../../services/agent/agent.service';
+import {SchemaService}                              from '../../services/schema/schema.service';
 
-import {Agent}                        from '../../models/wrapper/agent.model';
-import {ToastModel}                   from '../../models/toast.model';
-import {Schema}                       from '../../models/wrapper/schema.model';
-import {HeartbeatService} from '../../services/agent/heartbeat.service';
-import {AgentHeartbeatStatus} from '../../models/wrapper/agent-heartbeat-status.model';
+import {Agent}                                      from '../../models/wrapper/agent.model';
+import {ToastModel}                                 from '../../models/toast.model';
+import {Schema}                                     from '../../models/wrapper/schema.model';
+import {HeartbeatService}                           from '../../services/agent/heartbeat.service';
+import {AgentHeartbeatStatus}                       from '../../models/wrapper/agent-heartbeat-status.model';
+import {OnDestroy}                                  from 'angular2/core';
 
 declare var $;
 
@@ -24,7 +25,7 @@ declare var $;
   directives: [ProtectedDirective, AgentDetailComponent]
 })
 
-export class AgentsComponent implements OnInit {
+export class AgentsComponent implements OnInit, OnDestroy {
   public agents: Array<Agent> = [];
   public schemas: Array<Schema> = [];
   public selectedSchema: number = -1;
@@ -43,6 +44,7 @@ export class AgentsComponent implements OnInit {
                      private _router: Router) {}
 
   public ngOnInit(): void {
+    console.log('init');
     this._avaiableVersions = this._globalStorage.getAvailableCompletions();
     this._agentService.getAgents().subscribe((agents) => {
       this.agents = agents;
@@ -66,6 +68,10 @@ export class AgentsComponent implements OnInit {
       this.agentsHeartbeats = heartbeats;
       this.heartbeatsLoaded = true;
     });
+  }
+
+  public ngOnDestroy(): void {
+    this._heartbeatService.stopHeartbeatPolling();
   }
 
   public onAddAgentSubmit(): void {
