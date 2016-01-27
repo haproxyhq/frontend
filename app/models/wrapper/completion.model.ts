@@ -11,9 +11,11 @@ export class Completion extends RestWrapperModel {
     super();
     this.transformPlainObject(plainCompletion);
 
-    plainCompletion.links.forEach((link, index, array) => {
-      this.links.push(new Link(link.rel, link.href));
-    });
+    if(plainCompletion.links) {
+      plainCompletion.links.forEach((link, index, array) => {
+        this.links.push(new Link(link.rel, link.href));
+      });
+    }
   }
 
   getRestModel():Object {
