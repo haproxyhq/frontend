@@ -17,6 +17,7 @@ export class VersionsComponent implements OnInit, OnDestroy {
   @Input() fabPressedEmitter: EventEmitter<string> = new EventEmitter<string>();
 
   public completions: Array<Completion>;
+  public newCompletion: Completion = new Completion({});
 
   private _fabPressedSubscription: any;
 
@@ -24,7 +25,7 @@ export class VersionsComponent implements OnInit, OnDestroy {
 
   ngOnInit(): void {
     this._fabPressedSubscription = this.fabPressedEmitter.subscribe((selectedTab) => {
-      console.log(selectedTab);
+      $('#add-completion-modal').modal('show');
     });
     this._completionService.getCompletions().subscribe((completions) => {
       this.completions = completions;
@@ -39,5 +40,9 @@ export class VersionsComponent implements OnInit, OnDestroy {
     this.completions.splice(this.completions.indexOf(completion));
 
     console.log(this.completions);
+  }
+
+  public onAddCompletionSubmit() {
+    console.log('submit');
   }
 }

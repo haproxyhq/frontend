@@ -19,7 +19,7 @@ export class Completion extends RestWrapperModel {
     this.url = plainObject.url;
     this.version = plainObject.version;
 
-    if(plainObject.data !== null || plainObject.data !== undefined) {
+    if(plainObject.data !== null && plainObject.data !== undefined) {
       plainObject.data.forEach((elem: any, index, array) => {
         this.data.push(new CompletionSection(elem.keyword, elem.params, elem.anchor));
       });
