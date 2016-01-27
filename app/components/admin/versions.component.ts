@@ -7,6 +7,8 @@ import {CompletionService} from '../../services/completion/completion.service';
 import {Completion} from '../../models/wrapper/completion.model';
 import {AbcIconComponent} from '../general/abc-icon.component';
 
+declare var $;
+
 @Component({
   selector: 'versions-view',
   templateUrl: './components/admin/versions.component.html',
@@ -44,6 +46,6 @@ export class VersionsComponent implements OnInit, OnDestroy {
   }
 
   public onAddCompletionSubmit() {
-    console.log('submit');
+    this.parsingDocs = true;
   }
 }
