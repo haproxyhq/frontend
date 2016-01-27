@@ -10,12 +10,9 @@
 <div id="add-completion-modal" class="modal fade">
   <div class="modal-dialog">
     <div class="modal-content">
-      <div *ngIf="parsingDocs" class="fade-in-half">
-        <div class="parsing-docs-layover">
-        </div>
-        <div class="parsing-docs">
-          <i class="material-icons parsing-docs-spinner rotate">loop</i>
-        </div>
+      <div *ngIf="parsingDocs" class="parsing-docs fade-in">
+        <i class="material-icons primary-text-color parsing-docs-spinner rotate">loop</i>
+        <h4 class="parsing-docs-text primary-text-color">Documentation is being parsed, this may take a few seconds!</h4>
       </div>
       <form (ngSubmit)="onAddCompletionSubmit()" #addCompletionForm="ngForm">
         <div class="modal-header">
