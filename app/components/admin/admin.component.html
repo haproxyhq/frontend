@@ -1,1 +1,37 @@
-<p>Admin</p>
+<div class="container">
+  <div class="row">
+    <div class="col-md-4 col-sm-12 col-xs-12 admin-menu slide-in-left">
+      <div class="panel">
+        <div class="panel-body">
+          <div class="list-group">
+            <div class="list-group-item clickable-pointer" (click)="selectedTab = 'users'">
+              <div class="row-action-primary">
+                <i class="material-icons" [class.primary-color]="selectedTab === 'users'">group_add</i>
+              </div>
+              <div class="row-content">
+                <h4 class="list-group-item-heading truncate">Users</h4>
+              </div>
+            </div>
+            <div class="list-group-separator"></div>
+            <div class="list-group-item clickable-pointer" (click)="selectedTab = 'versions'">
+              <div class="row-action-primary">
+                <i class="material-icons" [class.primary-color]="selectedTab === 'versions'">code</i>
+              </div>
+              <div class="row-content">
+                <h4 class="list-group-item-heading truncate">HAProxy Versions</h4>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-8 col-sm-12 col-xs-12 admin-view">
+      <div *ngIf="selectedTab === 'users'" class="slide-in">
+        <users-view></users-view>
+      </div>
+      <div *ngIf="selectedTab === 'versions'" class="slide-in">
+        <versions-view></versions-view>
+      </div>
+    </div>
+  </div>
+</div>
