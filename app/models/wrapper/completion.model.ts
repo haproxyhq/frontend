@@ -15,7 +15,7 @@ export class Completion extends RestWrapperModel {
     return this._transformToPOJO('url', 'version', 'data');
   }
 
-  transformPlainObject(plainObject:any):void {
+  transformPlainObject(plainObject:any): void {
     this.url = plainObject.url;
     this.version = plainObject.version;
 

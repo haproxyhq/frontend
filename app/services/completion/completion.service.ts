@@ -6,6 +6,8 @@ import {CustomHttpService}        from '../../services/general/custom-http.servi
 import {Completion}               from '../../models/wrapper/completion.model';
 import {EmptyRestModel}           from '../../models/empty-rest.model';
 
+declare var $;
+
 @Injectable()
 export class CompletionService {
 
@@ -14,7 +16,7 @@ export class CompletionService {
   /**
   * gets all completions from the backend
   * @return EventEmitter<Array<Completion>>
-  **/
+  */
   public getCompletions(): EventEmitter<Array<Completion>> {
     var event: EventEmitter<Array<Completion>> = new EventEmitter<Array<Completion>>();
     this._http.get('http://localhost:8080/completions')
@@ -34,6 +36,43 @@ export class CompletionService {
         },
         () => {}
       );
+    return event;
+  }
+
+  /**
+   * creates a new completion in the backend
+   *
+   * @param completion which is added
+   * @returns {EventEmitter<Completion>}
+   */
+  public addCompletion(completion: Completion): EventEmitter<Completion> {
+    var event: EventEmitter<Completion> = new EventEmitter<Completion>();
+
+    this._http.post('http://localhost:8080/completions', completion.getRestModel())
+    .map((res: Response) => res.json())
+      .subscribe((res: Response) => {
+        event.emit(new Completion(res));
+      });
+
+    return event;
+  }
+
+  /**
+   * adds a completion by calling addCompletion, but loads the docs first, with the supplied URL
+   *
+   * @param completion
+   * @returns {EventEmitter<Completion>}
+   */
+  public addCompletionWithDocs(completion: Completion): EventEmitter<Completion> {
+    var event: EventEmitter<Completion> = new EventEmitter<Completion>();
+
+    $.scrapeHAPDocs(completion.url, (response) => {
+      completion.data = response;
+      this.addCompletion(completion).subscribe((completion) => {
+        event.emit(completion);
+      });
+    });
+
     return event;
   }
 }
