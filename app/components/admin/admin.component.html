@@ -1,5 +1,5 @@
-<div class="fab bottom right slide-in-right" data-toggle="modal" data-target="#add-modal">
-  <a class="btn btn-primary btn-fab"><i class="material-icons">add</i></a>
+<div class="fab bottom right slide-in-right">
+  <a (click)="onFabPressed()" class="btn btn-primary btn-fab"><i class="material-icons">add</i></a>
 </div>
 <div class="container">
   <div class="row">
@@ -12,7 +12,7 @@
                 <i class="material-icons" [class.primary-color]="selectedTab === 'users'">group_add</i>
               </div>
               <div class="row-content">
-                <h4 class="list-group-item-heading truncate">Users</h4>
+                <h4 class="list-group-item-heading">Users</h4>
               </div>
             </div>
             <div class="list-group-separator"></div>
@@ -21,7 +21,7 @@
                 <i class="material-icons" [class.primary-color]="selectedTab === 'versions'">code</i>
               </div>
               <div class="row-content">
-                <h4 class="list-group-item-heading truncate">HAProxy Versions</h4>
+                <h4 class="list-group-item-heading">HAProxy Versions</h4>
               </div>
             </div>
           </div>
@@ -30,10 +30,10 @@
     </div>
     <div class="col-md-8 col-sm-12 col-xs-12 admin-view">
       <div *ngIf="selectedTab === 'users'" class="slide-in">
-        <users-view></users-view>
+        <users-view [fabPressedEmitter]="fabPressedEmitter"></users-view>
       </div>
       <div *ngIf="selectedTab === 'versions'" class="slide-in">
-        <versions-view></versions-view>
+        <versions-view #versionTest [fabPressedEmitter]="fabPressedEmitter"></versions-view>
       </div>
     </div>
   </div>
