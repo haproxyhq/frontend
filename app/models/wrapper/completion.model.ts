@@ -1,5 +1,6 @@
 import {CompletionSection}  from './completion-section.model';
 import {RestWrapperModel}   from './rest-wrapper.model';
+import {Link} from './link.model';
 
 export class Completion extends RestWrapperModel {
   public url: string;
@@ -9,6 +10,10 @@ export class Completion extends RestWrapperModel {
   constructor(plainCompletion: any) {
     super();
     this.transformPlainObject(plainCompletion);
+
+    plainCompletion.links.forEach((link, index, array) => {
+      this.links.push(new Link(link.rel, link.href));
+    });
   }
 
   getRestModel():Object {
