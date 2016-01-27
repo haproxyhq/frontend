@@ -18,6 +18,7 @@ export class VersionsComponent implements OnInit, OnDestroy {
 
   public completions: Array<Completion>;
   public newCompletion: Completion = new Completion({});
+  public parsingDocs: boolean = false;
 
   private _fabPressedSubscription: any;
 
