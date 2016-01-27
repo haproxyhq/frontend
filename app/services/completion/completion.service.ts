@@ -49,7 +49,7 @@ export class CompletionService {
     var event: EventEmitter<Completion> = new EventEmitter<Completion>();
 
     this._http.post('http://localhost:8080/completions', completion.getRestModel())
-    .map((res: Response) => res.json())
+      .map((res: Response) => res.json())
       .subscribe((res: Response) => {
         event.emit(new Completion(res));
       });
@@ -74,5 +74,14 @@ export class CompletionService {
     });
 
     return event;
+  }
+
+  /**
+   * deletes a completion
+   *
+   * @param completion
+   */
+  public deleteCompletion(completion: Completion): void {
+    this._http.delete(completion.getSelfLink());
   }
 }
