@@ -34,4 +34,10 @@ export class VersionsComponent implements OnInit, OnDestroy {
   ngOnDestroy(): void {
     this._fabPressedSubscription.unsubscribe();
   }
+
+  public deleteCompletion(completion: Completion): void {
+    this.completions.splice(this.completions.indexOf(completion));
+
+    console.log(this.completions);
+  }
 }
