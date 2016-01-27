@@ -12,7 +12,7 @@ export class Completion extends RestWrapperModel {
   }
 
   getRestModel():Object {
-    return undefined;
+    return this._transformToPOJO('url', 'version', 'data');
   }
 
   transformPlainObject(plainObject:any):void {
