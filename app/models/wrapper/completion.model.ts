@@ -6,12 +6,14 @@ export class Completion extends RestWrapperModel {
   public url: string;
   public version: string;
   public data: Array<CompletionSection> = [];
+  public links: Array<Link> = [];
 
   constructor(plainCompletion: any) {
     super();
     this.transformPlainObject(plainCompletion);
 
     if(plainCompletion.links) {
+      console.log(plainCompletion);
       plainCompletion.links.forEach((link, index, array) => {
         this.links.push(new Link(link.rel, link.href));
       });

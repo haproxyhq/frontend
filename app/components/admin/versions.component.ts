@@ -41,9 +41,9 @@ export class VersionsComponent implements OnInit, OnDestroy {
   }
 
   public deleteCompletion(completion: Completion): void {
-    this.completions.splice(this.completions.indexOf(completion));
-
-    console.log(this.completions);
+    var deletedCompletion: Completion = this.completions.splice(this.completions.indexOf(completion), 1)[0];
+    this._completionService.deleteCompletion(deletedCompletion);
+    this._glogalStorageService.completions = this.completions;
   }
 
   public onAddCompletionSubmit() {

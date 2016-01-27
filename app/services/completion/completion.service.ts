@@ -82,6 +82,8 @@ export class CompletionService {
    * @param completion
    */
   public deleteCompletion(completion: Completion): void {
-    this._http.delete(completion.getSelfLink());
+    this._http.delete(completion.getSelfLink())
+      .map((res: Response) => res.json())
+      .subscribe();
   }
 }
