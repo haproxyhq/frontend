@@ -10,12 +10,12 @@
           <h5 class="truncate">{{ agent.ip }}</h5>
         </div>
         <div class="agent-detail-details-heartbeats">
-          <template [ngIf]="heartbeat.agentAlive">
+          <template [ngIf]="heartbeat?.agentAlive">
             <h4 class="pull-left full-width"><span class="label label-success pull-left full-width">Agent online</span></h4>
             <h4 class="pull-left full-width bottom-label" *ngIf="heartbeat.haproxyAlive"><span class="label label-success pull-left full-width">HAProxy online</span></h4>
             <h4 class="pull-left full-width bottom-label" *ngIf="!heartbeat.haproxyAlive"><span class="label primary-color pull-left full-width">HAProxy offline</span></h4>
           </template>
-          <template [ngIf]="!heartbeat.agentAlive">
+          <template [ngIf]="!heartbeat?.agentAlive">
             <h4 class="pull-left full-width" ><span class="label primary-color pull-left full-width">Agent offline</span></h4>
             <h4 class="pull-left full-width bottom-label" ><span class="label label-default pull-left full-width">HAProxy unkown</span></h4>
           </template>
