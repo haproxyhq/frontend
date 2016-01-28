@@ -68,10 +68,12 @@ export class AgentEditComponent implements OnInit, AfterViewInit {
   * saves the edited agent
   **/
   private _saveChanges() {
-    // filter an eventually null section (we add a null value to the section array for adding a blank section)
-    this._agent.configHolder.config = this._agent.configHolder.config.filter((configSection, index, array) => {
-      return configSection !== null && !this._isEmptySection(configSection);
-    });
+    if (this._agent.configHolder !== null) {
+      // filter an eventually null section (we add a null value to the section array for adding a blank section)
+      this._agent.configHolder.config = this._agent.configHolder.config.filter((configSection, index, array) => {
+        return configSection !== null && !this._isEmptySection(configSection);
+      });
+    }
     // setting agent to the agent model again because the restore service causes it to be Object
     this._agent = new Agent(this._agent);
     this._agentService.saveAgent(this._agent).subscribe(

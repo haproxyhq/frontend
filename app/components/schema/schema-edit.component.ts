@@ -68,10 +68,12 @@ export class SchemaEditComponent implements OnInit, AfterViewInit {
   * saves the edited schema
   **/
   private _saveChanges() {
-    // filter an eventually null section (we add a null value to the section array for adding a blank section)
-    this._schema.configHolder.config = this._schema.configHolder.config.filter((configSection, index, array) => {
-      return configSection !== null && !this._isEmptySection(configSection);
-    });
+    if (this._schema.configHolder !== null) {
+      // filter an eventually null section (we add a null value to the section array for adding a blank section)
+      this._schema.configHolder.config = this._schema.configHolder.config.filter((configSection, index, array) => {
+        return configSection !== null && !this._isEmptySection(configSection);
+      });
+    }
     // setting schema to the schema model again because the restore service causes it to be Object
     this._schema = new Schema(this._schema);
     this._schemaService.saveSchema(this._schema).subscribe(
