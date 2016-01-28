@@ -97,12 +97,23 @@ export class UserService {
    * saves all changes made to a user
    *
    * @param user the changed user
+   * @param isAdmin whether this user should be granted admin rights
    * @returns {EventEmitter<User>}
    */
-  public saveUser(user: User): EventEmitter<User> {
+  public saveUser(user: User, isAdmin: boolean = undefined): EventEmitter<User> {
     let event: EventEmitter<User> = new EventEmitter<User>();
 
-    this._http.patch(user.getSelfLink(), user.getRestModel())
+    var restUser = user.getRestModel();
+
+    if(isAdmin !== undefined) {
+      if(isAdmin) {
+        restUser['groups'] = [this.adminGroup.getSelfLink()];
+      } else {
+        restUser['groups'] = [this.userGroup.getSelfLink()];
+      }
+    }
+
+    this._http.patch(user.getSelfLink(), restUser)
       .map((res: Response) => res.json())
       .subscribe(
         (res) => {
