@@ -41,7 +41,6 @@ export class UsersComponent implements OnInit, OnDestroy {
 
   private _deleteUser(user: User): void {
     var deletedUser: User = this._users.splice(this._users.indexOf(user), 1)[0];
-    console.log(deletedUser);
     this._userService.deleteUser(deletedUser);
   }
 }

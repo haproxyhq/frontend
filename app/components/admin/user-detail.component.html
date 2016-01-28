@@ -1,7 +1,7 @@
 <div class="panel slide-in">
   <div class="panel-heading primary-color" data-toggle="collapse" [attr.data-target]="'#user-' + index">
     <span class="account-icon-handler"><i class="material-icons account-icon">account_circle</i></span>
-    <h4 class="user-name">{{ user.firstName }} {{ user.name }}</h4>
+    <h4 class="user-name">{{ userCopy.firstName }} {{ userCopy.name }}</h4>
     <span class="delete-user" (click)="_deleteUser()">
       <i class="material-icons close-icon">highlight_off</i>
     </span>
@@ -11,17 +11,17 @@
       <div class="row">
         <div class="col-md-6">
           <div class="input-field">
-            <input-field [(value)]="user.firstName" label="First name"></input-field>
+            <input-field [(value)]="userCopy.firstName" label="First name"></input-field>
           </div>
         </div>
         <div class="col-md-6">
           <div class="input-field">
-            <input-field [(value)]="user.name" label="Name"></input-field>
+            <input-field [(value)]="userCopy.name" label="Name"></input-field>
           </div>
         </div>
         <div class="col-xs-10">
           <div class="input-field">
-            <input-field [(value)]="user.username" label="Username"></input-field>
+            <input-field [(value)]="userCopy.username" label="Username"></input-field>
           </div>
         </div>
         <div class="save-cancel-fab">
