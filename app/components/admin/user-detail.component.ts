@@ -31,8 +31,7 @@ export class UserDetailComponent implements OnInit {
   constructor(private _userService: UserService) {}
 
   ngOnInit(): void {
-    this.userCopy = new User(this.user);
-    this._isAdmin = this.userCopy.isAdmin();
+    this._initUserCopy();
   }
 
   public saveChanges(): void {
@@ -46,7 +45,7 @@ export class UserDetailComponent implements OnInit {
         }
       });
     } else {
-      this._userService.createUser(this.userCopy).subscribe((user: User) => {
+      this._userService.createUser(this.userCopy, this._isAdmin).subscribe((user: User) => {
         if(user !== null) {
           this.user = this.userCopy;
           $.snackbar(new ToastModel('User has been created!'));
@@ -58,10 +57,15 @@ export class UserDetailComponent implements OnInit {
   }
 
   public revertChanges(): void {
-    this.userCopy = new User(this.user);
+    this._initUserCopy();
   }
 
   private _deleteUser(): void {
     this.deletePressed.emit(this.user);
+  }
+
+  private _initUserCopy(): void {
+    this.userCopy = new User(this.user);
+    this._isAdmin = this.userCopy.isAdmin();
   }
 }
