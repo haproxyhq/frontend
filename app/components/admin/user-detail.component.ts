@@ -48,7 +48,7 @@ export class UserDetailComponent implements OnInit {
   }
 
   public revertChanges(): void {
-
+    this.userCopy = new User(this.user);
   }
 
   private _deleteUser(): void {
