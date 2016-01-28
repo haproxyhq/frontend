@@ -17,9 +17,9 @@ import {InputFieldComponent} from '../general/input-field.component';
 export class UserDetailComponent {
   @Input() user: User;
   @Input() index: number;
-  @Output() deletePressed: EventEmitter<User> = new EventEmitter<User>();
+  @Output() deletePressed: EventEmitter = new EventEmitter();
 
   private _deleteUser(): void {
-    this.deletePressed.emit(this.user);
+    this.deletePressed.emit(null);
   }
 }

@@ -97,7 +97,6 @@ export class UserService {
    */
   public deleteUser(user: User): void {
     this._http.delete(user.getSelfLink())
-      .map((res: Response) => res.json())
       .subscribe();
   }
 }
