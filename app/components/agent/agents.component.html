@@ -54,7 +54,8 @@
             </div>
             <div class="form-group label-floating">
               <label class="control-label" for="version">HAProxy Version</label>
-              <select id="version" class="type-select form-control" [(ngModel)]="newAgent.version" #version="ngForm">
+              <select id="version" [disabled]="selectedSchema != -1" class="type-select form-control" [(ngModel)]="newAgent.version" #version="ngForm">
+                <option disabled [selected]="selectedSchema != -1"></option>
                 <option *ngFor="#version of _avaiableVersions; #i = index"
                   [value]="version"
                   [selected]="i == 0">

@@ -17,6 +17,23 @@
               <div class="input-field">
                 <input-field [(value)]="_agent.ip" label="Ip"></input-field>
               </div>
+              <div class="row">
+                <div class="col-md-12">
+                  <label class="control-label" for="version">HAProxy Version</label>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-md-12">
+                  <div class="version-select">
+                    <select id="version" class="type-select" [(ngModel)]="_agent.version">
+                      <option *ngFor="#version of _avaiableVersions; #i = index"
+                        [value]="version"
+                        [selected]="i == 0">
+                        {{version}}</option>
+                    </select>
+                  </div>
+                </div>
+              </div>
               <save-cancel-fabs (save)="_saveChanges()" (cancel)="_revertChanges()"></save-cancel-fabs>
             </div>
           </div>

@@ -76,6 +76,7 @@ export class AgentsComponent implements OnInit, OnDestroy {
   public onAddAgentSubmit(): void {
     if(this.selectedSchema !== -1) {
       this.newAgent.configHolder = this.schemas[this.selectedSchema].configHolder;
+      this.newAgent.version = this.schemas[this.selectedSchema].version;
     } else {
       this.newAgent.configHolder = null;
     }

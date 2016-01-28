@@ -34,6 +34,7 @@ export class AgentEditComponent implements OnInit, AfterViewInit {
   private _completion: Completion;
   private _types = ['global', 'defaults', 'listen', 'backend', 'frontend'];
   private _restoring = false;
+  private _avaiableVersions: Array<string> = [];
 
   constructor(private _globalStorage: GlobalStorageService,
     private _agentService: AgentService,
@@ -41,6 +42,8 @@ export class AgentEditComponent implements OnInit, AfterViewInit {
     private _restoreService: RestoreService<Agent>) {}
 
   ngOnInit() {
+    this._avaiableVersions = this._globalStorage.getAvailableCompletions();
+
     let id = this._routeParams.get('id');
     this._restoreService.setItem(this._globalStorage.getAgent(id));
     this._agent = this._restoreService.getItem();
