@@ -99,4 +99,33 @@ export class UserService {
     this._http.delete(user.getSelfLink())
       .subscribe();
   }
+
+  /**
+   * creates a new user
+   *
+   * @param user the user to create
+   * @param isAdmin determines whether this user is a admin, or normal user
+   * * @returns {EventEmitter<User>}
+   */
+  public createUser(user: User, isAdmin: boolean = false): EventEmitter<User> {
+    let event: EventEmitter<User> = new EventEmitter<User>();
+
+    //TODO: remove this when passwords are generated randomly by backend
+    var tempUser = user.getRestModel();
+    tempUser['password'] = 'abc123abc';
+
+    this._http.post('http://localhost:8080/users/', tempUser)
+      .map((res: Response) => res.json())
+      .subscribe(
+        (res) => {
+          event.emit(new User(res));
+        },
+        (err) => {
+          event.emit(null);
+        },
+        () => {}
+      );
+
+    return event;
+  }
 }
