@@ -11,6 +11,7 @@ export class Agent extends RestWrapperModel {
   public description: string;
   public ip: string;
   public version: string;
+  public authToken: string;
   public configHolder: Config = null;
   public links: Array<Link> = [];
 
@@ -24,7 +25,7 @@ export class Agent extends RestWrapperModel {
       if (plainObject.configHolder !== null && plainObject.configHolder !== undefined) {
         this.configHolder = new Config(plainObject.configHolder);
       }
-      this._transformFromPOJO(plainObject, 'id', 'name', 'description', 'ip', 'version');
+      this._transformFromPOJO(plainObject, 'id', 'name', 'description', 'ip', 'version', 'authToken');
 
       plainObject.links.forEach((link, index, array) => {
         this.links.push(new Link(link.rel, link.href));
@@ -33,6 +34,6 @@ export class Agent extends RestWrapperModel {
   }
 
   public getRestModel(): Object {
-    return this._transformToPOJO('name', 'description', 'ip', 'version', 'configHolder');
+    return this._transformToPOJO('name', 'description', 'ip', 'version', 'authToken', 'configHolder');
   }
 }
