@@ -43,7 +43,14 @@ export class UserDetailComponent implements OnInit {
         }
       });
     } else {
-
+      this._userService.createUser(this.userCopy).subscribe((user: User) => {
+        if(user !== null) {
+          this.user = this.userCopy;
+          $.snackbar(new ToastModel('User has been created!'));
+        } else {
+          $.snackbar(new ToastModel('Error occured!'));
+        }
+      });
     }
   }
 
