@@ -5,6 +5,7 @@ import {CustomHttpService}        from '../../services/general/custom-http.servi
 
 import {User}                     from '../../models/wrapper/user.model';
 import {EmptyRestModel} from '../../models/empty-rest.model';
+import {Group} from '../../models/wrapper/group.model';
 
 /**
  * this service takes care of all CRUD operations regarding users
@@ -12,7 +13,32 @@ import {EmptyRestModel} from '../../models/empty-rest.model';
 @Injectable()
 export class UserService {
 
-  constructor(private _http: CustomHttpService) {}
+  private adminGroup: Group = null;
+  private userGroup: Group = null;
+
+  constructor(private _http: CustomHttpService) {
+    this._http.get('http://localhost:8080/groups/')
+      .map((res: Response) => res.json())
+      .subscribe(
+        (res) => {
+          let group: Group = null;
+
+          if(res.content && !(EmptyRestModel.instanceOf(res.content[0]))) {
+            res.content.forEach((elem, index, array) => {
+              group = new Group(elem);
+              if(group.name === 'ROLE_USER') {
+                this.userGroup = group;
+              } else if(group.name === 'ROLE_ADMIN') {
+                this.adminGroup = group;
+              }
+            });
+          }
+        },
+        (err) => {
+        },
+        () => {}
+      );
+  }
 
   /**
    * returns one specific user identified by email
@@ -110,11 +136,18 @@ export class UserService {
   public createUser(user: User, isAdmin: boolean = false): EventEmitter<User> {
     let event: EventEmitter<User> = new EventEmitter<User>();
 
-    //TODO: remove this when passwords are generated randomly by backend
-    var tempUser = user.getRestModel();
-    tempUser['password'] = 'abc123abc';
+    var restUser = user.getRestModel();
 
-    this._http.post('http://localhost:8080/users/', tempUser)
+    if(isAdmin) {
+      restUser['groups'] = [this.adminGroup.getSelfLink()];
+    } else {
+      restUser['groups'] = [this.userGroup.getSelfLink()];
+    }
+
+    //TODO: remove this when passwords are generated randomly by backend
+    restUser['password'] = 'abc123abc';
+
+    this._http.post('http://localhost:8080/users/', restUser)
       .map((res: Response) => res.json())
       .subscribe(
         (res) => {
