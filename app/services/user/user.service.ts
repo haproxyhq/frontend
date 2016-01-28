@@ -89,4 +89,15 @@ export class UserService {
     );
     return event;
   }
+
+  /**
+   * deletes a given user
+   *
+   * @param user
+   */
+  public deleteUser(user: User): void {
+    this._http.delete(user.getSelfLink())
+      .map((res: Response) => res.json())
+      .subscribe();
+  }
 }
