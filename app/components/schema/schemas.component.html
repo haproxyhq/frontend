@@ -44,14 +44,20 @@
                      [(ngModel)]="_newSchema.description"
                      ngControl="description" #description="ngForm">
             </div>
-            <div class="form-group label-floating">
+            <div class="form-group label-floating" *ngIf="_selectedSchema == -1">
               <label class="control-label" for="version">HAProxy Version</label>
-              <select id="version" [disabled]="_selectedSchema != -1" class="type-select form-control" [(ngModel)]="_newSchema.version" #version="ngForm">
-                <option disabled [selected]="_selectedSchema != -1"></option>
+              <select id="version" class="type-select form-control"
+                      [(ngModel)]="_newSchema.version" ngControl="version" #version="ngForm" required>
                 <option *ngFor="#version of _avaiableVersions; #i = index"
                   [value]="version"
                   [selected]="i == 0">
                   {{version}}</option>
+              </select>
+            </div>
+            <div class="form-group label-floating" *ngIf="_selectedSchema != -1">
+              <label class="control-label" for="version-disabled">HAProxy Version</label>
+              <select id="version-disabled" disabled class="type-select form-control" ngControl="version" #version="ngForm">
+                <option selected></option>
               </select>
             </div>
             <div class="form-group">
