@@ -120,6 +120,17 @@ export class GlobalStorageService {
   }
 
   /**
+  * gets an schema from the local storage which matches the given id
+  * @param id the schema id
+  * @return the schema
+  **/
+  public getSchema(id: string): Schema {
+    return this.schemas.find((schema, index, array) => {
+      if (schema.id === id) return true;
+    });
+  }
+
+  /**
   * Start of public accessible storage functions
   **/
   public set(key: string, value: any): boolean {

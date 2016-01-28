@@ -3,6 +3,7 @@ import {RouteConfig, ROUTER_DIRECTIVES, Router} from 'angular2/router';
 
 import {HomeComponent}                          from '../home/home.component';
 import {SchemasComponent}                       from '../schema/schemas.component';
+import {SchemaEditComponent}                    from '../schema/schema-edit.component';
 import {AgentsComponent}                        from '../agent/agents.component';
 import {AgentEditComponent}                     from '../agent/agent-edit.component';
 import {AboutComponent}                         from '../about/about.component';
@@ -24,6 +25,7 @@ import {GlobalStorageService}                   from '../../services/general/glo
 @RouteConfig([
   { path:'/',                   name: 'Home',                 component: HomeComponent },
   { path:'/schemas',            name: 'Schemas',              component: SchemasComponent },
+  { path:'/schemas/:id',        name: 'Schema Edit',          component: SchemaEditComponent },
   { path:'/agents',             name: 'Agents',               component: AgentsComponent },
   { path:'/agents/:id',         name: 'Agent Edit',           component: AgentEditComponent },
   { path:'/about',              name: 'About',                component: AboutComponent },

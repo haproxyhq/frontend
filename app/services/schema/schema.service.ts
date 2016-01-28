@@ -24,19 +24,60 @@ export class SchemaService {
       .map((res: Response) => res.json())
       .subscribe(
         (res) => {
-          let configs: Array<Schema> = [];
+          let schemas: Array<Schema> = [];
           if (res.content && !(EmptyRestModel.instanceOf(res.content[0]))) {
-            res.content.forEach((config, index, array) => {
-              configs.push(new Schema(config));
+            res.content.forEach((schema, index, array) => {
+              schemas.push(new Schema(schema));
             });
           }
-          event.emit(configs);
+          event.emit(schemas);
         },
         (err) => {
           event.emit(null);
         },
         () => {}
       );
+    return event;
+  }
+
+  /**
+  * adds a new schema
+  * @return EventEmitter<Schema>
+  **/
+  public addSchema(schema: Schema) {
+    var event: EventEmitter<Schema> = new EventEmitter<Schema>();
+
+    this._http.post('http://localhost:8080/schemas', schema.getRestModel())
+      .map((res: Response) => res.json())
+      .subscribe(
+      (res: Response) => {
+        event.next(new Schema(res));
+      },
+      (err) => {
+        event.next(null);
+      });
+
+    return event;
+  }
+
+  /**
+  * saves the given schema
+  * @return EventEmitter<Schema>
+  **/
+  public saveSchema(schema: Schema) {
+    var event: EventEmitter<Schema> = new EventEmitter<Schema>();
+
+    this._http.patch(schema.getSelfLink(), schema.getRestModel())
+      .map((res: Response) => res.json())
+      .subscribe(
+        (res) => {
+          event.next(new Schema(res));
+        },
+        (err) => {
+          event.next(null);
+        },
+        () => {}
+    );
     return event;
   }
 }

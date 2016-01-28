@@ -1,13 +1,72 @@
 <div protected>
-  <div class="fab bottom right">
+  <div class="fab bottom right slide-in-right" data-toggle="modal" data-target="#add-schema-modal">
     <a class="btn btn-primary btn-fab"><i class="material-icons">add</i></a>
   </div>
-  <div *ngIf="true" class="container">
-    <div class="row">
-      <div class="col-md-12">
-        <div class="well infobox">
-          You don't have any configuration schemas yet. Create a new one by clicking the button in the lower right corner.
+  <div class="schemas-container">
+    <template [ngIf]="_schemasLoaded">
+      <template [ngIf]="_schemas.length === 0">
+        <div class="row">
+          <div class="col-md-12">
+            <div class="well infobox">
+              You don't have any configuration schemas yet. Create a new one by clicking the button in the lower right corner.
+            </div>
+          </div>
         </div>
+      </template>
+      <template [ngIf]="_schemas.length !== 0">
+        <div class="row">
+          <div *ngFor="#schema of _schemas" class="col-md-3 col-sx-3 schema-detail" (click)="_selectSchema(schema.id)">
+            <schema-detail [schema]="schema"></schema-detail>
+          </div>
+        </div>
+      </template>
+    </template>
+  </div>
+
+  <div id="add-schema-modal" class="modal fade">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <form (ngSubmit)="onAddSchemaSubmit()" #addSchemaForm="ngForm">
+          <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+            <h2 class="modal-title">Add Schema</h2>
+          </div>
+          <div class="modal-body">
+            <div class="form-group label-floating">
+              <label class="control-label" for="name">Name</label>
+              <input id="name" type="text" class="form-control" required
+                     [(ngModel)]="_newSchema.name"
+                     ngControl="name" #name="ngForm">
+            </div>
+            <div class="form-group label-floating">
+              <label class="control-label" for="description">Description</label>
+              <input id="description" type="text" class="form-control" required
+                     [(ngModel)]="_newSchema.description"
+                     ngControl="description" #description="ngForm">
+            </div>
+            <div class="form-group label-floating">
+              <label class="control-label" for="version">HAProxy Version</label>
+              <select id="version" [disabled]="_selectedSchema != -1" class="type-select form-control" [(ngModel)]="_newSchema.version" #version="ngForm">
+                <option disabled [selected]="_selectedSchema != -1"></option>
+                <option *ngFor="#version of _avaiableVersions; #i = index"
+                  [value]="version"
+                  [selected]="i == 0">
+                  {{version}}</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label for="schema">Base Schema</label><br />
+              <select id="schema" class="form-control" [(ngModel)]="_selectedSchema">
+                <option selected [value]="-1">No Schema</option>
+                <option *ngFor="#schema of _schemas; #i = index" [value]="i">{{schema.name}}</option>
+              </select>
+            </div>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+            <button type="submit" [disabled]="!addSchemaForm.form.valid" class="btn btn-primary">Add Schema</button>
+          </div>
+        </form>
       </div>
     </div>
   </div>
