@@ -36,7 +36,7 @@ export class UserDetailComponent implements OnInit {
 
   public saveChanges(): void {
     if(this.user.getSelfLink()) {
-      this._userService.saveUser(this.userCopy).subscribe((user: User) => {
+      this._userService.saveUser(this.userCopy, this._isAdmin).subscribe((user: User) => {
         if(user !== null) {
           this.user = this.userCopy;
           $.snackbar(new ToastModel('Changed saved!'));
