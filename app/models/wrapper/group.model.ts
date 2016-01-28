@@ -5,6 +5,7 @@ export class Group extends RestWrapperModel {
   public name: string;
   public description: string;
   public authority: string;
+  public links: Array<Link> = [];
 
   public constructor(plainObject: any) {
     super();
