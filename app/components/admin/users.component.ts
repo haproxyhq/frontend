@@ -39,7 +39,9 @@ export class UsersComponent implements OnInit, OnDestroy {
     this._fabPressedSubscription.unsubscribe();
   }
 
-  private _deleteUser(): void {
-    console.log('delete pressed');
+  private _deleteUser(user: User): void {
+    var deletedUser: User = this._users.splice(this._users.indexOf(user), 1)[0];
+    console.log(deletedUser);
+    this._userService.deleteUser(deletedUser);
   }
 }
