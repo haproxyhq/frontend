@@ -41,10 +41,9 @@ export class User extends RestWrapperModel {
   }
 
   public getRestModel(): Object {
-    let restUser: any = {};
-    restUser.firstName = this.firstName;
-    restUser.name = this.name;
-    restUser.email = this.username;
+    let restUser: any = this._transformToPOJO('name', 'firstName');
+    restUser.username = restUser.email = this.username;
+
     return restUser;
   }
 }
