@@ -19,9 +19,17 @@
             <input-field [(value)]="userCopy.name" label="Name"></input-field>
           </div>
         </div>
-        <div class="col-xs-10">
+        <div class="col-md-6">
           <div class="input-field">
             <input-field [(value)]="userCopy.username" label="Username"></input-field>
+          </div>
+        </div>
+        <div class="col-md-6">
+          <div class="togglebutton">
+            <label class="control-label" for="isAdmin">Admin</label><br />
+            <label>
+              <input id="isAdmin" type="checkbox" [(ngModel)]="_isAdmin" checked>
+            </label>
           </div>
         </div>
         <div class="save-cancel-fab">

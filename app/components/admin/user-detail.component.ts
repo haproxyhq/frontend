@@ -26,10 +26,13 @@ export class UserDetailComponent implements OnInit {
 
   public userCopy: User;
 
+  private _isAdmin: boolean = false;
+
   constructor(private _userService: UserService) {}
 
   ngOnInit(): void {
     this.userCopy = new User(this.user);
+    this._isAdmin = this.userCopy.isAdmin();
   }
 
   public saveChanges(): void {
