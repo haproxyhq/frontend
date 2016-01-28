@@ -29,10 +29,10 @@
       </div>
     </div>
     <div class="col-md-8 col-sm-12 col-xs-12 admin-view">
-      <div *ngIf="selectedTab === 'users'" class="slide-in">
+      <div *ngIf="selectedTab === 'users'">
         <users-view [fabPressedEmitter]="fabPressedEmitter"></users-view>
       </div>
-      <div *ngIf="selectedTab === 'versions'" class="slide-in">
+      <div *ngIf="selectedTab === 'versions'">
         <versions-view #versionTest [fabPressedEmitter]="fabPressedEmitter"></versions-view>
       </div>
     </div>
