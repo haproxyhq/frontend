@@ -21,13 +21,17 @@ export class User extends RestWrapperModel {
     this.firstName = plainObject.firstName;
     this.name = plainObject.name;
 
-    plainObject.authorities.forEach((authority, index, array) => {
-      this.authorities.push(new Authority(authority.authority, authority.description, authority.name));
-    });
+    if(this.authorities) {
+      plainObject.authorities.forEach((authority, index, array) => {
+        this.authorities.push(new Authority(authority.authority, authority.description, authority.name));
+      });
+    }
 
-    plainObject.links.forEach((link, index, array) => {
-      this.links.push(new Link(link.rel, link.href));
-    });
+    if(this.links) {
+      plainObject.links.forEach((link, index, array) => {
+        this.links.push(new Link(link.rel, link.href));
+      });
+    }
   }
 
   public isAdmin(): boolean {
