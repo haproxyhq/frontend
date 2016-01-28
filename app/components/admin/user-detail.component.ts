@@ -10,4 +10,5 @@ import {User} from '../../models/wrapper/user.model';
 })
 export class UserDetailComponent {
   @Input() user: User;
+  @Input() index: number;
 }
