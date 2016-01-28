@@ -3,10 +3,14 @@ import {OnInit} from 'angular2/core';
 import {OnDestroy} from 'angular2/core';
 import {EventEmitter} from 'angular2/core';
 import {Input} from 'angular2/core';
+
 import {AbcIconComponent} from '../general/abc-icon.component';
 import {UserDetailComponent} from './user-detail.component';
-import {User} from '../../models/wrapper/user.model';
+
 import {UserService} from '../../services/user/user.service';
+
+import {User} from '../../models/wrapper/user.model';
+
 
 @Component({
   selector: 'users-view',
@@ -27,11 +31,15 @@ export class UsersComponent implements OnInit, OnDestroy {
       this._users = users;
     });
     this._fabPressedSubscription = this.fabPressedEmitter.subscribe((selectedTab) => {
-      console.log(selectedTab);
+      this._users.push(new User({}));
     });
   }
 
   ngOnDestroy(): void {
     this._fabPressedSubscription.unsubscribe();
+  }
+
+  private _deleteUser(): void {
+    console.log('delete pressed');
   }
 }
