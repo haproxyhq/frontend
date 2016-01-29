@@ -91,4 +91,14 @@ export class AgentsComponent implements OnInit, OnDestroy {
   private _selectAgent(id: string) {
     this._router.navigate(['Agent Edit', { id: id }]);
   }
+
+  private _deleteAgent(agent: Agent): void {
+    this._agentService.deleteAgent(agent).subscribe((res) => {
+      if (res) {
+        this.agents.splice(this.agents.indexOf(agent), 1)[0];
+        this._globalStorage.agents = this.agents;
+        $.snackbar(new ToastModel('Agent deleted'));
+      } else $.snackbar(new ToastModel('Error deleting agent'));
+    });
+  }
 }

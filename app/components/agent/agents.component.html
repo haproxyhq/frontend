@@ -17,8 +17,11 @@
       </template>
       <template [ngIf]="agents.length !== 0">
         <div class="row">
-          <div *ngFor="#agent of agents" class="col-md-3 col-sx-3 agent-detail" (click)="_selectAgent(agent.id)">
-            <agent-detail [agent]="agent" [heartbeat]="agentsHeartbeats.get(agent.id)"></agent-detail>
+          <div *ngFor="#agent of agents" class="col-md-3 col-sx-3 agent-detail">
+            <div class="agent-detail-container zoom-on-hover">
+              <span (click)="_deleteAgent(agent)" class="remove-agent"><i class="material-icons">close</i></span>
+              <agent-detail [agent]="agent" [heartbeat]="agentsHeartbeats.get(agent.id)" (click)="_selectAgent(agent.id)"></agent-detail>
+            </div>
           </div>
         </div>
       </template>

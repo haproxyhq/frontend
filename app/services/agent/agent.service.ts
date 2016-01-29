@@ -74,4 +74,23 @@ export class AgentService {
     );
     return event;
   }
+
+  /**
+   * deletes a completion
+   *
+   * @param completion
+   */
+  public deleteAgent(agent: Agent): EventEmitter<boolean> {
+    var event: EventEmitter<boolean> = new EventEmitter();
+
+    this._http.delete(agent.getSelfLink())
+      .subscribe((res) => {
+        event.next(true);
+      },
+      (err) => {
+        event.next(false);
+      });
+
+    return event;
+  }
 }
