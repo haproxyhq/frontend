@@ -83,7 +83,6 @@ export class CompletionService {
    */
   public deleteCompletion(completion: Completion): void {
     this._http.delete(completion.getSelfLink())
-      .map((res: Response) => res.json())
       .subscribe();
   }
 }
