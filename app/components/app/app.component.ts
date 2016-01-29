@@ -29,7 +29,7 @@ import {GlobalStorageService}                   from '../../services/general/glo
   { path:'/about',              name: 'About',                component: AboutComponent },
   { path:'/login',              name: 'Login',                component: LoginComponent },
   { path:'/settings/profile',   name: 'Settings Profile',     component: SettingsProfileComponent },
-  { path:'/admin',              name: 'Admin',                component: AdminComponent },
+  { path:'/admin/:route',       name: 'Admin',                component: AdminComponent },
   { path:'/unauthorized',       name: 'Unauthorized',         component: UnauthorizedComponent },
   { path:'/logout',             name: 'Logout',               component: LogoutComponent }
 ])

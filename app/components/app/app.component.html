@@ -16,7 +16,7 @@
           <li [class.active]="isActive(['Schemas'])"><a [routerLink]="['Schemas']">Schemas</a></li>
           <li [class.active]="isActive(['Agents'])"><a [routerLink]="['Agents']">Agents</a></li>
           <template [ngIf]="_globalStorage.user.isAdmin()">
-            <li [class.active]="isActive(['Admin'])"><a [routerLink]="['Admin']">Administration</a></li>
+            <li [class.active]="isActive(['Admin', { route: 'users' }])"><a [routerLink]="['Admin', { route: 'users' }]">Administration</a></li>
           </template>
         </template>
         <template [ngIf]="!_globalStorage.authenticated">
