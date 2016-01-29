@@ -76,9 +76,9 @@ export class AgentService {
   }
 
   /**
-   * deletes a completion
+   * deletes an agent
    *
-   * @param completion
+   * @param agent
    */
   public deleteAgent(agent: Agent): EventEmitter<boolean> {
     var event: EventEmitter<boolean> = new EventEmitter();
