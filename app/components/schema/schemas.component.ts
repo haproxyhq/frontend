@@ -63,4 +63,14 @@ export class SchemasComponent implements OnInit {
   private _selectSchema(id: string) {
     this._router.navigate(['Schema Edit', { id: id }]);
   }
+
+  private _deleteSchema(schema: Schema): void {
+    this._schemaService.deleteSchema(schema).subscribe((res) => {
+      if (res) {
+        this._schemas.splice(this._schemas.indexOf(schema), 1)[0];
+        this._globalStorage.schemas = this._schemas;
+        $.snackbar(new ToastModel('Schema deleted'));
+      } else $.snackbar(new ToastModel('Error deleting schema'));
+    });
+  }
 }

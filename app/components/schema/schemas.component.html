@@ -15,8 +15,11 @@
       </template>
       <template [ngIf]="_schemas.length !== 0">
         <div class="row">
-          <div *ngFor="#schema of _schemas" class="col-md-3 col-sx-3 schema-detail" (click)="_selectSchema(schema.id)">
-            <schema-detail [schema]="schema"></schema-detail>
+          <div *ngFor="#schema of _schemas" class="col-md-3 col-sx-3 schema-detail">
+            <div class="schema-detail-container zoom-on-hover">
+              <span (click)="_deleteSchema(schema)" class="remove-schema"><i class="material-icons">close</i></span>
+              <schema-detail [schema]="schema" (click)="_selectSchema(schema.id)"></schema-detail>
+            </div>
           </div>
         </div>
       </template>
