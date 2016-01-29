@@ -155,9 +155,6 @@ export class UserService {
       restUser['groups'] = [this.userGroup.getSelfLink()];
     }
 
-    //TODO: remove this when passwords are generated randomly by backend
-    restUser['password'] = 'abc123abc';
-
     this._http.post('http://localhost:8080/users/', restUser)
       .map((res: Response) => res.json())
       .subscribe(
