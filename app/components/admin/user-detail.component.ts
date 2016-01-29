@@ -39,7 +39,7 @@ export class UserDetailComponent implements OnInit {
       this._userService.saveUser(this.userCopy, this._isAdmin).subscribe((user: User) => {
         if(user !== null) {
           this.user = this.userCopy;
-          $.snackbar(new ToastModel('Changed saved!'));
+          $.snackbar(new ToastModel('Changes saved!'));
         } else {
           $.snackbar(new ToastModel('Error occured!'));
         }
