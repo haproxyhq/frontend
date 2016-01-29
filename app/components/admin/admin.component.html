@@ -1,39 +1,41 @@
-<div class="fab bottom right slide-in-right">
-  <a (click)="onFabPressed()" class="btn btn-primary btn-fab"><i class="material-icons">add</i></a>
-</div>
-<div class="container">
-  <div class="row">
-    <div class="col-md-4 col-sm-12 col-xs-12 admin-menu slide-in-left">
-      <div class="panel">
-        <div class="panel-body">
-          <div class="list-group">
-            <div class="list-group-item clickable-pointer" (click)="selectedTab = 'users'">
-              <div class="row-action-primary">
-                <i class="material-icons" [class.primary-color]="selectedTab === 'users'">group_add</i>
+<div protected-admin>
+  <div class="fab bottom right slide-in-right">
+    <a (click)="onFabPressed()" class="btn btn-primary btn-fab"><i class="material-icons">add</i></a>
+  </div>
+  <div class="container">
+    <div class="row">
+      <div class="col-md-4 col-sm-12 col-xs-12 admin-menu slide-in-left">
+        <div class="panel">
+          <div class="panel-body">
+            <div class="list-group">
+              <div class="list-group-item clickable-pointer" (click)="selectedTab = 'users'">
+                <div class="row-action-primary">
+                  <i class="material-icons" [class.primary-color]="selectedTab === 'users'">group_add</i>
+                </div>
+                <div class="row-content">
+                  <h4 class="list-group-item-heading">Users</h4>
+                </div>
               </div>
-              <div class="row-content">
-                <h4 class="list-group-item-heading">Users</h4>
-              </div>
-            </div>
-            <div class="list-group-separator"></div>
-            <div class="list-group-item clickable-pointer" (click)="selectedTab = 'versions'">
-              <div class="row-action-primary">
-                <i class="material-icons" [class.primary-color]="selectedTab === 'versions'">code</i>
-              </div>
-              <div class="row-content">
-                <h4 class="list-group-item-heading">HAProxy Versions</h4>
+              <div class="list-group-separator"></div>
+              <div class="list-group-item clickable-pointer" (click)="selectedTab = 'versions'">
+                <div class="row-action-primary">
+                  <i class="material-icons" [class.primary-color]="selectedTab === 'versions'">code</i>
+                </div>
+                <div class="row-content">
+                  <h4 class="list-group-item-heading">HAProxy Versions</h4>
+                </div>
               </div>
             </div>
           </div>
         </div>
       </div>
-    </div>
-    <div class="col-md-8 col-sm-12 col-xs-12 admin-view">
-      <div *ngIf="selectedTab === 'users'">
-        <users-view [fabPressedEmitter]="fabPressedEmitter"></users-view>
-      </div>
-      <div *ngIf="selectedTab === 'versions'">
-        <versions-view #versionTest [fabPressedEmitter]="fabPressedEmitter"></versions-view>
+      <div class="col-md-8 col-sm-12 col-xs-12 admin-view">
+        <div *ngIf="selectedTab === 'users'">
+          <users-view [fabPressedEmitter]="fabPressedEmitter"></users-view>
+        </div>
+        <div *ngIf="selectedTab === 'versions'">
+          <versions-view #versionTest [fabPressedEmitter]="fabPressedEmitter"></versions-view>
+        </div>
       </div>
     </div>
   </div>

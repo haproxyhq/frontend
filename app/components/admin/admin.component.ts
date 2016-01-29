@@ -5,11 +5,13 @@ import {VersionsComponent} from './versions.component';
 import {QueryList} from 'angular2/core';
 import {ContentChildren} from 'angular2/core';
 
+import {ProtectedAdminDirective} from '../../directives/general/protected-admin.directive';
+
 @Component({
   selector: 'admin-view',
   templateUrl: './components/admin/admin.component.html',
   styleUrls: ['./components/admin/admin.component.css'],
-  directives: [UsersComponent, VersionsComponent]
+  directives: [ProtectedAdminDirective, UsersComponent, VersionsComponent]
 })
 export class AdminComponent {
   public selectedTab: string = 'users';
