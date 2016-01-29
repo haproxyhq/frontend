@@ -12,9 +12,13 @@ export abstract class RestWrapperModel {
    * @returns {string} URL
    */
   public getSelfLink(): string {
-    return this.links.find((link, index, array): boolean => {
-      return link.rel === 'self';
-    }).href;
+    if(this.links.length <= 0) {
+      return null;
+    } else {
+      return this.links.find((link, index, array): boolean => {
+        return link.rel === 'self';
+      }).href;
+    }
   }
 
   /**

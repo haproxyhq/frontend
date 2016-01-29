@@ -1,0 +1,41 @@
+<div class="panel slide-in">
+  <div class="panel-heading primary-color" data-toggle="collapse" [attr.data-target]="'#user-' + index">
+    <span class="account-icon-handler"><i class="material-icons account-icon">account_circle</i></span>
+    <h4 class="user-name">{{ userCopy.firstName }} {{ userCopy.name }}</h4>
+    <span class="delete-user" (click)="_deleteUser()">
+      <i class="material-icons close-icon">highlight_off</i>
+    </span>
+  </div>
+  <div [attr.id]="'user-' + index" class="panel-collapse collapse">
+    <div class="panel-body">
+      <div class="row">
+        <div class="col-md-6">
+          <div class="input-field">
+            <input-field [(value)]="userCopy.firstName" label="First name"></input-field>
+          </div>
+        </div>
+        <div class="col-md-6">
+          <div class="input-field">
+            <input-field [(value)]="userCopy.name" label="Name"></input-field>
+          </div>
+        </div>
+        <div class="col-md-6">
+          <div class="input-field">
+            <input-field [(value)]="userCopy.username" label="Username"></input-field>
+          </div>
+        </div>
+        <div class="col-md-6">
+          <div class="togglebutton">
+            <label class="control-label" for="isAdmin">Admin</label><br />
+            <label>
+              <input id="isAdmin" type="checkbox" [(ngModel)]="_isAdmin" checked>
+            </label>
+          </div>
+        </div>
+        <div class="save-cancel-fab">
+          <save-cancel-fabs (save)="saveChanges()" (cancel)="revertChanges()"></save-cancel-fabs>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

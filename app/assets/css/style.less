@@ -3,7 +3,11 @@
 @brand-primary: @pink-800;
 
 .primary-color {
-  background-color: @brand-primary;
+  background-color: @brand-primary !important;
+}
+
+.primary-text-color {
+  color: @brand-primary !important;
 }
 
 .fab {
@@ -131,9 +135,25 @@
   transform: scale(1.05);
 }
 
+.rotate {
+  animation: rotate .5s linear infinite;
+}
+
+.fade-in {
+  animation: fadeIn .5s linear;
+}
+
+.fade-in-half {
+  animation: fadeInHalf .5s linear;
+}
+
 // add default shadow to material bootstrap elements
 .navbar, .panel, .btn-fab {
   .z-shadow-1;
+}
+
+.clickable-pointer {
+  cursor: pointer;
 }
 
 // keyframes
@@ -186,5 +206,29 @@
     -webkit-transform: translateX(0px) translateZ(0);
     transform: translateX(0px) translateZ(0);
     opacity: 1;
+  }
+}
+
+@keyframes fadeIn {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+
+@keyframes fadeInHalf {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 0.5;
+  }
+}
+
+@keyframes rotate {
+  100% {
+    transform: rotate(360deg);
   }
 }
