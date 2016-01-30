@@ -74,11 +74,14 @@ export class AgentEditComponent implements OnInit, AfterViewInit {
         return configSection !== null && !this._isEmptySection(configSection);
       });
     }
+
     // setting agent to the agent model again because the restore service causes it to be Object
     this._agent = new Agent(this._agent);
+
     this._agentService.saveAgent(this._agent).subscribe(
       (agent) => {
         if (agent !== null) {
+          this._globalStorage.setAgent(agent);
           $.snackbar(new ToastModel('Agent saved'));
         } else {
           $.snackbar(new ToastModel('Error saving agent'));

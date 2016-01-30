@@ -120,6 +120,30 @@ export class GlobalStorageService {
   }
 
   /**
+   * updates a agents or saves it in case it's not been added yet
+   *
+   * @param updatedAgent
+   */
+  public setAgent(updatedAgent: Agent): void {
+    var tempAgents: Array<Agent> = this.agents;
+    var oldAgentIndex: number = -1;
+    tempAgents.some((agent, index, array) => {
+      if (agent.id === updatedAgent.id) {
+        oldAgentIndex = index;
+        return true;
+      }
+    });
+
+    if(oldAgentIndex === -1) {
+      tempAgents.push(updatedAgent);
+    } else {
+      tempAgents[oldAgentIndex] = updatedAgent;
+    }
+
+    this.agents = tempAgents;
+  }
+
+  /**
   * gets an schema from the local storage which matches the given id
   * @param id the schema id
   * @return the schema
