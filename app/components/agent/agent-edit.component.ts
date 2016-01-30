@@ -80,7 +80,8 @@ export class AgentEditComponent implements OnInit, AfterViewInit {
 
     this._agentService.saveAgent(
       new Agent(this._agent),
-      !this._agent.configHolder.equals(this._restoreService.getOriginalItem().configHolder)
+      (this._agent.configHolder !== null ?
+        !this._agent.configHolder.equals(this._restoreService.getOriginalItem().configHolder) : false)
     ).subscribe(
       (agent) => {
         if (agent !== null) {
