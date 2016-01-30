@@ -18,4 +18,18 @@ export class Config extends RestWrapperModel {
   public getRestModel(): Object {
     return this._transformToPOJO('config');
   }
+
+  public equals(config: Config): boolean {
+    if(this.config.length !== config.config.length) {
+      return false;
+    }
+
+    for(var i = 0; i < this.config.length; i++) {
+      if(!this.config[i].equals(config.config[i])) {
+        return false;
+      }
+    }
+
+    return true;
+  }
 }
