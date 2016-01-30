@@ -10,6 +10,7 @@ import {InputFieldComponent} from '../general/input-field.component';
 import {OnInit} from 'angular2/core';
 import {UserService} from '../../services/user/user.service';
 import {ToastModel} from '../../models/toast.model';
+import {IndexedObject} from '../../models/indexed-object.model';
 
 declare var $;
 
@@ -22,7 +23,8 @@ declare var $;
 export class UserDetailComponent implements OnInit {
   @Input() user: User;
   @Input() index: number;
-  @Output() deletePressed: EventEmitter<User> = new EventEmitter<User>();
+  @Output() deletePressed: EventEmitter<number> = new EventEmitter<number>();
+  @Output() userChanged: EventEmitter<IndexedObject<User>> = new EventEmitter<IndexedObject<User>>();
 
   public userCopy: User;
 
@@ -38,7 +40,9 @@ export class UserDetailComponent implements OnInit {
     if(this.user.getSelfLink()) {
       this._userService.saveUser(this.userCopy, this._isAdmin).subscribe((user: User) => {
         if(user !== null) {
-          this.user = this.userCopy;
+          this.user = user;
+          this._initUserCopy();
+          this.userChanged.emit(new IndexedObject<User>(this.index, this.user));
           $.snackbar(new ToastModel('Changes saved!'));
         } else {
           $.snackbar(new ToastModel('Error occured!'));
@@ -47,7 +51,9 @@ export class UserDetailComponent implements OnInit {
     } else {
       this._userService.createUser(this.userCopy, this._isAdmin).subscribe((user: User) => {
         if(user !== null) {
-          this.user = this.userCopy;
+          this.user = user;
+          this._initUserCopy();
+          this.userChanged.emit(new IndexedObject<User>(this.index, this.user));
           $.snackbar(new ToastModel('User has been created!'));
         } else {
           $.snackbar(new ToastModel('Error occured!'));
@@ -61,7 +67,7 @@ export class UserDetailComponent implements OnInit {
   }
 
   private _deleteUser(): void {
-    this.deletePressed.emit(this.user);
+    this.deletePressed.emit(this.index);
   }
 
   private _initUserCopy(): void {
