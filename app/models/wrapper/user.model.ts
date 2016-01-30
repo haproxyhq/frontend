@@ -16,7 +16,7 @@ export class User extends RestWrapperModel {
     this.transformPlainObject(plainUser);
   }
 
-  protected transformPlainObject(plainObject: any): void {
+  public transformPlainObject(plainObject: any): void {
     this.username = plainObject.username;
     this.firstName = plainObject.firstName;
     this.name = plainObject.name;
