@@ -15,6 +15,15 @@ export class RestoreService<T> {
   }
 
   /**
+   * returns the original item
+   *
+   * @returns {T}
+   */
+  public getOriginalItem(): T {
+    return this._originalItem;
+  }
+
+  /**
   * restores the original item. currentItem === originalItem
   * @returns this.getItem(): the original item
   **/
