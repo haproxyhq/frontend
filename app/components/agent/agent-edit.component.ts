@@ -78,7 +78,10 @@ export class AgentEditComponent implements OnInit, AfterViewInit {
     // setting agent to the agent model again because the restore service causes it to be Object
     this._agent = new Agent(this._agent);
 
-    this._agentService.saveAgent(this._agent).subscribe(
+    this._agentService.saveAgent(
+      new Agent(this._agent),
+      !this._agent.configHolder.equals(this._restoreService.getOriginalItem().configHolder)
+    ).subscribe(
       (agent) => {
         if (agent !== null) {
           this._globalStorage.setAgent(agent);
