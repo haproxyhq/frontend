@@ -48,7 +48,6 @@ export class UsersComponent implements OnInit, OnDestroy {
   }
 
   private _changeUser(indexedUser: IndexedObject<User>) {
-    console.log(indexedUser.index);
-    console.log(indexedUser.object);
+    this._users[indexedUser.index].transformPlainObject(indexedUser.object);
   }
 }
