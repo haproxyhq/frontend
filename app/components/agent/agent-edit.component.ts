@@ -77,15 +77,22 @@ export class AgentEditComponent implements OnInit, AfterViewInit {
 
     // setting agent to the agent model again because the restore service causes it to be Object
     this._agent = new Agent(this._agent);
+    var sendTimestamp: boolean = false;
+
+    if(this._agent.configHolder === null && this._restoreService.getOriginalItem().configHolder !== null ||
+        this._agent.configHolder !== null
+          && !this._agent.configHolder.equals(this._restoreService.getOriginalItem().configHolder)) {
+      sendTimestamp = true;
+    }
 
     this._agentService.saveAgent(
-      new Agent(this._agent),
-      (this._agent.configHolder !== null ?
-        !this._agent.configHolder.equals(this._restoreService.getOriginalItem().configHolder) : false)
+      this._agent,
+      sendTimestamp
     ).subscribe(
       (agent) => {
         if (agent !== null) {
           this._globalStorage.setAgent(agent);
+          this._restoreService.setItem(agent);
           $.snackbar(new ToastModel('Agent saved'));
         } else {
           $.snackbar(new ToastModel('Error saving agent'));
@@ -107,7 +114,11 @@ export class AgentEditComponent implements OnInit, AfterViewInit {
   * watches config changes from the child component
   **/
   private _configChange(config) {
-    this._agent.configHolder = config;
+    if(config.config.length === 0) {
+      this._agent.configHolder = null;
+    } else {
+      this._agent.configHolder = config;
+    }
   }
 
   /**
