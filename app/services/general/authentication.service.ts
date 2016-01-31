@@ -23,7 +23,7 @@ export class AuthenticationService {
 
     headers.append('Content-Type', 'application/x-www-form-urlencoded;charset=utf-8');
 
-    this._http.post('http://localhost:8080/login', user, { headers:headers })
+    this._http.post(GlobalStorageService.SERVER_URL + '/login', user, { headers:headers })
       .map((res: Response) => res.json())
       .subscribe(
         (res) => {

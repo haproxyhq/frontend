@@ -1,7 +1,8 @@
 import {Injectable, EventEmitter} from 'angular2/core';
 import {Response}                 from 'angular2/http';
 
-import {CustomHttpService}        from '../../services/general/custom-http.service';
+import {CustomHttpService}        from './custom-http.service';
+import {GlobalStorageService}     from './global-storage.service';
 
 import {MqttBroker}               from '../../models/wrapper/mqtt-broker.model';
 
@@ -16,7 +17,7 @@ export class MqttBrokerService {
    **/
   public getBrokerInfo(): EventEmitter<MqttBroker> {
     var event: EventEmitter<MqttBroker> = new EventEmitter();
-    this._http.get('http://localhost:8080/mqtt/broker')
+    this._http.get(GlobalStorageService.SERVER_URL + '/mqtt/broker')
       .map((res: Response) => res.json())
       .subscribe(
         (res) => {

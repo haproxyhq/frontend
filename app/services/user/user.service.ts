@@ -1,11 +1,12 @@
 import {Injectable, EventEmitter} from 'angular2/core';
 import {Response}                 from 'angular2/http';
 
-import {CustomHttpService}        from '../../services/general/custom-http.service';
+import {CustomHttpService}        from '../general/custom-http.service';
+import {GlobalStorageService}     from '../general/global-storage.service';
 
 import {User}                     from '../../models/wrapper/user.model';
-import {EmptyRestModel} from '../../models/empty-rest.model';
-import {Group} from '../../models/wrapper/group.model';
+import {EmptyRestModel}           from '../../models/empty-rest.model';
+import {Group}                    from '../../models/wrapper/group.model';
 
 /**
  * this service takes care of all CRUD operations regarding users
@@ -17,7 +18,7 @@ export class UserService {
   private userGroup: Group = null;
 
   constructor(private _http: CustomHttpService) {
-    this._http.get('http://localhost:8080/groups/')
+    this._http.get(GlobalStorageService.SERVER_URL + '/groups/')
       .map((res: Response) => res.json())
       .subscribe(
         (res) => {
@@ -49,7 +50,7 @@ export class UserService {
   public getUser(email: string): EventEmitter<User> {
     var event: EventEmitter<User> = new EventEmitter();
 
-    this._http.get('http://localhost:8080/users/search/findUserByEmail?email=' + email)
+    this._http.get(GlobalStorageService.SERVER_URL + '/users/search/findUserByEmail?email=' + email)
       .map((res: Response) => res.json())
       .subscribe(
         (res) => {
@@ -72,7 +73,7 @@ export class UserService {
   public getUsers(): EventEmitter<Array<User>> {
     var event: EventEmitter<Array<User>> = new EventEmitter();
 
-    this._http.get('http://localhost:8080/users/')
+    this._http.get(GlobalStorageService.SERVER_URL + '/users/')
       .map((res: Response) => res.json())
       .subscribe(
         (res) => {
@@ -189,7 +190,7 @@ export class UserService {
       restUser['groups'] = [this.userGroup.getSelfLink()];
     }
 
-    this._http.post('http://localhost:8080/users/', restUser)
+    this._http.post(GlobalStorageService.SERVER_URL + '/users/', restUser)
       .map((res: Response) => res.json())
       .subscribe(
         (res) => {

@@ -1,7 +1,8 @@
 import {Injectable, EventEmitter} from 'angular2/core';
 import {Response}                 from 'angular2/http';
 
-import {CustomHttpService}        from '../../services/general/custom-http.service';
+import {CustomHttpService}        from '../general/custom-http.service';
+import {GlobalStorageService}     from '../general/global-storage.service';
 
 import {EmptyRestModel}           from '../../models/empty-rest.model';
 import {Schema}                   from '../../models/wrapper/schema.model';
@@ -20,7 +21,7 @@ export class SchemaService {
    **/
   public getSchemas(): EventEmitter<Array<Schema>> {
     var event: EventEmitter<Array<Schema>> = new EventEmitter();
-    this._http.get('http://localhost:8080/schemas')
+    this._http.get(GlobalStorageService.SERVER_URL + '/schemas')
       .map((res: Response) => res.json())
       .subscribe(
         (res) => {
@@ -47,7 +48,7 @@ export class SchemaService {
   public addSchema(schema: Schema) {
     var event: EventEmitter<Schema> = new EventEmitter<Schema>();
 
-    this._http.post('http://localhost:8080/schemas', schema.getRestModel())
+    this._http.post(GlobalStorageService.SERVER_URL + '/schemas', schema.getRestModel())
       .map((res: Response) => res.json())
       .subscribe(
       (res: Response) => {

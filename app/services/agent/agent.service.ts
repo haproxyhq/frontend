@@ -1,7 +1,8 @@
 import {Injectable, EventEmitter} from 'angular2/core';
 import {Response}                 from 'angular2/http';
 
-import {CustomHttpService}        from '../../services/general/custom-http.service';
+import {CustomHttpService}        from '../general/custom-http.service';
+import {GlobalStorageService}     from '../general/global-storage.service';
 
 import {Agent}                    from '../../models/wrapper/agent.model';
 import {EmptyRestModel}           from '../../models/empty-rest.model';
@@ -18,7 +19,7 @@ export class AgentService {
   public getAgents(): EventEmitter<Array<Agent>> {
     var event: EventEmitter<Array<Agent>> = new EventEmitter<Array<Agent>>();
 
-    this._http.get('http://localhost:8080/agents')
+    this._http.get(GlobalStorageService.SERVER_URL + '/agents')
       .map((res: Response) => res.json())
       .subscribe(
         (res) => {
@@ -52,7 +53,7 @@ export class AgentService {
       restAgent['configTimestamp'] = Date.now();
     }
 
-    this._http.post('http://localhost:8080/agents', restAgent)
+    this._http.post(GlobalStorageService.SERVER_URL + '/agents', restAgent)
       .map((res: Response) => res.json())
       .subscribe((res: Response) => {
         event.emit(new Agent(res));
