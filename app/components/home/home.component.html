@@ -1,4 +1,35 @@
-<p>The home page</p>
-<div *ngIf="_globalStorage.authenticated">
-  <p>Logged in with token: {{_globalStorage.accessToken}}
+<div class="container">
+  <div class="welcome slide-in">
+    <h1>Hi {{ _user.firstName }}. Welcome to HAProxyHQ.</h1>
+    <h4>Your HAProxy headquarter.</h4>
+  </div>
+  <div class="tutorial">
+    <h4 class="slide-in-left">First steps...</h4>
+
+    <div class="row">
+      <div class="col-md-6 slide-in-left">
+        <div class="panel">
+          <div class="panel-body">
+            <div class="tutorial-icon-container primary-color"><i class="material-icons tutorial-icon">speaker_phone</i></div>
+            <h3>Agents</h3>
+            <p>The Agent is the most element part of the HAProxyHQ. Each HAProxy instance you want to monitor, has to have an Agent running on it.</p>
+            <p>As soon as the Agent is running on the HAProxy instance, you can add the Agent to HAProxyHQ by clicking on Agents. After it's been created, you'll be able to simply download the Agent config file and won't need to go through the hassle of configuring it yourself.</p>
+            <p>Once you've got everything up and running, you'll be able to keep track of the health of your Agent and you're in for a trouble-free management of your HAProxy config!</p>
+            <p>So go ahead and create your first Agent!</p>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-6 slide-in-right">
+        <div class="panel">
+          <div class="panel-body">
+            <div class="tutorial-icon-container primary-color"><i class="material-icons tutorial-icon">content_copy</i></div>
+            <h3>Schemas</h3>
+            <p>By creating a Schema, you can create a HAProxy config, which you can then apply on multiple Agents.</p>
+            <p>This way you won't have to write the same config over and over again!</p>
+            <p>You can even create new Schemas, based on existing ones. But go and check it out yourself...</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
 </div>
