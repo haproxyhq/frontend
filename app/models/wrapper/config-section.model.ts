@@ -14,4 +14,18 @@ export class ConfigSection {
       this.values = [];
     }
   }
+
+  public equals(configSection: ConfigSection): boolean {
+    if(this.values.length !== configSection.values.length || !this.section.equals(configSection.section)) {
+      return false;
+    }
+
+    for(var i = 0; i < this.values.length; i++) {
+      if(this.values[i] !== configSection.values[i]) {
+        return false;
+      }
+    }
+
+    return true;
+  }
 }
