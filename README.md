@@ -11,5 +11,6 @@ This is the Angular 2 frontend project for HAProxyHQ.
 ##HAProxyHQ/Frontend/Install & use
 Currently it is necessary that you change the variable ```public static SERVER_URL = 'http://localhost:8080';``` in the file ```app/services/general/global-storage.service.ts``` to your HAProxyHQ backend url.
 After doing so you can install the dependencies by running ```npm install``` and get live compiling and live serving with ```npm start```.
+After running ```npm install``` you can also build the code for different environments. If you want to build production you can use ```gulp build.prod``` to build the production files. The build results can then be found in the ```dist/prod``` folder.
 
 After setting up the backend and frontend as described above and in the backend ```README.md``` you can login with the username ```admin``` and the password ```admin```. You should change this in the settings which you can find under ```"Account Circle" -> Profile```.
