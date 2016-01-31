@@ -46,4 +46,20 @@
     </div>
   </div>
 </nav>
+
+<template [ngIf]="_globalStorage.authenticated">
+  <template [ngIf]="_globalStorage.user.username === 'admin'">
+    <div class="admin-alert-infobox">
+      <div class="row">
+        <div class="col-md-12">
+          <div class="panel panel-default">
+            <div class="panel-body">
+              <span class="admin-alert-icon"><i class="material-icons">warning</i></span><span class="admin-alert">Please change your email and the password for the admin account in your profile settings</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </template>
+</template>
 <router-outlet></router-outlet>
