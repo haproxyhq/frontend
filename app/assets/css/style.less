@@ -2,6 +2,31 @@
 
 @brand-primary: @pink-800;
 
+html, body {
+  .full-size;
+}
+
+.loading-screen {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 150;
+  display: flex;
+}
+
+.loading-screen-spinner {
+  margin: auto;
+  margin-right: 0;
+  font-size: 200px;
+}
+
+.loading-screen-text {
+  margin: auto;
+  margin-left: 0;
+}
+
 .primary-color {
   background-color: @brand-primary !important;
 }
