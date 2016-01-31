@@ -10,6 +10,7 @@ import {MqttBroker}   from '../../models/wrapper/mqtt-broker.model';
 
 @Injectable()
 export class GlobalStorageService {
+  public static SERVER_URL = 'http://localhost:8080';
   public static ACCESS_TOKEN_HEADER_KEY: string = 'X-Auth-Token';
 
   private static ACCESS_TOKEN_KEY: string = 'accessToken';

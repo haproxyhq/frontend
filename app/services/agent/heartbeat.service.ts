@@ -1,10 +1,11 @@
 import {Injectable, EventEmitter} from 'angular2/core';
 import {Response}                 from 'angular2/http';
 
-import {CustomHttpService}        from '../../services/general/custom-http.service';
+import {CustomHttpService}        from '../general/custom-http.service';
+import {GlobalStorageService}     from '../general/global-storage.service';
 
 import {Agent}                    from '../../models/wrapper/agent.model';
-import {AgentHeartbeatStatus} from '../../models/wrapper/agent-heartbeat-status.model';
+import {AgentHeartbeatStatus}     from '../../models/wrapper/agent-heartbeat-status.model';
 
 /**
  * gets all heartbeat information from the backend
@@ -68,7 +69,7 @@ export class HeartbeatService {
    * @returns {EventEmitter<Map<string, AgentHeartbeatStatus>>}
    */
   private _attachGetHeartbeatsEvent(event: EventEmitter<Map<string, AgentHeartbeatStatus>>): void {
-    this._http.get('http://localhost:8080/agents/heartbeats')
+    this._http.get(GlobalStorageService.SERVER_URL + '/agents/heartbeats')
       .map((res: Response) => res.json())
       .subscribe(
         (res) => {

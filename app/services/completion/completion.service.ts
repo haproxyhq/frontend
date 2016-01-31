@@ -1,7 +1,8 @@
 import {Injectable, EventEmitter} from 'angular2/core';
 import {Response}                 from 'angular2/http';
 
-import {CustomHttpService}        from '../../services/general/custom-http.service';
+import {CustomHttpService}        from '../general/custom-http.service';
+import {GlobalStorageService}     from '../general/global-storage.service';
 
 import {Completion}               from '../../models/wrapper/completion.model';
 import {EmptyRestModel}           from '../../models/empty-rest.model';
@@ -19,7 +20,7 @@ export class CompletionService {
   */
   public getCompletions(): EventEmitter<Array<Completion>> {
     var event: EventEmitter<Array<Completion>> = new EventEmitter<Array<Completion>>();
-    this._http.get('http://localhost:8080/completions')
+    this._http.get(GlobalStorageService.SERVER_URL + '/completions')
       .map((res: Response) => res.json())
       .subscribe(
         (res) => {
@@ -48,7 +49,7 @@ export class CompletionService {
   public addCompletion(completion: Completion): EventEmitter<Completion> {
     var event: EventEmitter<Completion> = new EventEmitter<Completion>();
 
-    this._http.post('http://localhost:8080/completions', completion.getRestModel())
+    this._http.post(GlobalStorageService.SERVER_URL + '/completions', completion.getRestModel())
       .map((res: Response) => res.json())
       .subscribe((res: Response) => {
         event.emit(new Completion(res));
