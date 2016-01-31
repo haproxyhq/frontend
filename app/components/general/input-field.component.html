@@ -5,6 +5,7 @@
       <input type="text" class="form-control" id="focusedInput" tabindex="500"
           [placeholder]="placeholder"
           [required]="required"
+          [type]="type"
           [(ngModel)]="value" (ngModelChange)="updateValue(value)"
           (focus)="toggleCompletion(true)"
           (blur)="toggleCompletion(false)"

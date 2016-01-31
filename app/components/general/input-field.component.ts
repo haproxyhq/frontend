@@ -15,6 +15,7 @@ export class InputFieldComponent {
   @Input() value: string;
   @Input() required: boolean = false;
   @Input() placeholder: string = '';
+  @Input() type: string = 'text';
   @Input('completion-data') completion: Completion;
   @Output() valueChange = new EventEmitter();
   @Output('focus') focusChange = new EventEmitter();

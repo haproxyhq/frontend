@@ -60,11 +60,11 @@ export class AgentEditComponent implements OnInit, AfterViewInit {
     this._mqttBroker = this._globalStorage.mqttBroker;
 
     let hostSplit = this._mqttBroker.host.split(':');
-    this._agentConfig.AGENT_ID = this._agent.id;
-    this._agentConfig.AGENT_TOKEN = this._agent.authToken;
-    this._agentConfig.MQTT_BROKER_ADRESS = hostSplit[0] + ':' + hostSplit[1];
-    this._agentConfig.MQTT_BROKER_PORT = hostSplit[2];
-    this._agentConfig.MQTT_TOPIC = this._mqttBroker.topicPrefix + this._agent.id;
+    this._agentConfig.AGENT_ID = '\'' + this._agent.id + '\'';
+    this._agentConfig.AGENT_TOKEN = '\'' + this._agent.authToken + '\'';
+    this._agentConfig.MQTT_BROKER_ADRESS = '\'' + hostSplit[0] + ':' + hostSplit[1] + '\'';
+    this._agentConfig.MQTT_BROKER_PORT = '\'' + hostSplit[2] + '\'';
+    this._agentConfig.MQTT_TOPIC = '\'' + this._mqttBroker.topicPrefix + '\' + AGENT_ID';
   }
 
   ngAfterViewInit() {

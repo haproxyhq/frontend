@@ -3,7 +3,7 @@
     <div class="panel-body">
       <div class="row">
         <div class="col-md-12">
-          <h1>Profile</h1>
+          <h2>Profile</h2>
         </div>
       </div>
       <div class="row">
@@ -28,6 +28,32 @@
       <div class="row">
         <div class="col-md-12">
           <save-cancel-fabs (save)="saveChanges()" (cancel)="revertChanges()"></save-cancel-fabs>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="container panel panel-default">
+    <div class="panel-body">
+      <div class="row">
+        <div class="col-md-12">
+          <h2>Change password</h2>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-md-6">
+          <div class="input-field">
+            <input-field [(value)]="_password[0]" type="password" label="Password"></input-field>
+          </div>
+        </div>
+        <div class="col-md-6">
+          <div class="input-field">
+            <input-field [(value)]="_password[1]" type="password" label="Confirm password"></input-field>
+          </div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-md-12">
+          <save-cancel-fabs (save)="changePassword()" (cancel)="revertPasswordChange()"></save-cancel-fabs>
         </div>
       </div>
     </div>
