@@ -42,14 +42,13 @@ export class AgentService {
    * add an agent
    *
    * @param agent the agent to add
-   * @param addTimestamp if this is true a current timestamp is added to the config
    * @returns {EventEmitter<Agent>}
    */
-  public addAgent(agent: Agent, addTimestamp: boolean = true) {
+  public addAgent(agent: Agent) {
     var event: EventEmitter<Agent> = new EventEmitter<Agent>();
 
     var restAgent = agent.getRestModel();
-    if(addTimestamp) {
+    if(restAgent['configHolder'] !== null) {
       restAgent['configTimestamp'] = Date.now();
     }
 
