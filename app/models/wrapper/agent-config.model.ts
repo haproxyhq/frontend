@@ -19,7 +19,7 @@ export class AgentConfig {
   constructor() {
     this.COMMENT_SEC_1 = '# the url and port of the server the HAProxyHQ is running on and the API endpoint for the config';
     this.SERVER_ADDRESS = '\'\'';
-    this.SERVER_PORT = '\'80\'';
+    this.SERVER_PORT = '\'8080\'';
     this.SERVER_API_ENDPOINT = '\'agents\'';
 
     this.COMMENT_SEC_2 = '# the ID of this agent and it\'s token, which the HAProxyHQ will need to identify and authenticate this agent';
