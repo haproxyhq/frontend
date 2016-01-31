@@ -5,6 +5,7 @@ import {OnInit} from 'angular2/core';
 import {Input} from 'angular2/core';
 import {CompletionService} from '../../services/completion/completion.service';
 import {Completion} from '../../models/wrapper/completion.model';
+import {ToastModel} from '../../models/toast.model';
 import {AbcIconComponent} from '../general/abc-icon.component';
 import {GlobalStorageService} from '../../services/general/global-storage.service';
 
@@ -51,8 +52,12 @@ export class VersionsComponent implements OnInit, OnDestroy {
   public onAddCompletionSubmit() {
     this.parsingDocs = true;
     this._completionService.addCompletionWithDocs(this.newCompletion).subscribe((completion) => {
-      this.completions.push(completion);
-      this._glogalStorageService.completions = this.completions;
+      if (completion !== null) {
+        this.completions.push(completion);
+        this._glogalStorageService.completions = this.completions;
+      } else {
+        $.snackbar(new ToastModel('Parsing the given Doc-URL failed'));
+      }
       $('#add-completion-modal').modal('hide');
       this.parsingDocs = false;
     });
