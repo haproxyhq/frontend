@@ -1,7 +1,7 @@
 {
   "name": "HAProxyHQ",
-  "version": "0.0.1",
-  "description": "",
+  "version": "0.9.0",
+  "description": "HAProxyHQ is the headquarter for all your HAProxy instances. It allows you to configure and manage different HAProxy instances, while keeping track of they're health status.",
   "scripts": {
     "build.dev": "gulp build.dev",
     "build.dev.watch": "gulp build.dev.watch",
