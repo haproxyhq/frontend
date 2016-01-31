@@ -91,7 +91,7 @@ export class AgentService {
   }
 
   /**
-   * deletes a agent
+   * deletes an agent
    *
    * @param agent
    */

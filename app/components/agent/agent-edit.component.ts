@@ -4,6 +4,7 @@ import {RouteParams}                from 'angular2/router';
 import {GlobalStorageService}       from '../../services/general/global-storage.service';
 import {RestoreService}             from '../../services/general/restore.service';
 import {AgentService}               from '../../services/agent/agent.service';
+import {FileService}                from '../../services/general/file.service';
 
 import {ConfigEditComponent}        from '../config/config-edit.component';
 import {SaveCancelFabsComponent}    from '../general/save-cancel-fabs.component';
@@ -14,6 +15,8 @@ import {Agent}                      from '../../models/wrapper/agent.model';
 import {Config}                     from '../../models/wrapper/config.model';
 import {ConfigSection}              from '../../models/wrapper/config-section.model';
 import {Completion}                 from '../../models/wrapper/completion.model';
+import {AgentConfig}                from '../../models/wrapper/agent-config.model';
+import {MqttBroker}                 from '../../models/wrapper/mqtt-broker.model';
 
 import {ProtectedDirective}         from '../../directives/general/protected.directive';
 
@@ -35,11 +38,14 @@ export class AgentEditComponent implements OnInit, AfterViewInit {
   private _types = ['global', 'defaults', 'listen', 'backend', 'frontend'];
   private _restoring = false;
   private _avaiableVersions: Array<string> = [];
+  private _agentConfig: AgentConfig = new AgentConfig();
+  private _mqttBroker: MqttBroker;
 
   constructor(private _globalStorage: GlobalStorageService,
     private _agentService: AgentService,
     private _routeParams: RouteParams,
-    private _restoreService: RestoreService<Agent>) {}
+    private _restoreService: RestoreService<Agent>,
+    private _fileService: FileService) {}
 
   ngOnInit() {
     this._avaiableVersions = this._globalStorage.getAvailableCompletions();
@@ -50,6 +56,15 @@ export class AgentEditComponent implements OnInit, AfterViewInit {
     if (this._agent !== null) {
       this._completion = this._globalStorage.getCompletion(this._agent.version);
     }
+
+    this._mqttBroker = this._globalStorage.mqttBroker;
+
+    let hostSplit = this._mqttBroker.host.split(':');
+    this._agentConfig.AGENT_ID = this._agent.id;
+    this._agentConfig.AGENT_TOKEN = this._agent.authToken;
+    this._agentConfig.MQTT_BROKER_ADRESS = hostSplit[0] + ':' + hostSplit[1];
+    this._agentConfig.MQTT_BROKER_PORT = hostSplit[2];
+    this._agentConfig.MQTT_TOPIC = this._mqttBroker.topicPrefix + this._agent.id;
   }
 
   ngAfterViewInit() {
@@ -134,4 +149,9 @@ export class AgentEditComponent implements OnInit, AfterViewInit {
     this._agent.configHolder.config.push(null);
     this._configEmitter.next(this._agent.configHolder);
   }
+
+  private _downloadConfig() {
+    this._fileService.download('config.py', this._agentConfig.getStringifiedConfig());
+  }
+
 }

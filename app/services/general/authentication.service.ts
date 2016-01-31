@@ -7,13 +7,15 @@ import {GlobalStorageService}     from './global-storage.service';
 import {CustomHttpService}        from './custom-http.service';
 import {UserService}              from '../user/user.service';
 import {CompletionService}        from '../completion/completion.service';
+import {MqttBrokerService}        from './mqtt-broker.service';
 
 @Injectable()
 export class AuthenticationService {
   constructor(private _http: CustomHttpService,
     private _globalStorage: GlobalStorageService,
     private _userService: UserService,
-    private _completionService: CompletionService) { }
+    private _completionService: CompletionService,
+    private _mqttBrokerService: MqttBrokerService) { }
 
   login(user: Credentials): EventEmitter<boolean> {
     var event: EventEmitter<boolean> = new EventEmitter();
@@ -39,6 +41,11 @@ export class AuthenticationService {
                   },
                   () => {}
                 );
+
+                //initially load mqtt broker info
+                this._mqttBrokerService.getBrokerInfo().subscribe((res) => {
+                  this._globalStorage.mqttBroker = res;
+                });
 
                 event.emit(true);
               } else event.emit(false);
