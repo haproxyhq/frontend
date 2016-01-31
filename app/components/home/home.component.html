@@ -1,16 +1,26 @@
 <div class="container">
   <div class="welcome slide-in">
-    <h1>Hi {{ _user.firstName }}. Welcome to HAProxyHQ.</h1>
+    <h1>Hi {{ _globalStorage.user.firstName }}. Welcome to HAProxyHQ.</h1>
     <h4>Your HAProxy headquarter.</h4>
   </div>
   <div class="tutorial">
-    <h4 class="slide-in-left">First steps...</h4>
+    <!--<h4 class="slide-in-left">First steps...</h4>-->
 
     <div class="row">
-      <div class="col-md-6 slide-in-left">
+      <div *ngIf="_globalStorage.user.isAdmin()" class="col-lg-12 slide-in-left">
         <div class="panel">
           <div class="panel-body">
-            <div class="tutorial-icon-container primary-color"><i class="material-icons tutorial-icon">speaker_phone</i></div>
+            <div [routerLink]="['Admin', { route: 'users' }]" class="tutorial-icon-container primary-color zoom-on-hover"><i class="material-icons tutorial-icon">settings</i></div>
+            <h3>First steps</h3>
+            <p>Before you get started, you should add the HAProxy versions you want to use. By adding HAProxy versions to the HAProxyHQ, you will be presented with all the information the Configuration Manuel of the given versions provides, while creating configs for you HAProxy instances.</p>
+            <p>You can do this in the <a [routerLink]="['Admin', { route: 'versions' }]">Admin area</a>, by adding a new version and supplying the URL to the Configuration Manual of that version.</p>
+          </div>
+        </div>
+      </div>
+      <div class="col-lg-12 slide-in-right">
+        <div class="panel">
+          <div class="panel-body">
+            <div [routerLink]="['Agents']" class="tutorial-icon-container primary-color zoom-on-hover"><i class="material-icons tutorial-icon">speaker_phone</i></div>
             <h3>Agents</h3>
             <p>The Agent is the most element part of the HAProxyHQ. Each HAProxy instance you want to monitor, has to have an Agent running on it.</p>
             <p>As soon as the Agent is running on the HAProxy instance, you can add the Agent to HAProxyHQ by clicking on Agents. After it's been created, you'll be able to simply download the Agent config file and won't need to go through the hassle of configuring it yourself.</p>
@@ -19,10 +29,10 @@
           </div>
         </div>
       </div>
-      <div class="col-md-6 slide-in-right">
+      <div class="col-lg-12 slide-in-left">
         <div class="panel">
           <div class="panel-body">
-            <div class="tutorial-icon-container primary-color"><i class="material-icons tutorial-icon">content_copy</i></div>
+            <div [routerLink]="['Schemas']" class="tutorial-icon-container primary-color zoom-on-hover"><i class="material-icons tutorial-icon">content_copy</i></div>
             <h3>Schemas</h3>
             <p>By creating a Schema, you can create a HAProxy config, which you can then apply on multiple Agents.</p>
             <p>This way you won't have to write the same config over and over again!</p>
