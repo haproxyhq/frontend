@@ -5,6 +5,7 @@ import {OnInit} from 'angular2/core';
 import {Input} from 'angular2/core';
 import {CompletionService} from '../../services/completion/completion.service';
 import {Completion} from '../../models/wrapper/completion.model';
+import {ToastModel} from '../../models/toast.model';
 import {AbcIconComponent} from '../general/abc-icon.component';
 import {GlobalStorageService} from '../../services/general/global-storage.service';
 
@@ -19,10 +20,11 @@ declare var $;
 export class VersionsComponent implements OnInit, OnDestroy {
   @Input() fabPressedEmitter: EventEmitter<string> = new EventEmitter<string>();
 
-  public completions: Array<Completion>;
+  public completions: Array<Completion> = [];
   public newCompletion: Completion = new Completion({});
   public parsingDocs: boolean = false;
 
+  private _completionsLoaded = false;
   private _fabPressedSubscription: any;
 
   constructor(private _completionService: CompletionService, private _glogalStorageService: GlobalStorageService) { }
@@ -33,6 +35,7 @@ export class VersionsComponent implements OnInit, OnDestroy {
     });
     this._completionService.getCompletions().subscribe((completions) => {
       this.completions = completions;
+      this._completionsLoaded = true;
     });
   }
 
@@ -49,8 +52,12 @@ export class VersionsComponent implements OnInit, OnDestroy {
   public onAddCompletionSubmit() {
     this.parsingDocs = true;
     this._completionService.addCompletionWithDocs(this.newCompletion).subscribe((completion) => {
-      this.completions.push(completion);
-      this._glogalStorageService.completions = this.completions;
+      if (completion !== null) {
+        this.completions.push(completion);
+        this._glogalStorageService.completions = this.completions;
+      } else {
+        $.snackbar(new ToastModel('Parsing the given Doc-URL failed'));
+      }
       $('#add-completion-modal').modal('hide');
       this.parsingDocs = false;
     });

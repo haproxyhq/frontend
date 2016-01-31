@@ -69,9 +69,13 @@ export class CompletionService {
 
     $.scrapeHAPDocs(completion.url, (response) => {
       completion.data = response;
-      this.addCompletion(completion).subscribe((completion) => {
-        event.emit(completion);
-      });
+      if (completion.data.length !== 0) {
+        this.addCompletion(completion).subscribe((completion) => {
+          event.emit(completion);
+        });
+      } else {
+        event.emit(null);
+      }
     });
 
     return event;

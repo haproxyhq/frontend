@@ -1,4 +1,5 @@
 import {Component}                  from 'angular2/core';
+import {Router}                     from 'angular2/router';
 
 import {InputFieldComponent}        from '../general/input-field.component';
 import {SaveCancelFabsComponent}    from '../general/save-cancel-fabs.component';
@@ -28,17 +29,24 @@ export class SettingsProfileComponent {
 
   constructor(private _globalStorage: GlobalStorageService,
     private _restoreService: RestoreService<User>,
-    private _userService: UserService) {
+    private _userService: UserService,
+    private _router: Router) {
     this._restoreService.setItem(this._globalStorage.user);
     this._user = this._restoreService.getItem();
   }
 
   saveChanges() {
+    let logoutUser = false;
+    if (this._restoreService.getOriginalItem().username !== this._user.username) logoutUser = true;
     this._userService.saveUser(new User(this._user)).subscribe(
       (user) => {
         if (user !== null) {
-          this._globalStorage.user = this._user;
+          this._globalStorage.user = user;
           $.snackbar(new ToastModel('Profile saved'));
+          if (logoutUser) {
+            $.snackbar(new ToastModel('Username changed. Please login again', '', 8000));
+            this._router.navigate(['Logout']);
+          }
         } else {
           $.snackbar(new ToastModel('Error saving profile'));
         }

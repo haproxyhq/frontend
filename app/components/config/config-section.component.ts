@@ -135,7 +135,9 @@ export class ConfigSectionComponent {
   * adds a blank value to the end of the list
   **/
   private _addBlankField(): void {
-    let sortedCopy = JSON.parse(JSON.stringify(this._valueStrings)).sort();
+    let sortedCopy = JSON.parse(JSON.stringify(this._valueStrings)).sort((a,b) => {
+      return a - b;
+    });
     let key = sortedCopy.slice(-1)[0];
     this._values[key + 1] = '';
     this._valueStrings.push(key + 1);
