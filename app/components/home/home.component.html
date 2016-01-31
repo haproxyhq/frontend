@@ -1,21 +1,28 @@
 <div class="container">
   <div class="welcome slide-in">
-    <h1>Hi {{ _globalStorage.user.firstName }}. Welcome to HAProxyHQ.</h1>
+    <template [ngIf]="_globalStorage.authenticated">
+      <h1>Hi {{ _globalStorage.user.firstName }}. Welcome to HAProxyHQ.</h1>
+    </template>
+    <template [ngIf]="!_globalStorage.authenticated">
+      <h1>Welcome to HAProxyHQ.</h1>
+    </template>
     <h4>Your HAProxy headquarter.</h4>
   </div>
   <div class="tutorial">
     <div class="row">
-      <div *ngIf="_globalStorage.user.isAdmin()" class="col-lg-12 slide-in-left">
-        <div class="panel">
-          <div class="panel-body">
-            <div [routerLink]="['Admin', { route: 'users' }]" class="tutorial-icon-container primary-color zoom-on-hover"><i class="material-icons tutorial-icon">settings</i></div>
-            <h3>First steps</h3>
-            <p>Before you get started, you should add the HAProxy versions you want to use. By adding HAProxy versions to the HAProxyHQ, you will be presented with all the information the Configuration Manuel of the given versions provides, while creating configs for you HAProxy instances.</p>
-            <p>You can do this in the <a [routerLink]="['Admin', { route: 'versions' }]">Admin area</a>, by adding a new version and supplying the URL to the Configuration Manual of that version.</p>
-            <p>For example, if you were to add HAProxy version 1.6, you would supply <a href="https://cbonte.github.io/haproxy-dconv/configuration-1.6.html" target="_blank">this URL</a>. You can find the URLs for all existing HAProxy Versions <a href="https://cbonte.github.io/haproxy-dconv/index.html" target="_blank">here</a>.</p>
+      <template [ngIf]="_globalStorage.authenticated">
+        <div *ngIf="_globalStorage.user.isAdmin()" class="col-lg-12 slide-in-left">
+          <div class="panel">
+            <div class="panel-body">
+              <div [routerLink]="['Admin', { route: 'users' }]" class="tutorial-icon-container primary-color zoom-on-hover"><i class="material-icons tutorial-icon">settings</i></div>
+              <h3>First steps</h3>
+              <p>Before you get started, you should add the HAProxy versions you want to use. By adding HAProxy versions to the HAProxyHQ, you will be presented with all the information the Configuration Manuel of the given versions provides, while creating configs for you HAProxy instances.</p>
+              <p>You can do this in the <a [routerLink]="['Admin', { route: 'versions' }]">Admin area</a>, by adding a new version and supplying the URL to the Configuration Manual of that version.</p>
+              <p>For example, if you were to add HAProxy version 1.6, you would supply <a href="https://cbonte.github.io/haproxy-dconv/configuration-1.6.html" target="_blank">this URL</a>. You can find the URLs for all existing HAProxy Versions <a href="https://cbonte.github.io/haproxy-dconv/index.html" target="_blank">here</a>.</p>
+            </div>
           </div>
         </div>
-      </div>
+      </template>
       <div class="col-lg-12 slide-in-right">
         <div class="panel">
           <div class="panel-body">
