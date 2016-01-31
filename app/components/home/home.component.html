@@ -14,6 +14,7 @@
             <h3>First steps</h3>
             <p>Before you get started, you should add the HAProxy versions you want to use. By adding HAProxy versions to the HAProxyHQ, you will be presented with all the information the Configuration Manuel of the given versions provides, while creating configs for you HAProxy instances.</p>
             <p>You can do this in the <a [routerLink]="['Admin', { route: 'versions' }]">Admin area</a>, by adding a new version and supplying the URL to the Configuration Manual of that version.</p>
+            <p>For example, if you were to add HAProxy version 1.6, you would supply <a href="https://cbonte.github.io/haproxy-dconv/configuration-1.6.html" target="_blank">this URL</a>. You can find the URLs for all existing HAProxy Versions <a href="https://cbonte.github.io/haproxy-dconv/index.html" target="_blank">here</a>.</p>
           </div>
         </div>
       </div>
@@ -25,7 +26,7 @@
             <p>The Agent is the most element part of the HAProxyHQ. Each HAProxy instance you want to monitor, has to have an Agent running on it.</p>
             <p>As soon as the Agent is running on the HAProxy instance, you can add the Agent to HAProxyHQ by clicking on Agents. After it's been created, you'll be able to simply download the Agent config file and won't need to go through the hassle of configuring it yourself.</p>
             <p>Once you've got everything up and running, you'll be able to keep track of the health of your Agent and you're in for a trouble-free management of your HAProxy config!</p>
-            <p>So go ahead and create your first Agent!</p>
+            <p>So go ahead and create your <a [routerLink]="['Agents']">first Agent</a>!</p>
           </div>
         </div>
       </div>
@@ -36,7 +37,7 @@
             <h3>Schemas</h3>
             <p>By creating a Schema, you can create a HAProxy config, which you can then apply on multiple Agents.</p>
             <p>This way you won't have to write the same config over and over again!</p>
-            <p>You can even create new Schemas, based on existing ones. But go and check it out yourself...</p>
+            <p>You can even create new Schemas, based on existing ones. <a [routerLink]="['Schemas']">But go and check it out yourself...</a></p>
           </div>
         </div>
       </div>
