@@ -128,6 +128,40 @@ export class UserService {
   }
 
   /**
+   * saves all changes made to a user
+   *
+   * @param user the changed user
+   * @param isAdmin whether this user should be granted admin rights
+   * @returns {EventEmitter<User>}
+   */
+  public changePassword(user: User, isAdmin: boolean = undefined): EventEmitter<User> {
+    let event: EventEmitter<User> = new EventEmitter<User>();
+
+    var restUser = user.getRestModel();
+
+    if(isAdmin !== undefined) {
+      if(isAdmin) {
+        restUser['groups'] = [this.adminGroup.getSelfLink()];
+      } else {
+        restUser['groups'] = [this.userGroup.getSelfLink()];
+      }
+    }
+
+    this._http.patch(user.getSelfLink()  + '/password', restUser)
+      .map((res: Response) => res.json())
+      .subscribe(
+        (res) => {
+          event.emit(new User(res));
+        },
+        (err) => {
+          event.emit(null);
+        },
+        () => {}
+    );
+    return event;
+  }
+
+  /**
    * deletes a given user
    *
    * @param user

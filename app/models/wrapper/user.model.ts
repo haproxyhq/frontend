@@ -8,6 +8,7 @@ export class User extends RestWrapperModel {
   public username: string;
   public firstName: string;
   public name: string;
+  public password: string = '';
   public authorities: Array<Authority> = [];
   public links: Array<Link> = [];
 
@@ -43,6 +44,7 @@ export class User extends RestWrapperModel {
   public getRestModel(): Object {
     let restUser: any = this._transformToPOJO('name', 'firstName');
     restUser.username = restUser.email = this.username;
+    if (this.password !== '') restUser.password = this.password;
 
     return restUser;
   }

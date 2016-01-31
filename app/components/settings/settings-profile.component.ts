@@ -24,6 +24,7 @@ declare var $;
 
 export class SettingsProfileComponent {
   private _user: User;
+  private _password: Array<string> = [];
 
   constructor(private _globalStorage: GlobalStorageService,
     private _restoreService: RestoreService<User>,
@@ -43,6 +44,31 @@ export class SettingsProfileComponent {
         }
       }
     );
+  }
+
+  changePassword() {
+    console.log(this._password);
+    if (this._password[0] === this._password[1]) {
+      let tmpUser: User = new User(this._restoreService.getOriginalItem());
+      tmpUser.password = this._password[0];
+      this._userService.changePassword(tmpUser).subscribe(
+        (user) => {
+          if (user !== null) {
+            this._globalStorage.user = this._user;
+            this._password = [];
+            $.snackbar(new ToastModel('Password changed'));
+          } else {
+            $.snackbar(new ToastModel('Error changing password'));
+          }
+        }
+      );
+    } else if (this._password[0] !== '' && this._password[1] !== '') {
+      $.snackbar(new ToastModel('Passwords did not match'));
+    }
+  }
+
+  revertPasswordChange() {
+    this._password = [];
   }
 
   revertChanges() {
