@@ -19,10 +19,11 @@ declare var $;
 export class VersionsComponent implements OnInit, OnDestroy {
   @Input() fabPressedEmitter: EventEmitter<string> = new EventEmitter<string>();
 
-  public completions: Array<Completion>;
+  public completions: Array<Completion> = [];
   public newCompletion: Completion = new Completion({});
   public parsingDocs: boolean = false;
 
+  private _completionsLoaded = false;
   private _fabPressedSubscription: any;
 
   constructor(private _completionService: CompletionService, private _glogalStorageService: GlobalStorageService) { }
@@ -33,6 +34,7 @@ export class VersionsComponent implements OnInit, OnDestroy {
     });
     this._completionService.getCompletions().subscribe((completions) => {
       this.completions = completions;
+      this._completionsLoaded = true;
     });
   }
 
