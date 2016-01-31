@@ -5,9 +5,9 @@ HAProxyHQ is the headquarter for all your HAProxy instances. It allows you to co
 - [HAProxyHQ/Frontend](https://github.com/haproxyhq/frontend) - This is the frontend, which provides a simple user interface. Implemented in Angular 2.
 - [HAProxyHQ/Agent](https://github.com/haproxyhq/agent) - This is the agent, which runs on every HAProxy instance and takes care of communication between the instance and the HAProxyHQ/Backend and applys settings, made by the user. Implementes in Python 2.7.
 
-#HAProxyHQ/Agent/Introduction
+##HAProxyHQ/Frontend/Introduction
 This is the Angular 2 frontend project for HAProxyHQ.
 
-#HAProxyHQ/Agent/Install & use
+##HAProxyHQ/Frontend/Install & use
 - Run ```npm install``` to install dependencies.
 - Run ```npm start``` to get live compiling for ts files and live serving with gulp serve.
