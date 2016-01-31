@@ -39,13 +39,21 @@ export class AgentService {
   }
 
   /**
-  * adds a new agent
-  * @return EventEmitter<Agent>
-  **/
-  public addAgent(agent: Agent) {
+   * add an agent
+   *
+   * @param agent the agent to add
+   * @param addTimestamp if this is true a current timestamp is added to the config
+   * @returns {EventEmitter<Agent>}
+   */
+  public addAgent(agent: Agent, addTimestamp: boolean = true) {
     var event: EventEmitter<Agent> = new EventEmitter<Agent>();
 
-    this._http.post('http://localhost:8080/agents', agent.getRestModel())
+    var restAgent = agent.getRestModel();
+    if(addTimestamp) {
+      restAgent['configTimestamp'] = Date.now();
+    }
+
+    this._http.post('http://localhost:8080/agents', restAgent)
       .map((res: Response) => res.json())
       .subscribe((res: Response) => {
         event.emit(new Agent(res));
@@ -55,13 +63,21 @@ export class AgentService {
   }
 
   /**
-  * saves the given agent
-  * @return EventEmitter<Agent>
-  **/
-  public saveAgent(agent: Agent) {
+   * saves a given agent
+   *
+   * @param agent the agent
+   * @param addTimestamp if this is true a current timestamp is added to the config
+   * @returns {EventEmitter<Agent>}
+   */
+  public saveAgent(agent: Agent, addTimestamp: boolean = true) {
     var event: EventEmitter<Agent> = new EventEmitter<Agent>();
 
-    this._http.patch(agent.getSelfLink(), agent.getRestModel())
+    var restAgent = agent.getRestModel();
+    if(addTimestamp) {
+      restAgent['configTimestamp'] = Date.now();
+    }
+
+    this._http.patch(agent.getSelfLink(), restAgent)
       .map((res: Response) => res.json())
       .subscribe(
         (res) => {

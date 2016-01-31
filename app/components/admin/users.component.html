@@ -1,1 +1,1 @@
-<user-detail *ngFor="#user of _users; #i = index" [user]="user" [index]="i" (deletePressed)="_deleteUser(user)"></user-detail>
+<user-detail *ngFor="#user of _users; #i = index" [user]="user" [index]="i" (userChanged)="_changeUser($event)" (deletePressed)="_deleteUser($event)"></user-detail>

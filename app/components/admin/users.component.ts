@@ -10,6 +10,7 @@ import {UserDetailComponent} from './user-detail.component';
 import {UserService} from '../../services/user/user.service';
 
 import {User} from '../../models/wrapper/user.model';
+import {IndexedObject} from '../../models/indexed-object.model';
 
 
 @Component({
@@ -39,8 +40,14 @@ export class UsersComponent implements OnInit, OnDestroy {
     this._fabPressedSubscription.unsubscribe();
   }
 
-  private _deleteUser(user: User): void {
-    var deletedUser: User = this._users.splice(this._users.indexOf(user), 1)[0];
-    this._userService.deleteUser(deletedUser);
+  private _deleteUser(userIndex: number): void {
+    var deletedUser: User = this._users.splice(userIndex, 1)[0];
+    if(deletedUser.getSelfLink() !== null) {
+      this._userService.deleteUser(deletedUser);
+    }
+  }
+
+  private _changeUser(indexedUser: IndexedObject<User>) {
+    this._users[indexedUser.index].transformPlainObject(indexedUser.object);
   }
 }
