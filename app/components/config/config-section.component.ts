@@ -30,7 +30,7 @@ export class ConfigSectionComponent {
     this._parseConfigSection();
   }
   @Output('sectionChange') configSectionEvent = new EventEmitter();
-  @Output('sectionDelete') configSectionDelete = new EventEmitter();
+  @Output('section««') configSectionDelete = new EventEmitter();
 
   private _configSection: ConfigSection;
 
