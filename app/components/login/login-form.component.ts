@@ -1,10 +1,10 @@
-import {Component, Input, EventEmitter}   from 'angular2/core';
-import {NgForm}                           from 'angular2/common';
+import {Component, Input, Output, EventEmitter}   from 'angular2/core';
+import {NgForm}                                   from 'angular2/common';
 
-import {Credentials}                      from '../../models/credentials.model';
-import {FormResult}                       from '../../models/form-result.model';
+import {Credentials}                              from '../../models/credentials.model';
+import {FormResult}                               from '../../models/form-result.model';
 
-import {AuthenticationService}            from '../../services/general/authentication.service';
+import {AuthenticationService}                    from '../../services/general/authentication.service';
 
 @Component({
   selector: 'login-form',
@@ -14,8 +14,7 @@ import {AuthenticationService}            from '../../services/general/authentic
 
 export class LoginFormComponent {
   @Input() formResult: FormResult;
-  //hacking this with an @Input because @Output does not pass the argument to the parent
-  @Input() loginComplete: EventEmitter<boolean>;
+  @Output() loginComplete = new EventEmitter();
 
   model = new Credentials();
 

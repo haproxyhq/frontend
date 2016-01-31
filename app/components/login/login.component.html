@@ -3,7 +3,7 @@
     <div class="col-md-6 col-centered">
       <login-form
         [formResult]="formResult"
-        [loginComplete]="loginComplete"
+        (loginComplete)="loginComplete($event)"
         [hidden]="formResult.success && formResult.submitted">
       </login-form>
     </div>

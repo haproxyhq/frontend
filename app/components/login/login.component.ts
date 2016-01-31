@@ -1,4 +1,4 @@
-import {Component, EventEmitter}  from 'angular2/core';
+import {Component}                from 'angular2/core';
 import {Router}                   from 'angular2/router';
 import {NgIf}                     from 'angular2/common';
 
@@ -21,16 +21,14 @@ declare var $;
 
 export class LoginComponent {
   public formResult: FormResult = new FormResult();
-  public loginComplete: EventEmitter<boolean> = new EventEmitter();
 
-  constructor(private _globalStorage: GlobalStorageService, private _router: Router) {
-    this.loginComplete.subscribe((res) => {
-      if (res) {
-        this._router.navigate(['Home']);
-      } else {
-        $.snackbar(new ToastModel('Login failed'));
-      }
-    },
-    () => {});
+  constructor(private _globalStorage: GlobalStorageService, private _router: Router) {}
+
+  loginComplete(res) {
+    if (res) {
+      this._router.navigate(['Home']);
+    } else {
+      $.snackbar(new ToastModel('Login failed'));
+    }
   }
 }
