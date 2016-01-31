@@ -46,10 +46,9 @@
           <div class="row">
             <div class="col-md-12">
               <div class="panel-default panel">
-                <div class="panel-body">
-                  <h4>Agent config:</h4>
-                  <p>This is the config.py file for the agent with everything ready to go. Just download it and push it to the Agent folder.</p>
-                  <button class="btn btn-raised btn-default pull-right" (click)="_downloadConfig()">Download (config.py)</button>
+                <div class="panel-body download-config-container">
+                  <span class="download-config-text">Download <span class="code">config.py</span></span>
+                  <span class="download-config-button"><a class="btn btn-primary btn-fab" (click)="_downloadConfig()"><i class="material-icons">file_download</i></a></span>
                 </div>
               </div>
             </div>
