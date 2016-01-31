@@ -17,29 +17,7 @@ export class UserService {
   private adminGroup: Group = null;
   private userGroup: Group = null;
 
-  constructor(private _http: CustomHttpService) {
-    this._http.get(GlobalStorageService.SERVER_URL + '/groups/')
-      .map((res: Response) => res.json())
-      .subscribe(
-        (res) => {
-          let group: Group = null;
-
-          if(res.content && !(EmptyRestModel.instanceOf(res.content[0]))) {
-            res.content.forEach((elem, index, array) => {
-              group = new Group(elem);
-              if(group.name === 'ROLE_USER') {
-                this.userGroup = group;
-              } else if(group.name === 'ROLE_ADMIN') {
-                this.adminGroup = group;
-              }
-            });
-          }
-        },
-        (err) => {
-        },
-        () => {}
-      );
-  }
+  constructor(private _http: CustomHttpService) {}
 
   /**
    * returns one specific user identified by email
@@ -48,6 +26,7 @@ export class UserService {
    * @returns {EventEmitter<User>}
    */
   public getUser(email: string): EventEmitter<User> {
+    if (this.adminGroup === null) this._getGroups();
     var event: EventEmitter<User> = new EventEmitter();
 
     this._http.get(GlobalStorageService.SERVER_URL + '/users/search/findUserByEmail?email=' + email)
@@ -71,6 +50,7 @@ export class UserService {
    * @returns {EventEmitter<Array<User>>}
    */
   public getUsers(): EventEmitter<Array<User>> {
+    if (this.adminGroup === null) this._getGroups();
     var event: EventEmitter<Array<User>> = new EventEmitter();
 
     this._http.get(GlobalStorageService.SERVER_URL + '/users/')
@@ -102,6 +82,7 @@ export class UserService {
    * @returns {EventEmitter<User>}
    */
   public saveUser(user: User, isAdmin: boolean = undefined): EventEmitter<User> {
+    if (this.adminGroup === null) this._getGroups();
     let event: EventEmitter<User> = new EventEmitter<User>();
 
     var restUser = user.getRestModel();
@@ -140,14 +121,6 @@ export class UserService {
 
     var restUser = user.getRestModel();
 
-    if(isAdmin !== undefined) {
-      if(isAdmin) {
-        restUser['groups'] = [this.adminGroup.getSelfLink()];
-      } else {
-        restUser['groups'] = [this.userGroup.getSelfLink()];
-      }
-    }
-
     this._http.patch(user.getSelfLink()  + '/password', restUser)
       .map((res: Response) => res.json())
       .subscribe(
@@ -180,6 +153,7 @@ export class UserService {
    * * @returns {EventEmitter<User>}
    */
   public createUser(user: User, isAdmin: boolean = false): EventEmitter<User> {
+    if (this.adminGroup === null) this._getGroups();
     let event: EventEmitter<User> = new EventEmitter<User>();
 
     var restUser = user.getRestModel();
@@ -203,5 +177,29 @@ export class UserService {
       );
 
     return event;
+  }
+
+  private _getGroups() {
+    this._http.get(GlobalStorageService.SERVER_URL + '/groups/')
+      .map((res: Response) => res.json())
+      .subscribe(
+        (res) => {
+          let group: Group = null;
+
+          if(res.content && !(EmptyRestModel.instanceOf(res.content[0]))) {
+            res.content.forEach((elem, index, array) => {
+              group = new Group(elem);
+              if(group.name === 'ROLE_USER') {
+                this.userGroup = group;
+              } else if(group.name === 'ROLE_ADMIN') {
+                this.adminGroup = group;
+              }
+            });
+          }
+        },
+        (err) => {
+        },
+        () => {}
+      );
   }
 }
