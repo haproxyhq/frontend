@@ -6,6 +6,7 @@ import {User}         from '../../models/wrapper/user.model';
 import {Completion}   from '../../models/wrapper/completion.model';
 import {Agent}        from '../../models/wrapper/agent.model';
 import {Schema}       from '../../models/wrapper/schema.model';
+import {MqttBroker}   from '../../models/wrapper/mqtt-broker.model';
 
 @Injectable()
 export class GlobalStorageService {
@@ -17,6 +18,7 @@ export class GlobalStorageService {
   private static COMPLETIONS_KEY: string = 'completions';
   private static AGENTS_KEY: string = 'agents';
   private static SCHEMAS_KEY: string = 'schemas';
+  private static MQTT_BROKER: string = 'mqttBroker';
 
   private _prefix: string = 'hq.';
 
@@ -152,6 +154,14 @@ export class GlobalStorageService {
     return this.schemas.find((schema, index, array) => {
       if (schema.id === id) return true;
     });
+  }
+
+  set mqttBroker(mqttBroker: MqttBroker) {
+    this.set(GlobalStorageService.MQTT_BROKER, mqttBroker);
+  }
+
+  get mqttBroker(): MqttBroker {
+    return this.get(GlobalStorageService.MQTT_BROKER);
   }
 
   /**

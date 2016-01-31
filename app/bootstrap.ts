@@ -14,6 +14,8 @@ import {CompletionService}                                        from './servic
 import {AgentService}                                             from './services/agent/agent.service';
 import {SchemaService}                                            from './services/schema/schema.service';
 import {HeartbeatService}                                         from './services/agent/heartbeat.service';
+import {MqttBrokerService}                                        from './services/general/mqtt-broker.service';
+import {FileService}                                              from './services/general/file.service';
 
 bootstrap(AppComponent, [
   HTTP_PROVIDERS,
@@ -26,5 +28,7 @@ bootstrap(AppComponent, [
   CompletionService,
   AgentService,
   SchemaService,
-  HeartbeatService
+  HeartbeatService,
+  MqttBrokerService,
+  FileService
 ]);

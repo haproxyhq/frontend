@@ -6,35 +6,52 @@
     <div class="container">
       <div class="row">
         <div class="col-md-4 slide-in-left">
-          <div class="panel-default panel">
-            <div class="panel-body">
-              <div class="input-field">
-                <input-field [(value)]="_agent.name" label="Name"></input-field>
-              </div>
-              <div class="input-field">
-                <input-field [(value)]="_agent.description" label="Description"></input-field>
-              </div>
-              <div class="input-field">
-                <input-field [(value)]="_agent.ip" label="Ip"></input-field>
-              </div>
-              <div class="row">
-                <div class="col-md-12">
-                  <label class="control-label" for="version">HAProxy Version</label>
-                </div>
-              </div>
-              <div class="row">
-                <div class="col-md-12">
-                  <div class="version-select">
-                    <select id="version" class="type-select" [(ngModel)]="_agent.version">
-                      <option *ngFor="#version of _avaiableVersions; #i = index"
-                        [value]="version"
-                        [selected]="i == 0">
-                        {{version}}</option>
-                    </select>
+          <div class="row">
+            <div class="col-md-12">
+              <div class="panel-default panel">
+                <div class="panel-body">
+                  <h4>Agent info:</h4>
+                  <br />
+                  <div class="input-field">
+                    <input-field [(value)]="_agent.name" label="Name"></input-field>
                   </div>
+                  <div class="input-field">
+                    <input-field [(value)]="_agent.description" label="Description"></input-field>
+                  </div>
+                  <div class="input-field">
+                    <input-field [(value)]="_agent.ip" label="Ip"></input-field>
+                  </div>
+                  <div class="row">
+                    <div class="col-md-12">
+                      <label class="control-label" for="version">HAProxy Version</label>
+                    </div>
+                  </div>
+                  <div class="row">
+                    <div class="col-md-12">
+                      <div class="version-select">
+                        <select id="version" class="type-select" [(ngModel)]="_agent.version">
+                          <option *ngFor="#version of _avaiableVersions; #i = index"
+                            [value]="version"
+                            [selected]="i == 0">
+                            {{version}}</option>
+                        </select>
+                      </div>
+                    </div>
+                  </div>
+                  <save-cancel-fabs (save)="_saveChanges()" (cancel)="_revertChanges()"></save-cancel-fabs>
                 </div>
               </div>
-              <save-cancel-fabs (save)="_saveChanges()" (cancel)="_revertChanges()"></save-cancel-fabs>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-md-12">
+              <div class="panel-default panel">
+                <div class="panel-body">
+                  <h4>Agent config:</h4>
+                  <p>This is the config.py file for the agent with everything ready to go. Just download it and push it to the Agent folder.</p>
+                  <button class="btn btn-raised btn-default pull-right" (click)="_downloadConfig()">Download (config.py)</button>
+                </div>
+              </div>
             </div>
           </div>
         </div>
